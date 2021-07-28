@@ -19,7 +19,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/splash_ad_logo"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
+        android:layout_height="96dp"
         android:src="@mipmap/ic_start_img"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"

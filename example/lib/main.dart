@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     init().then((value) {
       if (value) {
-        showSplashAd();
+        showSplashAd('ic_logo');
       }
     });
   }
@@ -72,7 +72,15 @@ class _MyAppState extends State<MyApp> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                child: Text('展示开屏广告'),
+                child: Text('展示开屏广告（Logo）'),
+                onPressed: () {
+                  showSplashAd('ic_logo2');
+                  setState(() {});
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示开屏广告（全屏）'),
                 onPressed: () {
                   showSplashAd();
                   setState(() {});
@@ -124,9 +132,10 @@ Future<void> setAdEvent() async {
 }
 
 /// 展示开屏广告
-Future<void> showSplashAd() async {
+/// [logo] 展示如果传递则展示logo，不传递不展示
+Future<void> showSplashAd([String logo]) async {
   try {
-    bool result = await FlutterQqAds.showSplashAd(posIdSplash);
+    bool result = await FlutterQqAds.showSplashAd(posIdSplash, logo);
     _result = "展示开屏广告${result ? '成功' : '失败'}";
   } on PlatformException catch (e) {
     _result = "展示开屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";

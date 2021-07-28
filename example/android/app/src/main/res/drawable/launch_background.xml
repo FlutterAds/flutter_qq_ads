@@ -4,9 +4,9 @@
     <!--白色背景-->
     <item android:drawable="@android:color/white" />
 
-    <item android:bottom="40dp">
+    <item android:bottom="24dp">
         <bitmap
             android:gravity="bottom"
-            android:src="@mipmap/ic_start_img" />
+            android:src="@mipmap/ic_logo" />
     </item>
 </layer-list>

@@ -5,8 +5,10 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.qq.e.ads.splash.SplashAD;
@@ -26,6 +28,8 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     private AppCompatImageView ad_logo;
     // 广告位 id
     private String posId;
+    // logo 名称
+    private String logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,21 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
      * 初始化数据
      */
     private void initData() {
+        // 获取参数
         posId=getIntent().getStringExtra(PluginDelegate.KEY_POSID);
+        logo=getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
+        // 创建开屏广告
         SplashAD splashAD = new SplashAD(this, posId, this, 0);
-        splashAD.fetchAndShowIn(ad_container);
+        if(TextUtils.isEmpty(logo)){
+            // logo 为空则加载全屏广告
+            ad_logo.setVisibility(View.GONE);
+            splashAD.fetchFullScreenAndShowIn(ad_container);
+        }else{
+            // 显示 logo 加载半屏广告
+            ad_logo.setVisibility(View.VISIBLE);
+            ad_logo.setImageResource(getMipmapId(logo));
+            splashAD.fetchAndShowIn(ad_container);
+        }
     }
 
 
@@ -106,5 +122,15 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 获取图片文件的id
+     *
+     * @param resName
+     * @return
+     */
+    private int getMipmapId(String resName) {
+        return getResources().getIdentifier(resName, "mipmap", getPackageName());
     }
 }

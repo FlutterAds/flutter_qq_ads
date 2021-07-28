@@ -33,6 +33,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
 
     // 广告参数
     public static final String KEY_POSID = "posId";
+    // logo 参数
+    public static final String KEY_LOGO = "logo";
 
     /**
      * 插件代理构造函数构造函数
@@ -53,7 +55,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         String method=call.method;
-        Log.d(TAG, "MethodChannel onMethodCall method:"+method);
+        Log.d(TAG, "MethodChannel onMethodCall method:"+method +" arguments:"+call.arguments);
         if ("getPlatformVersion".equals(method)) {
             getPlatformVersion(call, result);
         }else if ("initAd".equals(method)){
@@ -128,8 +130,10 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
      */
     public void showSplashAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument("posId");
+        String logo = call.argument("logo");
         Intent intent = new Intent(activity, AdSplashActivity.class);
         intent.putExtra(KEY_POSID,posId);
+        intent.putExtra(KEY_LOGO,logo);
         activity.startActivity(intent);
         result.success(true);
     }
