@@ -1,9 +1,13 @@
 package com.zero.flutter_qq_ads;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import com.qq.e.comm.managers.GDTADManager;
+import com.zero.flutter_qq_ads.page.AdSplashActivity;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
@@ -27,6 +31,9 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
         return _instance;
     }
 
+    // 广告参数
+    public static final String KEY_POSID = "posId";
+
     /**
      * 插件代理构造函数构造函数
      * @param activity Activity
@@ -49,7 +56,11 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
         Log.d(TAG, "MethodChannel onMethodCall method:"+method);
         if ("getPlatformVersion".equals(method)) {
             getPlatformVersion(call, result);
-        } else {
+        }else if ("initAd".equals(method)){
+            initAd(call, result);
+        }else if ("showSplashAd".equals(method)){
+            showSplashAd(call, result);
+        }else {
             result.notImplemented();
         }
     }
@@ -95,5 +106,31 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     public void getPlatformVersion(MethodCall call, MethodChannel.Result result) {
 //        String id = call.argument("id");
         result.success("Android " + android.os.Build.VERSION.RELEASE);
+    }
+
+    /**
+     * 初始化广告
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void initAd(MethodCall call, MethodChannel.Result result) {
+        String appId = call.argument("appId");
+        boolean initSuccess=GDTADManager.getInstance().initWith(activity,appId);
+        result.success(initSuccess);
+    }
+
+    /**
+     * 初始化广告
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void showSplashAd(MethodCall call, MethodChannel.Result result) {
+        String posId = call.argument("posId");
+        Intent intent = new Intent(activity, AdSplashActivity.class);
+        intent.putExtra(KEY_POSID,posId);
+        activity.startActivity(intent);
+        result.success(true);
     }
 }

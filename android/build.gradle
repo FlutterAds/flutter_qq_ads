@@ -31,3 +31,12 @@ android {
         disable 'InvalidPackage'
     }
 }
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // 广告 SDK
+    implementation 'com.qq.e.union:union:4.380.1250'
+}

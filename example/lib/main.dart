@@ -14,32 +14,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  //广告id
+  String appId = "1200012024";
+  //开屏广告位id
+  String posIdSplash = "8022311121246224";
+  // 结果信息
+  String _result = '';
+  String _adEvent = '';
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await FlutterQqAds.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -50,9 +35,91 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              Text('Result: $_result'),
+              SizedBox(height: 10),
+              Text('onAdEvent: $_adEvent'),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('初始化'),
+                onPressed: () {
+                  init();
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('添加广告监听'),
+                onPressed: () {
+                  setAdEvent();
+                },
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                child: Text('请求权限'),
+                onPressed: () {
+                  checkAndReqPermission();
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示开屏广告'),
+                onPressed: () {
+                  showSplashAd();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  /// 初始化广告 SDK
+  Future<void> init() async {
+    try {
+      bool result = await FlutterQqAds.initAd(appId);
+      _result = "广告SDK 初始化${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result =
+          "广告SDK 初始化失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
+    setState(() {});
+  }
+
+  /// 请求权限
+  Future<void> checkAndReqPermission() async {
+    // try {
+    //   bool result = await FlutterFnAdPlugin.checkAndReqPermission();
+    //   _result = "广告SDK 权限请求${result ? '成功' : '失败'}";
+    // } on PlatformException catch (e) {
+    //   _result =
+    //       "广告SDK 权限请求失败 code:${e.code} msg:${e.message} details:${e.details}";
+    // }
+    // setState(() {});
+  }
+
+  /// 设置广告监听
+  Future<void> setAdEvent() async {
+    setState(() {
+      _adEvent = '设置成功';
+    });
+    // FlutterQqAds.onEventListener((event) {
+    //   setState(() {
+    //     _adEvent = 'type:${event.eventType} msg:${event.msg}';
+    //   });
+    // });
+  }
+
+  /// 展示开屏广告
+  Future<void> showSplashAd() async {
+    try {
+      bool result = await FlutterQqAds.showSplashAd(posIdSplash);
+      _result = "展示开屏广告${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result = "展示开屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
+    setState(() {});
   }
 }
