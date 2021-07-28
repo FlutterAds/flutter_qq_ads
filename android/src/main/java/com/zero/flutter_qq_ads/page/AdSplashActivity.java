@@ -16,6 +16,9 @@ import com.qq.e.ads.splash.SplashADListener;
 import com.qq.e.comm.util.AdError;
 import com.zero.flutter_qq_ads.PluginDelegate;
 import com.zero.flutter_qq_ads.R;
+import com.zero.flutter_qq_ads.event.AdErrorEvent;
+import com.zero.flutter_qq_ads.event.AdEvent;
+import com.zero.flutter_qq_ads.event.AdEventHandler;
 
 /**
  * 开屏广告
@@ -73,37 +76,45 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     public void onADDismissed() {
         Log.d(TAG,"onADDismissed");
         finishPage();
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdDismissed"));
     }
 
     @Override
     public void onNoAD(AdError adError) {
         Log.d(TAG,"onNoAD adError:"+adError.getErrorMsg());
         finishPage();
+        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId,"onAdError",adError.getErrorCode(),adError.getErrorMsg()));
     }
 
     @Override
     public void onADPresent() {
         Log.d(TAG,"onADPresent");
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdPresent"));
     }
 
     @Override
     public void onADClicked() {
         Log.d(TAG,"onADClicked");
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdClicked"));
     }
 
     @Override
     public void onADTick(long millisUntilFinished) {
         Log.d(TAG,"onADTick millisUntilFinished："+millisUntilFinished);
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdTick"));
+
     }
 
     @Override
     public void onADExposure() {
         Log.d(TAG,"onADExposure");
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdExposure"));
     }
 
     @Override
     public void onADLoaded(long expireTimestamp) {
         Log.d(TAG,"onADLoaded expireTimestamp："+expireTimestamp);
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdLoaded"));
     }
 
     /**
