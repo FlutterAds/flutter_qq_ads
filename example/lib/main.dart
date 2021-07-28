@@ -4,7 +4,16 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 
+//广告id
+String appId = "1200012024";
+//开屏广告位id
+String posIdSplash = "8022311121246224";
+// 结果信息
+String _result = '';
+
 void main() {
+  /// 绑定引擎
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -14,17 +23,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  //广告id
-  String appId = "1200012024";
-  //开屏广告位id
-  String posIdSplash = "8022311121246224";
-  // 结果信息
-  String _result = '';
   String _adEvent = '';
 
   @override
   void initState() {
     super.initState();
+    init().then((value) {
+      if (value) {
+        showSplashAd();
+      }
+    });
   }
 
   @override
@@ -67,6 +75,7 @@ class _MyAppState extends State<MyApp> {
                 child: Text('展示开屏广告'),
                 onPressed: () {
                   showSplashAd();
+                  setState(() {});
                 },
               ),
             ],
@@ -75,51 +84,51 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
 
-  /// 初始化广告 SDK
-  Future<void> init() async {
-    try {
-      bool result = await FlutterQqAds.initAd(appId);
-      _result = "广告SDK 初始化${result ? '成功' : '失败'}";
-    } on PlatformException catch (e) {
-      _result =
-          "广告SDK 初始化失败 code:${e.code} msg:${e.message} details:${e.details}";
-    }
-    setState(() {});
+/// 初始化广告 SDK
+Future<bool> init() async {
+  try {
+    bool result = await FlutterQqAds.initAd(appId);
+    _result = "广告SDK 初始化${result ? '成功' : '失败'}";
+    return result;
+  } on PlatformException catch (e) {
+    _result =
+        "广告SDK 初始化失败 code:${e.code} msg:${e.message} details:${e.details}";
   }
+  return false;
+}
 
-  /// 请求权限
-  Future<void> checkAndReqPermission() async {
-    // try {
-    //   bool result = await FlutterFnAdPlugin.checkAndReqPermission();
-    //   _result = "广告SDK 权限请求${result ? '成功' : '失败'}";
-    // } on PlatformException catch (e) {
-    //   _result =
-    //       "广告SDK 权限请求失败 code:${e.code} msg:${e.message} details:${e.details}";
-    // }
-    // setState(() {});
-  }
+/// 请求权限
+Future<void> checkAndReqPermission() async {
+  // try {
+  //   bool result = await FlutterFnAdPlugin.checkAndReqPermission();
+  //   _result = "广告SDK 权限请求${result ? '成功' : '失败'}";
+  // } on PlatformException catch (e) {
+  //   _result =
+  //       "广告SDK 权限请求失败 code:${e.code} msg:${e.message} details:${e.details}";
+  // }
+  // setState(() {});
+}
 
-  /// 设置广告监听
-  Future<void> setAdEvent() async {
-    setState(() {
-      _adEvent = '设置成功';
-    });
-    // FlutterQqAds.onEventListener((event) {
-    //   setState(() {
-    //     _adEvent = 'type:${event.eventType} msg:${event.msg}';
-    //   });
-    // });
-  }
+/// 设置广告监听
+Future<void> setAdEvent() async {
+  // setState(() {
+  //   _adEvent = '设置成功';
+  // });
+  // FlutterQqAds.onEventListener((event) {
+  //   setState(() {
+  //     _adEvent = 'type:${event.eventType} msg:${event.msg}';
+  //   });
+  // });
+}
 
-  /// 展示开屏广告
-  Future<void> showSplashAd() async {
-    try {
-      bool result = await FlutterQqAds.showSplashAd(posIdSplash);
-      _result = "展示开屏广告${result ? '成功' : '失败'}";
-    } on PlatformException catch (e) {
-      _result = "展示开屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
-    }
-    setState(() {});
+/// 展示开屏广告
+Future<void> showSplashAd() async {
+  try {
+    bool result = await FlutterQqAds.showSplashAd(posIdSplash);
+    _result = "展示开屏广告${result ? '成功' : '失败'}";
+  } on PlatformException catch (e) {
+    _result = "展示开屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
   }
 }

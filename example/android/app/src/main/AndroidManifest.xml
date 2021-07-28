@@ -9,7 +9,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter_qq_ads_example"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

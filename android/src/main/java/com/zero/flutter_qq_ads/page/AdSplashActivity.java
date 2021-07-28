@@ -3,8 +3,10 @@ package com.zero.flutter_qq_ads.page;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.qq.e.ads.splash.SplashAD;
@@ -53,36 +55,56 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
 
     @Override
     public void onADDismissed() {
-
+        Log.d(TAG,"onADDismissed");
+        finishPage();
     }
 
     @Override
     public void onNoAD(AdError adError) {
-        Log.d(TAG,"onNoAD:"+adError.getErrorMsg());
+        Log.d(TAG,"onNoAD adError:"+adError.getErrorMsg());
+        finishPage();
     }
 
     @Override
     public void onADPresent() {
-
+        Log.d(TAG,"onADPresent");
     }
 
     @Override
     public void onADClicked() {
-
+        Log.d(TAG,"onADClicked");
     }
 
     @Override
-    public void onADTick(long l) {
-
+    public void onADTick(long millisUntilFinished) {
+        Log.d(TAG,"onADTick millisUntilFinished："+millisUntilFinished);
     }
 
     @Override
     public void onADExposure() {
-
+        Log.d(TAG,"onADExposure");
     }
 
     @Override
-    public void onADLoaded(long l) {
+    public void onADLoaded(long expireTimestamp) {
+        Log.d(TAG,"onADLoaded expireTimestamp："+expireTimestamp);
+    }
 
+    /**
+     * 完成广告，退出开屏页面
+     */
+    private void finishPage() {
+        finish();
+        // 设置退出动画
+        overridePendingTransition(0,android.R.anim.fade_out);
+    }
+
+    /** 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费 */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
