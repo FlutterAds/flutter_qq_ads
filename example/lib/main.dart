@@ -57,20 +57,6 @@ class _MyAppState extends State<MyApp> {
                   init();
                 },
               ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                child: Text('添加广告监听'),
-                onPressed: () {
-                  setAdEvent();
-                },
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                child: Text('请求权限'),
-                onPressed: () {
-                  checkAndReqPermission();
-                },
-              ),
               SizedBox(height: 20),
               ElevatedButton(
                 child: Text('展示开屏广告（Logo）'),
@@ -92,6 +78,18 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  /// 设置广告监听
+  Future<void> setAdEvent() async {
+    setState(() {
+      _adEvent = '设置成功';
+    });
+    FlutterQqAds.onEventListener((event) {
+      _adEvent = 'adId:${event.adId} action:${event.action}';
+      print('onEventListener:$_adEvent');
+      setState(() {});
+    });
   }
 }
 
@@ -118,17 +116,6 @@ Future<void> checkAndReqPermission() async {
   //       "广告SDK 权限请求失败 code:${e.code} msg:${e.message} details:${e.details}";
   // }
   // setState(() {});
-}
-
-/// 设置广告监听
-Future<void> setAdEvent() async {
-  // setState(() {
-  //   _adEvent = '设置成功';
-  // });
-  FlutterQqAds.onEventListener();
-  // FlutterQqAds.onEventListener(() {
-  //   // _adEvent = 'type:${event.eventType} msg:${event.msg}';
-  // });
 }
 
 /// 展示开屏广告
