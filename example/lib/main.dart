@@ -5,9 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 
 //广告id
-String appId = "1200012024";
+// String appId = "1200012024";
+// String appId = "1200018693";
+// 官方demo
+String appId = "1105344611";
 //开屏广告位id
-String posIdSplash = "8022311121246224";
+// String posIdSplash = "8022311121246224";
+// String posIdSplash = "5052818319908354";
+// 官方demo
+String posIdSplash = "9040714184494018";
 // 结果信息
 String _result = '';
 
