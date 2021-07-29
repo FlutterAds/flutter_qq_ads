@@ -3,7 +3,6 @@ package com.zero.flutter_qq_ads.page;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,8 +31,6 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     private AppCompatImageView ad_logo;
     // 广告位 id
     private String posId;
-    // logo 名称
-    private String logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +54,7 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     private void initData() {
         // 获取参数
         posId=getIntent().getStringExtra(PluginDelegate.KEY_POSID);
-        logo=getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
+        String logo=getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
         // 创建开屏广告
         SplashAD splashAD = new SplashAD(this, posId, this, 0);
         if(TextUtils.isEmpty(logo)){

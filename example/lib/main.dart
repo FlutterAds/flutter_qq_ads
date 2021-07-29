@@ -5,15 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 
 //广告id
-// String appId = "1200012024";
+String appId = "1200012024";
+// iOS
 // String appId = "1200018693";
 // 官方demo
-String appId = "1105344611";
+// String appId = "1105344611";
 //开屏广告位id
-// String posIdSplash = "8022311121246224";
+String posIdSplash = "8022311121246224";
+// iOS
 // String posIdSplash = "5052818319908354";
 // 官方demo
-String posIdSplash = "9040714184494018";
+// String posIdSplash = "9040714184494018";
 // 结果信息
 String _result = '';
 
@@ -110,18 +112,6 @@ Future<bool> init() async {
         "广告SDK 初始化失败 code:${e.code} msg:${e.message} details:${e.details}";
   }
   return false;
-}
-
-/// 请求权限
-Future<void> checkAndReqPermission() async {
-  // try {
-  //   bool result = await FlutterFnAdPlugin.checkAndReqPermission();
-  //   _result = "广告SDK 权限请求${result ? '成功' : '失败'}";
-  // } on PlatformException catch (e) {
-  //   _result =
-  //       "广告SDK 权限请求失败 code:${e.code} msg:${e.message} details:${e.details}";
-  // }
-  // setState(() {});
 }
 
 /// 展示开屏广告
