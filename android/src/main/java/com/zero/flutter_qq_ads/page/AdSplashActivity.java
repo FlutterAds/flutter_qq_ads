@@ -18,6 +18,7 @@ import com.zero.flutter_qq_ads.PluginDelegate;
 import com.zero.flutter_qq_ads.R;
 import com.zero.flutter_qq_ads.event.AdErrorEvent;
 import com.zero.flutter_qq_ads.event.AdEvent;
+import com.zero.flutter_qq_ads.event.AdEventAction;
 import com.zero.flutter_qq_ads.event.AdEventHandler;
 
 /**
@@ -64,9 +65,13 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
             ad_logo.setVisibility(View.GONE);
             splashAD.fetchFullScreenAndShowIn(ad_container);
         }else{
-            // 显示 logo 加载半屏广告
-            ad_logo.setVisibility(View.VISIBLE);
-            ad_logo.setImageResource(getMipmapId(logo));
+            // 加载 logo
+            int resId=getMipmapId(logo);
+            if(resId>0){
+                ad_logo.setVisibility(View.VISIBLE);
+                ad_logo.setImageResource(resId);
+            }
+            // 加载广告
             splashAD.fetchAndShowIn(ad_container);
         }
     }
@@ -76,26 +81,26 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     public void onADDismissed() {
         Log.d(TAG,"onADDismissed");
         finishPage();
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdDismissed"));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdClosed));
     }
 
     @Override
     public void onNoAD(AdError adError) {
         Log.d(TAG,"onNoAD adError:"+adError.getErrorMsg());
         finishPage();
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId,"onAdError",adError.getErrorCode(),adError.getErrorMsg()));
+        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId,adError.getErrorCode(),adError.getErrorMsg()));
     }
 
     @Override
     public void onADPresent() {
         Log.d(TAG,"onADPresent");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdPresent"));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdPresent));
     }
 
     @Override
     public void onADClicked() {
         Log.d(TAG,"onADClicked");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdClicked"));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdClicked));
     }
 
     @Override
@@ -108,13 +113,13 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     @Override
     public void onADExposure() {
         Log.d(TAG,"onADExposure");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdExposure"));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdExposure));
     }
 
     @Override
     public void onADLoaded(long expireTimestamp) {
         Log.d(TAG,"onADLoaded expireTimestamp："+expireTimestamp);
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdLoaded"));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdLoaded));
     }
 
     /**
@@ -136,10 +141,10 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     }
 
     /**
-     * 获取图片文件的id
+     * 获取图片资源的id
      *
-     * @param resName
-     * @return
+     * @param resName 资源名称，不带后缀
+     * @return 返回资源id
      */
     private int getMipmapId(String resName) {
         return getResources().getIdentifier(resName, "mipmap", getPackageName());

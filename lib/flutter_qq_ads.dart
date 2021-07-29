@@ -40,4 +40,16 @@ class FlutterQqAds {
         await _methodChannel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  ///事件回调
+  ///@params onData 事件回调
+  static Future<void> onEventListener() async {
+    _eventChannel.receiveBroadcastStream().listen((data) {
+      if (data != null) {
+        print('_eventChannel data:$data');
+        // AdEvent result = AdEvent.fromJson(data);
+        // onData(result);
+      }
+    });
+  }
 }

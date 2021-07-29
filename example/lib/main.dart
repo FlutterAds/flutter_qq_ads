@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         showSplashAd('ic_logo');
       }
     });
+    setAdEvent();
   }
 
   @override
@@ -124,10 +125,9 @@ Future<void> setAdEvent() async {
   // setState(() {
   //   _adEvent = '设置成功';
   // });
-  // FlutterQqAds.onEventListener((event) {
-  //   setState(() {
-  //     _adEvent = 'type:${event.eventType} msg:${event.msg}';
-  //   });
+  FlutterQqAds.onEventListener();
+  // FlutterQqAds.onEventListener(() {
+  //   // _adEvent = 'type:${event.eventType} msg:${event.msg}';
   // });
 }
 

@@ -11,8 +11,8 @@ public class AdErrorEvent extends AdEvent {
     // 错误信息
     String errMsg;
     // 错误事件实体
-    public AdErrorEvent(String adId, String action, int errCode, String errMsg) {
-        super(adId, action);
+    public AdErrorEvent(String adId, int errCode, String errMsg) {
+        super(adId, AdEventAction.onAdError);
         this.errCode = errCode;
         this.errMsg = errMsg;
     }
