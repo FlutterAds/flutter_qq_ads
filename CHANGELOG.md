@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.0.1 [2021-07-30]
 
-* TODO: Describe initial release.
+* 新增 Android 开屏广告，完成初始版本
