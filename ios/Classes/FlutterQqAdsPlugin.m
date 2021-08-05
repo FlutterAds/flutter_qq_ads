@@ -1,8 +1,17 @@
 #import "FlutterQqAdsPlugin.h"
+#import "GDTSDKConfig.h"
+#import "GDTSplashAd.h"
 
-@implementation FlutterQqAdsPlugin{
-    FlutterEventSink _eventSink;
-}
+@interface FlutterQqAdsPlugin()<GDTSplashAdDelegate>
+
+@end
+
+@implementation FlutterQqAdsPlugin
+
+FlutterEventSink _eventSink;
+GDTSplashAd *_splashAd;
+UIView *_bottomView;
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
                                            methodChannelWithName:@"flutter_qq_ads"
@@ -44,9 +53,9 @@
 - (void) showSplashAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString* posId=call.arguments[@"posId"];
-        self.splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
-        self.splashAd.delegate=self;
-        [self.splashAd loadFullScreenAd];
+        _splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
+        _splashAd.delegate=self;
+        [_splashAd loadFullScreenAd];
         result(@(YES));
         NSLog(@"显示开屏广告%@",posId);
     });
@@ -94,7 +103,7 @@
 - (void)splashAdClosed:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
-    self.splashAd = nil;
+    _splashAd = nil;
 }
 
 - (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd
