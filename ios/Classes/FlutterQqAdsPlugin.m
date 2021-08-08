@@ -55,7 +55,8 @@ UIView *_bottomView;
         NSString* posId=call.arguments[@"posId"];
         _splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
         _splashAd.delegate=self;
-        [_splashAd loadFullScreenAd];
+        [_splashAd loadAd];
+//        [_splashAd loadFullScreenAd];
         result(@(YES));
         NSLog(@"显示开屏广告%@",posId);
     });
@@ -67,7 +68,20 @@ UIView *_bottomView;
 - (void)splashAdDidLoad:(GDTSplashAd *)splashAd {
     NSLog(@"splashAdDidLoad");
     UIWindow* mainWin=[[UIApplication sharedApplication] keyWindow];
-    [splashAd showFullScreenAdInWindow:mainWin withLogoImage:nil skipView:nil];
+    _bottomView=nil;
+    CGSize size=[[UIScreen mainScreen] bounds].size;
+    CGFloat width=size.width;
+    CGFloat height=112.5;// 750*15%=112.5
+    _bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width, height)];
+    _bottomView.backgroundColor=[UIColor whiteColor];
+    UIImageView *logo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LaunchImage"]];
+//    logo.accessibilityIdentifier=@"splash_logo";
+    logo.frame=CGRectMake(0, 0, width, height);
+    logo.contentMode=UIViewContentModeCenter;
+    logo.center=_bottomView.center;
+    [_bottomView addSubview:logo];
+    [splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
+//    [splashAd showFullScreenAdInWindow:mainWin withLogoImage:_bottomView skipView:nil];
 }
 
 - (void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd
