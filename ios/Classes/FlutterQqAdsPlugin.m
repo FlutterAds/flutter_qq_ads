@@ -167,6 +167,13 @@
     return nil;
 }
 
+// 添加事件
+-(void) addEvent:(NSDictionary *) event{
+    if(self.eventSink!=nil){
+        self.eventSink(event);
+    }
+}
+
 
 
 @end
