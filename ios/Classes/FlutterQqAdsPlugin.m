@@ -11,6 +11,7 @@
 FlutterEventSink _eventSink;
 GDTSplashAd *_splashAd;
 UIView *_bottomView;
+BOOL *_fullScreenAd;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
@@ -53,10 +54,31 @@ UIView *_bottomView;
 - (void) showSplashAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString* posId=call.arguments[@"posId"];
+        NSString* logo=call.arguments[@"logo"];
+        // 判断为空，则全屏展示
+        _fullScreenAd=logo==nil||[logo isEqualToString:@""];
+        // 初始化开屏广告
         _splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
         _splashAd.delegate=self;
-        [_splashAd loadAd];
-//        [_splashAd loadFullScreenAd];
+        // 加载全屏广告
+        if(_fullScreenAd){
+            [_splashAd loadFullScreenAd];
+        }else{
+            // 加载半屏广告
+            [_splashAd loadAd];
+            // 设置底部 logo
+            _bottomView=nil;
+            CGSize size=[[UIScreen mainScreen] bounds].size;
+            CGFloat width=size.width;
+            CGFloat height=112.5;// 这里按照 15% 进行logo 的展示，防止尺寸不够的问题，750*15%=112.5
+            _bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width, height)];
+            _bottomView.backgroundColor=[UIColor whiteColor];
+            UIImageView *logo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LaunchImage"]];
+            logo.frame=CGRectMake(0, 0, width, height);
+            logo.contentMode=UIViewContentModeCenter;
+            logo.center=_bottomView.center;
+            [_bottomView addSubview:logo];
+        }
         result(@(YES));
         NSLog(@"显示开屏广告%@",posId);
     });
@@ -68,20 +90,13 @@ UIView *_bottomView;
 - (void)splashAdDidLoad:(GDTSplashAd *)splashAd {
     NSLog(@"splashAdDidLoad");
     UIWindow* mainWin=[[UIApplication sharedApplication] keyWindow];
-    _bottomView=nil;
-    CGSize size=[[UIScreen mainScreen] bounds].size;
-    CGFloat width=size.width;
-    CGFloat height=112.5;// 750*15%=112.5
-    _bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width, height)];
-    _bottomView.backgroundColor=[UIColor whiteColor];
-    UIImageView *logo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LaunchImage"]];
-//    logo.accessibilityIdentifier=@"splash_logo";
-    logo.frame=CGRectMake(0, 0, width, height);
-    logo.contentMode=UIViewContentModeCenter;
-    logo.center=_bottomView.center;
-    [_bottomView addSubview:logo];
-    [splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
-//    [splashAd showFullScreenAdInWindow:mainWin withLogoImage:_bottomView skipView:nil];
+    // 加载全屏广告
+    if(_fullScreenAd){
+        [splashAd showFullScreenAdInWindow:mainWin withLogoImage:_bottomView skipView:nil];
+    }else{
+        // 加载半屏广告
+        [splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
+    }
 }
 
 - (void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd
