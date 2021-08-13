@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     init().then((value) {
       if (value) {
-        showSplashAd('ic_logo');
+        showSplashAd(AdsConfig.logo);
       }
     });
     setAdEvent();
@@ -57,7 +57,8 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 child: Text('展示开屏广告（Logo）'),
                 onPressed: () {
-                  showSplashAd('ic_logo2');
+                  // showSplashAd('ic_logo2');
+                  showSplashAd(AdsConfig.logo);
                   setState(() {});
                 },
               ),

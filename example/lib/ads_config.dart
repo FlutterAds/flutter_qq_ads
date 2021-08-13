@@ -2,6 +2,15 @@ import 'dart:io';
 
 /// 广告配置信息
 class AdsConfig {
+  /// 获取 Logo 资源名称
+  static String get logo {
+    if (Platform.isAndroid) {
+      return 'ic_logo';
+    } else {
+      return 'LaunchImage';
+    }
+  }
+
   /// 获取 App id
   static String get appId {
     // 官方 demo id

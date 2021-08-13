@@ -3,15 +3,14 @@
 #import "GDTSplashAd.h"
 
 @interface FlutterQqAdsPlugin()<GDTSplashAdDelegate>
-
+@property (strong, nonatomic) FlutterEventSink eventSink;
+@property (strong, nonatomic) GDTSplashAd *splashAd;
+@property (retain, nonatomic) UIView *bottomView;
+@property (nonatomic, assign) BOOL fullScreenAd;
 @end
 
 @implementation FlutterQqAdsPlugin
 
-FlutterEventSink _eventSink;
-GDTSplashAd *_splashAd;
-UIView *_bottomView;
-BOOL *_fullScreenAd;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
@@ -55,29 +54,29 @@ BOOL *_fullScreenAd;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString* posId=call.arguments[@"posId"];
         NSString* logo=call.arguments[@"logo"];
-        // 判断为空，则全屏展示
-        _fullScreenAd=logo==nil||[logo isEqualToString:@""];
+        // logo 判断为空，则全屏展示
+        self.fullScreenAd=[logo isKindOfClass:[NSNull class]]||[logo length]==0;
         // 初始化开屏广告
-        _splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
-        _splashAd.delegate=self;
+        self.splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
+        self.splashAd.delegate=self;
         // 加载全屏广告
-        if(_fullScreenAd){
-            [_splashAd loadFullScreenAd];
+        if(self.fullScreenAd){
+            [self.splashAd loadFullScreenAd];
         }else{
             // 加载半屏广告
-            [_splashAd loadAd];
+            [self.splashAd loadAd];
             // 设置底部 logo
-            _bottomView=nil;
+            self.bottomView=nil;
             CGSize size=[[UIScreen mainScreen] bounds].size;
             CGFloat width=size.width;
             CGFloat height=112.5;// 这里按照 15% 进行logo 的展示，防止尺寸不够的问题，750*15%=112.5
-            _bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width, height)];
-            _bottomView.backgroundColor=[UIColor whiteColor];
-            UIImageView *logo=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LaunchImage"]];
-            logo.frame=CGRectMake(0, 0, width, height);
-            logo.contentMode=UIViewContentModeCenter;
-            logo.center=_bottomView.center;
-            [_bottomView addSubview:logo];
+            self.bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0,width, height)];
+            self.bottomView.backgroundColor=[UIColor whiteColor];
+            UIImageView *logoView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:logo]];
+            logoView.frame=CGRectMake(0, 0, width, height);
+            logoView.contentMode=UIViewContentModeCenter;
+            logoView.center=self.bottomView.center;
+            [self.bottomView addSubview:logoView];
         }
         result(@(YES));
         NSLog(@"显示开屏广告%@",posId);
@@ -91,11 +90,11 @@ BOOL *_fullScreenAd;
     NSLog(@"splashAdDidLoad");
     UIWindow* mainWin=[[UIApplication sharedApplication] keyWindow];
     // 加载全屏广告
-    if(_fullScreenAd){
-        [splashAd showFullScreenAdInWindow:mainWin withLogoImage:_bottomView skipView:nil];
+    if(self.fullScreenAd){
+        [self.splashAd showFullScreenAdInWindow:mainWin withLogoImage:nil skipView:nil];
     }else{
         // 加载半屏广告
-        [splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
+        [self.splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
     }
 }
 
@@ -132,7 +131,7 @@ BOOL *_fullScreenAd;
 - (void)splashAdClosed:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
-    _splashAd = nil;
+    self.splashAd = nil;
 }
 
 - (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd
@@ -159,12 +158,12 @@ BOOL *_fullScreenAd;
 
 #pragma mark - FlutterStreamHandler
 - (FlutterError * _Nullable)onCancelWithArguments:(id _Nullable)arguments {
-    _eventSink=nil;
+    self.eventSink=nil;
     return nil;
 }
 
 - (FlutterError * _Nullable)onListenWithArguments:(id _Nullable)arguments eventSink:(nonnull FlutterEventSink)events {
-    _eventSink=events;
+    self.eventSink=events;
     return nil;
 }
 
