@@ -34,7 +34,6 @@
         [self initAd:call result:result];
     }else if([@"showSplashAd" isEqualToString:call.method]) {
         [self showSplashAd:call result:result];
-        result(@(YES));
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -67,8 +66,7 @@
             [self.splashAd loadFullScreenAd];
         }else{
             // 加载半屏广告
-//            [self.splashAd loadAd];
-            [self.splashAd loadFullScreenAd];
+            [self.splashAd loadAd];
             // 设置底部 logo
             self.bottomView=nil;
             CGSize size=[[UIScreen mainScreen] bounds].size;
