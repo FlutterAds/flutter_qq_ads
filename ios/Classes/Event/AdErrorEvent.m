@@ -10,8 +10,7 @@
 
 @implementation AdErrorEvent
 
-- (id)initWithAdId:(NSString *)adId errCode:(NSInteger *)errCode errMsg:(NSString *)errMsg{
-//    [super initWithAdId:adId andAction:action];
+- (id)initWithAdId:(NSString *)adId errCode:(NSNumber *)errCode errMsg:(NSString *)errMsg{
     self.adId=adId;
     self.action=onAdError;
     self.errCode=errCode;
@@ -21,9 +20,10 @@
 
 - (NSDictionary *)toMap{
     NSDictionary *data=[super toMap];
-    [data setValue:_errMsg forKey:@"errMsg"];
-    [data setValue:[NSNumber numberWithInteger:_errCode] forKey:@"errCode"];
+    NSMutableDictionary *errData=[[NSMutableDictionary alloc]initWithDictionary:data];
+    [errData setObject:_errMsg forKey:@"errMsg"];
+    [errData setObject:_errCode forKey:@"errCode"];
     
-    return data;
+    return errData;
 }
 @end

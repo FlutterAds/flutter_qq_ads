@@ -116,8 +116,8 @@
 - (void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error
 {
     NSLog(@"%s%@",__FUNCTION__,error);
-    // 添加广告事件
-    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:@"1122" errCode:error.code errMsg:error.localizedDescription];
+    // 添加广告错误事件
+    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:@"1122" errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
     [self addAdEvent:event];
 }
 

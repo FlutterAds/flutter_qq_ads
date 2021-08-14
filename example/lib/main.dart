@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_qq_ads/event/ad_error_event.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 import 'ads_config.dart';
 
@@ -84,6 +85,9 @@ class _MyAppState extends State<MyApp> {
     });
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
+      if(event is AdErrorEvent){
+        _adEvent+=' errCode:${event.errCode} errMsg:${event.errMsg}';
+      }
       print('onEventListener:$_adEvent');
       setState(() {});
     });
