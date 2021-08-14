@@ -12,6 +12,8 @@
 @property (copy, nonatomic) NSString *adId;
 // 操作
 @property (copy, nonatomic) NSString *action;
+// 构造广告事件
+- (id) initWithAdId:(NSString *) adId andAction:(NSString *)action;
 // 转换为 Map 操作
 - (NSDictionary*) toMap;
 @end

@@ -1,6 +1,9 @@
 #import "FlutterQqAdsPlugin.h"
 #import "GDTSDKConfig.h"
 #import "GDTSplashAd.h"
+#import "AdEvent.h"
+#import "AdErrorEvent.h"
+#import "AdEventAction.h"
 
 @interface FlutterQqAdsPlugin()<GDTSplashAdDelegate>
 @property (strong, nonatomic) FlutterEventSink eventSink;
@@ -64,7 +67,8 @@
             [self.splashAd loadFullScreenAd];
         }else{
             // 加载半屏广告
-            [self.splashAd loadAd];
+//            [self.splashAd loadAd];
+            [self.splashAd loadFullScreenAd];
             // 设置底部 logo
             self.bottomView=nil;
             CGSize size=[[UIScreen mainScreen] bounds].size;
@@ -96,26 +100,41 @@
         // 加载半屏广告
         [self.splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
     }
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdLoaded];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdPresent];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error
 {
     NSLog(@"%s%@",__FUNCTION__,error);
+    // 添加广告事件
+    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:@"1122" errCode:error.code errMsg:error.localizedDescription];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdExposured:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdExposure];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdClicked:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdClicked];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd
@@ -132,6 +151,9 @@
 {
     NSLog(@"%s",__FUNCTION__);
     self.splashAd = nil;
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdClosed];
+    [self addAdEvent:event];
 }
 
 - (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd
@@ -168,12 +190,17 @@
 }
 
 // 添加事件
--(void) addEvent:(NSDictionary *) event{
+-(void) addEvent:(NSObject *) event{
     if(self.eventSink!=nil){
         self.eventSink(event);
     }
 }
 
-
+// 添加广告事件
+-(void) addAdEvent:(AdEvent *) event{
+    if(event!=nil){
+        [self addEvent:[event toMap]];
+    }
+}
 
 @end
