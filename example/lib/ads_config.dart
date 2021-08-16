@@ -34,4 +34,15 @@ class AdsConfig {
       return '5052818319908354';
     }
   }
+
+  /// 获取插屏广告位id
+  static String get interstitialId {
+    // 官方demo
+    // return "9040714184494018";
+    if (Platform.isAndroid) {
+      return '3022327103988804';
+    } else {
+      return '5092321153081845';
+    }
+  }
 }

@@ -37,6 +37,18 @@ class FlutterQqAds {
     return result;
   }
 
+  /// 展示插屏广告
+  /// [posId] 广告位 id
+  static Future<bool> showInterstitialAd(String posId, [String logo]) async {
+    final bool result = await _methodChannel.invokeMethod(
+      'showInterstitialAd',
+      {
+        'posId': posId,
+      },
+    );
+    return result;
+  }
+
   static Future<String> get platformVersion async {
     final String version =
         await _methodChannel.invokeMethod('getPlatformVersion');

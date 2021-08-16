@@ -71,6 +71,13 @@ class _MyAppState extends State<MyApp> {
                   setState(() {});
                 },
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示插屏广告'),
+                onPressed: () {
+                  showInterstitialAd();
+                },
+              ),
             ],
           ),
         ),
@@ -85,12 +92,25 @@ class _MyAppState extends State<MyApp> {
     });
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
-      if(event is AdErrorEvent){
-        _adEvent+=' errCode:${event.errCode} errMsg:${event.errMsg}';
+      if (event is AdErrorEvent) {
+        _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
       }
       print('onEventListener:$_adEvent');
       setState(() {});
     });
+  }
+
+  /// 展示插屏广告
+  /// [logo] 展示如果传递则展示logo，不传递不展示
+  Future<void> showInterstitialAd([String logo]) async {
+    try {
+      bool result =
+          await FlutterQqAds.showInterstitialAd(AdsConfig.interstitialId, logo);
+      _result = "展示插屏广告${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result = "展示插屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
+    setState(() {});
   }
 }
 
