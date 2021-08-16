@@ -10,6 +10,7 @@
 @property (strong, nonatomic) GDTSplashAd *splashAd;
 @property (retain, nonatomic) UIView *bottomView;
 @property (nonatomic, assign) BOOL fullScreenAd;
+@property (weak,nonatomic) NSString *posId;
 @end
 
 @implementation FlutterQqAdsPlugin
@@ -54,12 +55,12 @@
 // 显示开屏广告
 - (void) showSplashAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString* posId=call.arguments[@"posId"];
+        self.posId=call.arguments[@"posId"];
         NSString* logo=call.arguments[@"logo"];
         // logo 判断为空，则全屏展示
         self.fullScreenAd=[logo isKindOfClass:[NSNull class]]||[logo length]==0;
         // 初始化开屏广告
-        self.splashAd=[[GDTSplashAd alloc] initWithPlacementId:posId];
+        self.splashAd=[[GDTSplashAd alloc] initWithPlacementId:self.posId];
         self.splashAd.delegate=self;
         // 加载全屏广告
         if(self.fullScreenAd){
@@ -81,7 +82,7 @@
             [self.bottomView addSubview:logoView];
         }
         result(@(YES));
-        NSLog(@"显示开屏广告%@",posId);
+        NSLog(@"显示开屏广告%@",self.posId);
     });
 }
 
@@ -99,7 +100,7 @@
         [self.splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
     }
     // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdLoaded];
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdLoaded];
     [self addAdEvent:event];
 }
 
@@ -107,7 +108,7 @@
 {
     NSLog(@"%s",__FUNCTION__);
     // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdPresent];
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdPresent];
     [self addAdEvent:event];
 }
 
@@ -115,7 +116,7 @@
 {
     NSLog(@"%s%@",__FUNCTION__,error);
     // 添加广告错误事件
-    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:@"1122" errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
+    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
     [self addAdEvent:event];
 }
 
@@ -123,7 +124,7 @@
 {
     NSLog(@"%s",__FUNCTION__);
     // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdExposure];
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdExposure];
     [self addAdEvent:event];
 }
 
@@ -131,7 +132,7 @@
 {
     NSLog(@"%s",__FUNCTION__);
     // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdClicked];
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClicked];
     [self addAdEvent:event];
 }
 
@@ -150,7 +151,7 @@
     NSLog(@"%s",__FUNCTION__);
     self.splashAd = nil;
     // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:@"1122" andAction:onAdClosed];
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClosed];
     [self addAdEvent:event];
 }
 
