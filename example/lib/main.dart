@@ -1,21 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_qq_ads/event/ad_error_event.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
+import 'ads_config.dart';
 
-//广告id
-String appId = "1200012024";
-// iOS
-// String appId = "1200018693";
-// 官方demo
-// String appId = "1105344611";
-//开屏广告位id
-String posIdSplash = "8022311121246224";
-// iOS
-// String posIdSplash = "5052818319908354";
-// 官方demo
-// String posIdSplash = "9040714184494018";
 // 结果信息
 String _result = '';
 
@@ -38,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     init().then((value) {
       if (value) {
-        showSplashAd('ic_logo');
+        showSplashAd(AdsConfig.logo);
       }
     });
     setAdEvent();
@@ -69,7 +58,8 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 child: Text('展示开屏广告（Logo）'),
                 onPressed: () {
-                  showSplashAd('ic_logo2');
+                  // showSplashAd('ic_logo2');
+                  showSplashAd(AdsConfig.logo);
                   setState(() {});
                 },
               ),
@@ -95,6 +85,9 @@ class _MyAppState extends State<MyApp> {
     });
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
+      if(event is AdErrorEvent){
+        _adEvent+=' errCode:${event.errCode} errMsg:${event.errMsg}';
+      }
       print('onEventListener:$_adEvent');
       setState(() {});
     });
@@ -104,7 +97,7 @@ class _MyAppState extends State<MyApp> {
 /// 初始化广告 SDK
 Future<bool> init() async {
   try {
-    bool result = await FlutterQqAds.initAd(appId);
+    bool result = await FlutterQqAds.initAd(AdsConfig.appId);
     _result = "广告SDK 初始化${result ? '成功' : '失败'}";
     return result;
   } on PlatformException catch (e) {
@@ -118,7 +111,7 @@ Future<bool> init() async {
 /// [logo] 展示如果传递则展示logo，不传递不展示
 Future<void> showSplashAd([String logo]) async {
   try {
-    bool result = await FlutterQqAds.showSplashAd(posIdSplash, logo);
+    bool result = await FlutterQqAds.showSplashAd(AdsConfig.splashId, logo);
     _result = "展示开屏广告${result ? '成功' : '失败'}";
   } on PlatformException catch (e) {
     _result = "展示开屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
