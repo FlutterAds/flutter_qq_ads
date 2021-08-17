@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/services.dart';
-
 import 'event/ad_event_handler.dart';
+import 'option/ad_options.dart';
+export 'option/ad_options.dart';
 
 /// 腾讯广告 Flutter 插件
 class FlutterQqAds {
@@ -49,11 +49,21 @@ class FlutterQqAds {
 
   /// 展示插屏广告
   /// [posId] 广告位 id
-  static Future<bool> showInterstitialAd(String posId, [String logo]) async {
+  static Future<bool> showInterstitialAd(
+    String posId, {
+    bool showPopup = false,
+    bool autoPlayMuted = true,
+    int autoPlayPolicy = AutoPlayPolicy.WIFI,
+    bool detailPageMuted = false,
+  }) async {
     final bool result = await _methodChannel.invokeMethod(
       'showInterstitialAd',
       {
         'posId': posId,
+        'showPopup': showPopup,
+        'autoPlayMuted': autoPlayMuted,
+        'autoPlayPolicy': autoPlayPolicy,
+        'detailPageMuted': detailPageMuted,
       },
     );
     return result;

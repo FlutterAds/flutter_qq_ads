@@ -150,7 +150,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     public void showInterstitialAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
         InterstitialPage iad=new InterstitialPage();
-        iad.showAd(activity,posId);
+        iad.showAd(activity,posId,call);
         result.success(true);
     }
 }

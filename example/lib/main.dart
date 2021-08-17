@@ -118,8 +118,11 @@ class _MyAppState extends State<MyApp> {
   /// [logo] 展示如果传递则展示logo，不传递不展示
   Future<void> showInterstitialAd([String logo]) async {
     try {
-      bool result =
-          await FlutterQqAds.showInterstitialAd(AdsConfig.interstitialId, logo);
+      bool result = await FlutterQqAds.showInterstitialAd(
+        AdsConfig.interstitialId,
+        autoPlayMuted: false,
+        autoPlayPolicy: AutoPlayPolicy.ALWAYS,
+      );
       _result = "展示插屏广告${result ? '成功' : '失败'}";
     } on PlatformException catch (e) {
       _result = "展示插屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";

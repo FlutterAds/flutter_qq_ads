@@ -3,6 +3,8 @@ package com.zero.flutter_qq_ads.page;
 import android.app.Activity;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.qq.e.ads.cfg.VideoOption;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
@@ -14,54 +16,40 @@ import com.zero.flutter_qq_ads.event.AdEventHandler;
 
 import java.util.Locale;
 
-// 插屏广告
-public class InterstitialPage implements UnifiedInterstitialADListener {
-    private final String TAG = InterstitialPage.class.getSimpleName();
-    private String posId;
-    private UnifiedInterstitialAD iad;
+import io.flutter.plugin.common.MethodCall;
 
-    /**
-     * 显示广告
-     * @param activity 上下文
-     * @param posId 广告位 id
-     */
-    public void showAd(Activity activity,String posId){
-        this.posId=posId;
-        iad=getIAD(activity);
-        setVideoOption();
+/**
+ * 插屏广告
+ */
+public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialADListener {
+    private final String TAG = InterstitialPage.class.getSimpleName();
+    // 插屏广告
+    private UnifiedInterstitialAD iad;
+    // popup 形式展示
+    private boolean showPopup = false;
+
+    @Override
+    public void loadAd(Activity activity, @NonNull MethodCall call) {
+        showPopup = call.argument("showPopup");
+        iad = new UnifiedInterstitialAD(activity, posId, this);
+        setVideoOption(call);
         iad.loadAD();
     }
 
 
     /**
-     * 获取插屏广告
-     * @return
+     * 设置视频参数
      */
-    private UnifiedInterstitialAD getIAD(Activity activity) {
-        if (this.iad != null) {
-            iad.close();
-            iad.destroy();
-        }
-        iad = new UnifiedInterstitialAD(activity, posId, this);
-        return iad;
-    }
-
-
-    /**
-     *  设置视频参数
-     */
-    private void setVideoOption() {
+    private void setVideoOption(@NonNull MethodCall call) {
+        boolean autoPlayMuted = call.argument("autoPlayMuted");
+        int autoPlayPolicy = call.argument("autoPlayPolicy");
+        boolean detailPageMuted = call.argument("detailPageMuted");
         VideoOption.Builder builder = new VideoOption.Builder();
-        VideoOption option = builder.build();
-//        if(!btnNoOption.isChecked()){
-//            option = builder.setAutoPlayMuted(btnMute.isChecked())
-//                    .setAutoPlayPolicy(networkSpinner.getSelectedItemPosition())
-//                    .setDetailPageMuted(btnDetailMute.isChecked())
-//                    .build();
-//        }
+        VideoOption option = builder.setAutoPlayMuted(autoPlayMuted)
+                .setAutoPlayPolicy(autoPlayPolicy)
+                .setDetailPageMuted(detailPageMuted)
+                .build();
         iad.setVideoOption(option);
-//        iad.setMinVideoDuration(getMinVideoDuration());
-//        iad.setMaxVideoDuration(getMaxVideoDuration());
 
     }
 
@@ -72,7 +60,7 @@ public class InterstitialPage implements UnifiedInterstitialADListener {
         if (iad != null && iad.isValid()) {
             iad.show();
         } else {
-            Log.d(TAG,"请加载广告并渲染成功后再进行展示 ！ ");
+            Log.d(TAG, "请加载广告并渲染成功后再进行展示 ！ ");
         }
     }
 
@@ -83,20 +71,18 @@ public class InterstitialPage implements UnifiedInterstitialADListener {
         if (iad != null && iad.isValid()) {
             iad.showAsPopupWindow();
         } else {
-            Log.d(TAG,"请加载广告并渲染成功后再进行展示 ！ ");
+            Log.d(TAG, "请加载广告并渲染成功后再进行展示 ！ ");
         }
     }
 
     @Override
     public void onADReceive() {
-        // onADReceive之后才可调用getECPM()
-        Log.d(TAG, "onADReceive eCPMLevel = " + iad.getECPMLevel()+ ", ECPM: " + iad.getECPM() + ", videoduration=" + iad.getVideoDuration());
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdLoaded));
+        Log.d(TAG, "onADReceive eCPMLevel = " + iad.getECPMLevel() + ", ECPM: " + iad.getECPM() + ", videoduration=" + iad.getVideoDuration());
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdLoaded));
     }
 
     @Override
     public void onVideoCached() {
-        // 视频素材加载完成，在此时调用iad.show()或iad.showAsPopupWindow()视频广告不会有进度条。
         Log.i(TAG, "onVideoCached");
     }
 
@@ -105,7 +91,7 @@ public class InterstitialPage implements UnifiedInterstitialADListener {
         String msg = String.format(Locale.getDefault(), "onNoAD, error code: %d, error msg: %s",
                 error.getErrorCode(), error.getErrorMsg());
         Log.e(TAG, msg);
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId,error.getErrorCode(),error.getErrorMsg()));
+        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, error.getErrorCode(), error.getErrorMsg()));
     }
 
     @Override
@@ -116,7 +102,7 @@ public class InterstitialPage implements UnifiedInterstitialADListener {
     @Override
     public void onADExposure() {
         Log.i(TAG, "onADExposure");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdExposure));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdExposure));
     }
 
     @Override
@@ -133,17 +119,22 @@ public class InterstitialPage implements UnifiedInterstitialADListener {
     @Override
     public void onADClosed() {
         Log.i(TAG, "onADClosed");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdClosed));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClosed));
     }
 
     @Override
     public void onRenderSuccess() {
         Log.i(TAG, "onRenderSuccess，建议在此回调后再调用展示方法");
-        show();
+        if (showPopup) {
+            showAsPopup();
+        } else {
+            show();
+        }
     }
 
     @Override
     public void onRenderFail() {
         Log.i(TAG, "onRenderFail");
+        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, -100, "onRenderFail"));
     }
 }
