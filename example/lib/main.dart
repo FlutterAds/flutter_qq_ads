@@ -56,6 +56,13 @@ class _MyAppState extends State<MyApp> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
+                child: Text('请求广告标识符(仅 iOS)'),
+                onPressed: () {
+                  requestIDFA();
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
                 child: Text('展示开屏广告（Logo）'),
                 onPressed: () {
                   // showSplashAd('ic_logo2');
@@ -85,12 +92,19 @@ class _MyAppState extends State<MyApp> {
     });
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
-      if(event is AdErrorEvent){
-        _adEvent+=' errCode:${event.errCode} errMsg:${event.errMsg}';
+      if (event is AdErrorEvent) {
+        _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
       }
       print('onEventListener:$_adEvent');
       setState(() {});
     });
+  }
+
+  /// 请求广告标识符
+  Future<void> requestIDFA() async {
+    bool result = await FlutterQqAds.requestIDFA;
+    _adEvent = '请求广告标识符:$result';
+    setState(() {});
   }
 }
 
