@@ -4,6 +4,8 @@
 #import "AdEvent.h"
 #import "AdErrorEvent.h"
 #import "AdEventAction.h"
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <AdSupport/AdSupport.h>
 
 @interface FlutterQqAdsPlugin()<GDTSplashAdDelegate>
 @property (strong, nonatomic) FlutterEventSink eventSink;
@@ -31,6 +33,8 @@
     
     if ([@"getPlatformVersion" isEqualToString:call.method]) {
         result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
+    }else if ([@"requestIDFA" isEqualToString:call.method]) {
+        [self requestIDFA:call result:result];
     }else if ([@"initAd" isEqualToString:call.method]) {
         [self initAd:call result:result];
     }else if([@"showSplashAd" isEqualToString:call.method]) {
@@ -39,8 +43,18 @@
         result(FlutterMethodNotImplemented);
     }
 }
-
-
+// 请求 IDFA
+- (void) requestIDFA:(FlutterMethodCall*) call result:(FlutterResult) result{
+    if (@available(iOS 14, *)) {
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            BOOL requestResult=status == ATTrackingManagerAuthorizationStatusAuthorized;
+            NSLog(@"requestIDFA:%@",requestResult?@"YES":@"NO");
+            result(@(requestResult));
+        }];
+    } else {
+        result(@(YES));
+    }
+}
 
 // 初始化广告
 - (void) initAd:(FlutterMethodCall*) call result:(FlutterResult) result{

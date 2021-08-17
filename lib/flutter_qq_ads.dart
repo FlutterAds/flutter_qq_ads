@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -12,6 +13,15 @@ class FlutterQqAds {
   // 事件通道
   static const EventChannel _eventChannel =
       const EventChannel('flutter_qq_ads_event');
+
+  /// 请求 IDFA
+  static Future<bool> get requestIDFA async {
+    if (Platform.isIOS) {
+      final bool result = await _methodChannel.invokeMethod('requestIDFA');
+      return result;
+    }
+    return true;
+  }
 
   /// 初始化广告
   /// [appId] 广告配置 appId
