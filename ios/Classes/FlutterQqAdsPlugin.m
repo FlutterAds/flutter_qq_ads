@@ -48,11 +48,10 @@
     if (@available(iOS 14, *)) {
         [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
             BOOL requestResult=status == ATTrackingManagerAuthorizationStatusAuthorized;
-            NSLog(@"requestIDFA %s",requestResult);
+            NSLog(@"requestIDFA:%@",requestResult?@"YES":@"NO");
             result(@(requestResult));
         }];
     } else {
-        // Fallback on earlier versions
         result(@(YES));
     }
 }
