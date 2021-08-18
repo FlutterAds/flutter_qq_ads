@@ -6,6 +6,8 @@
 //
 
 #import "BaseAdPage.h"
-@interface InterstitialPage : BaseAdPage
-
+#import "GDTUnifiedInterstitialAd.h"
+// 插屏广告
+@interface InterstitialPage : BaseAdPage<GDTUnifiedInterstitialAdDelegate>
+@property (nonatomic, strong) GDTUnifiedInterstitialAd *iad;
 @end

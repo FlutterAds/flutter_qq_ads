@@ -6,12 +6,19 @@
 //
 #import <Flutter/Flutter.h>
 #import <Foundation/Foundation.h>
+#import "AdEvent.h"
+#import "AdErrorEvent.h"
+#import "AdEventAction.h"
 // 基础广告页面
 @interface BaseAdPage : NSObject
 // 广告位id
 @property (weak,nonatomic) NSString *posId;
+// 事件消息
+@property (strong, nonatomic) FlutterEventSink eventSink;
+// 添加广告事件
+-(void) addAdEvent:(AdEvent *) event;
 // 显示广告
-- (void) showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call;
+- (void) showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
 // 加载广告
 - (void) loadAd:(FlutterMethodCall *) call;
 @end

@@ -41,12 +41,13 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
      * 设置视频参数
      */
     private void setVideoOption(@NonNull MethodCall call) {
+        boolean autoPlayOnWifi = call.argument("autoPlayOnWifi");
         boolean autoPlayMuted = call.argument("autoPlayMuted");
-        int autoPlayPolicy = call.argument("autoPlayPolicy");
         boolean detailPageMuted = call.argument("detailPageMuted");
         VideoOption.Builder builder = new VideoOption.Builder();
-        VideoOption option = builder.setAutoPlayMuted(autoPlayMuted)
-                .setAutoPlayPolicy(autoPlayPolicy)
+        VideoOption option = builder
+                .setAutoPlayPolicy(autoPlayOnWifi ? 0 : 1)
+                .setAutoPlayMuted(autoPlayMuted)
                 .setDetailPageMuted(detailPageMuted)
                 .build();
         iad.setVideoOption(option);

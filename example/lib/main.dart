@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
       bool result = await FlutterQqAds.showInterstitialAd(
         AdsConfig.interstitialId,
         autoPlayMuted: false,
-        autoPlayPolicy: AutoPlayPolicy.ALWAYS,
+        autoPlayOnWifi: false
       );
       _result = "展示插屏广告${result ? '成功' : '失败'}";
     } on PlatformException catch (e) {

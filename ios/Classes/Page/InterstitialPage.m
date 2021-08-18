@@ -6,11 +6,6 @@
 //
 
 #import "InterstitialPage.h"
-#import "GDTUnifiedInterstitialAd.h"
-
-@interface InterstitialPage() <GDTUnifiedInterstitialAdDelegate>
-@property (nonatomic, strong) GDTUnifiedInterstitialAd *iad;
-@end
 
 @implementation InterstitialPage
 
@@ -21,11 +16,17 @@
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
     NSLog(@"加载广告:%@",self.posId);
-    self.iad=[[GDTUnifiedInterstitialAd alloc] initWithPlacementId:@"1133"];
+    BOOL autoPlayMuted= call.arguments[@"autoPlayMuted"];
+    BOOL autoPlayOnWifi = call.arguments[@"autoPlayOnWifi"];
+    BOOL detailPageMuted = call.arguments[@"detailPageMuted"];
+    
+    self.iad=[[GDTUnifiedInterstitialAd alloc] initWithPlacementId:self.posId];
     self.iad.delegate=self;
+    self.iad.videoAutoPlayOnWWAN=autoPlayOnWifi;
+    self.iad.videoMuted=autoPlayMuted;
+    self.iad.detailPageVideoMuted=detailPageMuted;
     [self.iad loadAd];
 }
-
 
 #pragma mark - GDTUnifiedInterstitialAdDelegate
 
@@ -36,6 +37,9 @@
 - (void)unifiedInterstitialSuccessToLoadAd:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdLoaded];
+    [self addAdEvent:event];
 }
 
 /**
@@ -46,6 +50,9 @@
 {
     NSLog(@"%s",__FUNCTION__);
     NSLog(@"interstitial fail to load, Error : %@",error);
+    // 添加广告错误事件
+    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
+    [self addAdEvent:event];
 }
 
 
@@ -55,10 +62,15 @@
 
 - (void)unifiedInterstitialRenderSuccess:(GDTUnifiedInterstitialAd *)unifiedInterstitial {
     NSLog(@"%s",__FUNCTION__);
+    UIViewController* controller = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [self.iad presentAdFromRootViewController:controller];
 }
 
 - (void)unifiedInterstitialRenderFail:(GDTUnifiedInterstitialAd *)unifiedInterstitial error:(NSError *)error {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告错误事件
+    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
+    [self addAdEvent:event];
 }
 
 /**
@@ -81,6 +93,9 @@
 - (void)unifiedInterstitialDidPresentScreen:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdPresent];
+    [self addAdEvent:event];
 }
 
 /**
@@ -90,6 +105,9 @@
 - (void)unifiedInterstitialDidDismissScreen:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClosed];
+    [self addAdEvent:event];
 }
 
 /**
@@ -105,8 +123,10 @@
  */
 - (void)unifiedInterstitialWillExposure:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
-    NSLog(@"广告已曝光");
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdExposure];
+    [self addAdEvent:event];
 }
 
 /**
@@ -114,8 +134,10 @@
  */
 - (void)unifiedInterstitialClicked:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
-    NSLog(@"广告已点击");
     NSLog(@"%s",__FUNCTION__);
+    // 添加广告事件
+    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClicked];
+    [self addAdEvent:event];
 }
 
 /**
@@ -146,47 +168,6 @@
  *  全屏广告页被关闭
  */
 - (void)unifiedInterstitialAdDidDismissFullScreenModal:(GDTUnifiedInterstitialAd *)unifiedInterstitial
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-
-/**
- * 插屏2.0视频广告 player 播放状态更新回调
- */
-- (void)unifiedInterstitialAd:(GDTUnifiedInterstitialAd *)unifiedInterstitial playerStatusChanged:(GDTMediaPlayerStatus)status
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-/**
- * 插屏2.0视频广告详情页 WillPresent 回调
- */
-- (void)unifiedInterstitialAdViewWillPresentVideoVC:(GDTUnifiedInterstitialAd *)unifiedInterstitial
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-/**
- * 插屏2.0视频广告详情页 DidPresent 回调
- */
-- (void)unifiedInterstitialAdViewDidPresentVideoVC:(GDTUnifiedInterstitialAd *)unifiedInterstitial
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-/**
- * 插屏2.0视频广告详情页 WillDismiss 回调
- */
-- (void)unifiedInterstitialAdViewWillDismissVideoVC:(GDTUnifiedInterstitialAd *)unifiedInterstitial
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-/**
- * 插屏2.0视频广告详情页 DidDismiss 回调
- */
-- (void)unifiedInterstitialAdViewDidDismissVideoVC:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
     NSLog(@"%s",__FUNCTION__);
 }
