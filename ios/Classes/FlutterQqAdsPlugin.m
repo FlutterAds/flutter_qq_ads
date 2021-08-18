@@ -4,19 +4,23 @@
 #import "AdEvent.h"
 #import "AdErrorEvent.h"
 #import "AdEventAction.h"
+#import "InterstitialPage.h"
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
 
 @interface FlutterQqAdsPlugin()<GDTSplashAdDelegate>
 @property (strong, nonatomic) FlutterEventSink eventSink;
 @property (strong, nonatomic) GDTSplashAd *splashAd;
+@property (strong, nonatomic) InterstitialPage *iad;
 @property (retain, nonatomic) UIView *bottomView;
 @property (nonatomic, assign) BOOL fullScreenAd;
 @property (weak,nonatomic) NSString *posId;
+
 @end
 
 @implementation FlutterQqAdsPlugin
-
+// 广告位id
+NSString *const kPosId=@"posId";
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
@@ -39,7 +43,11 @@
         [self initAd:call result:result];
     }else if([@"showSplashAd" isEqualToString:call.method]) {
         [self showSplashAd:call result:result];
-    } else {
+    }else if ([@"showInterstitialAd" isEqualToString:call.method]){
+        self.posId=call.arguments[kPosId];
+        self.iad=[[InterstitialPage alloc] init];
+        [self.iad showAd:self.posId methodCall:call];
+    }else {
         result(FlutterMethodNotImplemented);
     }
 }
@@ -69,7 +77,7 @@
 // 显示开屏广告
 - (void) showSplashAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.posId=call.arguments[@"posId"];
+        self.posId=call.arguments[kPosId];
         NSString* logo=call.arguments[@"logo"];
         // logo 判断为空，则全屏展示
         self.fullScreenAd=[logo isKindOfClass:[NSNull class]]||[logo length]==0;
