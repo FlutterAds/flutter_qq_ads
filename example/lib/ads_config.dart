@@ -45,4 +45,15 @@ class AdsConfig {
       return '5092321153081845';
     }
   }
+
+  /// 获取激励视频广告位id
+  static String get rewardVideoId {
+    // 官方demo
+    // return "9040714184494018";
+    if (Platform.isAndroid) {
+      return '3032129193181886';
+    } else {
+      return '1042528123383807';
+    }
+  }
 }

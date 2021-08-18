@@ -16,4 +16,6 @@ public class AdEventAction {
     public static final String onAdClosed="onAdClosed";
     // 广告点击
     public static final String onAdClicked="onAdClicked";
+    // 获得广告激励
+    public static final String onAdReward="onAdReward";
 }

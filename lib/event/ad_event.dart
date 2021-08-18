@@ -1,6 +1,9 @@
-import 'package:flutter_qq_ads/event/ad_error_event.dart';
-
+import 'ad_error_event.dart';
 import 'ad_event_action.dart';
+import 'ad_reward_event.dart';
+export 'ad_error_event.dart';
+export 'ad_event_action.dart';
+export 'ad_reward_event.dart';
 
 /// 广告事件
 class AdEvent {
@@ -15,6 +18,8 @@ class AdEvent {
     String action = json['action'];
     if (action == AdEventAction.onAdError) {
       return AdErrorEvent.fromJson(json);
+    } else if (action == AdEventAction.onAdReward) {
+      return AdRewardEvent.fromJson(json);
     } else {
       return AdEvent(
         adId: json['adId'],

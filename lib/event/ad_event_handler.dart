@@ -1,4 +1,5 @@
-import 'package:flutter_qq_ads/event/ad_event.dart';
+import 'ad_event.dart';
+export 'ad_event.dart';
 
 /// 广告事件回调监听
 typedef OnAdEventListener = void Function(AdEvent event);

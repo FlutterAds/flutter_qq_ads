@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.qq.e.comm.managers.GDTADManager;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
 import com.zero.flutter_qq_ads.page.InterstitialPage;
+import com.zero.flutter_qq_ads.page.RewardVideoPage;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
@@ -65,6 +66,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
             showSplashAd(call, result);
         }else if ("showInterstitialAd".equals(method)){
             showInterstitialAd(call, result);
+        }else if ("showRewardVideoAd".equals(method)){
+            showRewardVideoAd(call, result);
         }else {
             result.notImplemented();
         }
@@ -150,6 +153,19 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     public void showInterstitialAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
         InterstitialPage iad=new InterstitialPage();
+        iad.showAd(activity,posId,call);
+        result.success(true);
+    }
+
+    /**
+     * 显示激励视频广告
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void showRewardVideoAd(MethodCall call, MethodChannel.Result result) {
+        String posId = call.argument(KEY_POSID);
+        RewardVideoPage iad=new RewardVideoPage();
         iad.showAd(activity,posId,call);
         result.success(true);
     }

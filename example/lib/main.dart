@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_qq_ads/event/ad_error_event.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 import 'ads_config.dart';
 
@@ -85,6 +84,13 @@ class _MyAppState extends State<MyApp> {
                   showInterstitialAd();
                 },
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示激励视频广告'),
+                onPressed: () {
+                  showRewardVideoAd();
+                },
+              ),
             ],
           ),
         ),
@@ -101,6 +107,9 @@ class _MyAppState extends State<MyApp> {
       _adEvent = 'adId:${event.adId} action:${event.action}';
       if (event is AdErrorEvent) {
         _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
+      } else if (event is AdRewardEvent) {
+        _adEvent +=
+            ' transId:${event.transId} customData:${event.customData} userId:${event.userId}';
       }
       print('onEventListener:$_adEvent');
       setState(() {});
@@ -115,17 +124,32 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// 展示插屏广告
-  /// [logo] 展示如果传递则展示logo，不传递不展示
-  Future<void> showInterstitialAd([String logo]) async {
+  Future<void> showInterstitialAd() async {
     try {
       bool result = await FlutterQqAds.showInterstitialAd(
-        AdsConfig.interstitialId,
-        autoPlayMuted: false,
-        autoPlayOnWifi: false
-      );
+          AdsConfig.interstitialId,
+          autoPlayMuted: false,
+          autoPlayOnWifi: false);
       _result = "展示插屏广告${result ? '成功' : '失败'}";
     } on PlatformException catch (e) {
       _result = "展示插屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
+    setState(() {});
+  }
+
+  /// 展示激励视频广告
+  Future<void> showRewardVideoAd() async {
+    try {
+      bool result = await FlutterQqAds.showRewardVideoAd(
+        AdsConfig.rewardVideoId,
+        playMuted: false,
+        customData: 'customData',
+        userId: 'userId',
+      );
+      _result = "展示激励视频广告${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result =
+          "展示激励视频广告失败 code:${e.code} msg:${e.message} details:${e.details}";
     }
     setState(() {});
   }

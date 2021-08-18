@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'event/ad_event_handler.dart';
-import 'option/ad_options.dart';
-export 'option/ad_options.dart';
+export 'event/ad_event_handler.dart';
 
 /// 腾讯广告 Flutter 插件
 class FlutterQqAds {
@@ -68,6 +67,29 @@ class FlutterQqAds {
         'autoPlayOnWifi': autoPlayOnWifi,
         'autoPlayMuted': autoPlayMuted,
         'detailPageMuted': detailPageMuted,
+      },
+    );
+    return result;
+  }
+
+  /// 展示激励视频广告
+  /// [posId] 广告位 id
+  /// [playMuted] 播放是否静音
+  /// [customData] 设置激励视频服务端验证的自定义信息
+  /// [userId] 设置服务端验证的用户信息
+  static Future<bool> showRewardVideoAd(
+    String posId, {
+    bool playMuted = false,
+    String customData,
+    String userId,
+  }) async {
+    final bool result = await _methodChannel.invokeMethod(
+      'showRewardVideoAd',
+      {
+        'posId': posId,
+        'playMuted': playMuted,
+        'customData': customData,
+        'userId': userId,
       },
     );
     return result;
