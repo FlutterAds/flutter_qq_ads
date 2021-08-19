@@ -62,10 +62,9 @@ class _MyAppState extends State<MyApp> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                child: Text('展示开屏广告（Logo）'),
+                child: Text('展示开屏广告（Logo2）'),
                 onPressed: () {
-                  // showSplashAd('ic_logo2');
-                  showSplashAd(AdsConfig.logo);
+                  showSplashAd('flutterads_logo2');
                   setState(() {});
                 },
               ),

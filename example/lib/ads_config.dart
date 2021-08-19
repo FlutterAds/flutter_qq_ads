@@ -5,7 +5,7 @@ class AdsConfig {
   /// 获取 Logo 资源名称
   static String get logo {
     if (Platform.isAndroid) {
-      return 'ic_logo';
+      return 'flutterads_logo';
     } else {
       return 'LaunchImage';
     }
