@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "AdEvent.h"
 #import "AdErrorEvent.h"
+#import "AdRewardEvent.h"
 #import "AdEventAction.h"
 // 基础广告页面
 @interface BaseAdPage : NSObject

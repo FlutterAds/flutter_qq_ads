@@ -16,9 +16,9 @@
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
     NSLog(@"加载广告:%@",self.posId);
-    BOOL autoPlayMuted= call.arguments[@"autoPlayMuted"];
-    BOOL autoPlayOnWifi = call.arguments[@"autoPlayOnWifi"];
-    BOOL detailPageMuted = call.arguments[@"detailPageMuted"];
+    BOOL autoPlayMuted = [call.arguments[@"autoPlayMuted"] boolValue];
+    BOOL autoPlayOnWifi = [call.arguments[@"autoPlayOnWifi"] boolValue];
+    BOOL detailPageMuted = [call.arguments[@"detailPageMuted"] boolValue];
     
     self.iad=[[GDTUnifiedInterstitialAd alloc] initWithPlacementId:self.posId];
     self.iad.delegate=self;

@@ -20,5 +20,7 @@ NSString *const onAdExposure=@"onAdExposure";
 NSString *const onAdClosed=@"onAdClosed";
 // 广告点击
 NSString *const onAdClicked=@"onAdClicked";
+// 获得广告激励
+NSString *const onAdReward=@"onAdReward";
 
 @end

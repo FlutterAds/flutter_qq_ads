@@ -8,9 +8,9 @@ import java.util.HashMap;
 public class AdRewardEvent  extends AdEvent{
     // 服务端验证唯一id
     private String transId;
-    // 设置激励视频服务端验证的自定义信息
+    // 服务端验证的自定义信息
     private String customData;
-    // 设置服务端验证的用户信息
+    // 服务端验证的用户信息
     private String userId;
 
     public AdRewardEvent(String adId, String action,String transId,String customData,String userId) {

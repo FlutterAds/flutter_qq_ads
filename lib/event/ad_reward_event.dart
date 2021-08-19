@@ -7,9 +7,9 @@ class AdRewardEvent extends AdEvent {
       : super(adId: adId, action: action);
   // 激励服务端验证的唯一 ID
   final String transId;
-  // 设置激励视频服务端验证的自定义信息
+  // 服务端验证的自定义信息
   final String customData;
-  // 设置服务端验证的用户信息
+  // 服务端验证的用户信息
   final String userId;
   // 解析 json 为激励事件对象
   factory AdRewardEvent.fromJson(Map<dynamic, dynamic> json) {
