@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                child: Text('请求广告标识符(仅 iOS)'),
+                child: Text('请求应用跟踪透明度授权(仅 iOS)'),
                 onPressed: () {
                   requestIDFA();
                 },
@@ -104,8 +104,10 @@ class _MyAppState extends State<MyApp> {
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
       if (event is AdErrorEvent) {
+        // 错误事件
         _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
       } else if (event is AdRewardEvent) {
+        // 激励事件
         _adEvent +=
             ' transId:${event.transId} customData:${event.customData} userId:${event.userId}';
       }
@@ -114,7 +116,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  /// 请求广告标识符
+  /// 请求应用跟踪透明度授权
   Future<void> requestIDFA() async {
     bool result = await FlutterQqAds.requestIDFA;
     _adEvent = '请求广告标识符:$result';
@@ -125,9 +127,12 @@ class _MyAppState extends State<MyApp> {
   Future<void> showInterstitialAd() async {
     try {
       bool result = await FlutterQqAds.showInterstitialAd(
-          AdsConfig.interstitialId,
-          autoPlayMuted: false,
-          autoPlayOnWifi: false);
+        AdsConfig.interstitialId,
+        showPopup: false,
+        autoPlayMuted: false,
+        autoPlayOnWifi: false,
+        detailPageMuted: false,
+      );
       _result = "展示插屏广告${result ? '成功' : '失败'}";
     } on PlatformException catch (e) {
       _result = "展示插屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";

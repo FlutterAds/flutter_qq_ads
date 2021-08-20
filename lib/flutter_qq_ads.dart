@@ -13,7 +13,7 @@ class FlutterQqAds {
   static const EventChannel _eventChannel =
       const EventChannel('flutter_qq_ads_event');
 
-  /// 请求 IDFA
+  /// 请求应用跟踪透明度授权
   static Future<bool> get requestIDFA async {
     if (Platform.isIOS) {
       final bool result = await _methodChannel.invokeMethod('requestIDFA');
@@ -74,8 +74,8 @@ class FlutterQqAds {
 
   /// 展示激励视频广告
   /// [posId] 广告位 id
-  /// [playMuted] 播放是否静音
-  /// [customData] 设置激励视频服务端验证的自定义信息
+  /// [playMuted] 是否静音播放
+  /// [customData] 设置服务端验证的自定义信息
   /// [userId] 设置服务端验证的用户信息
   static Future<bool> showRewardVideoAd(
     String posId, {
