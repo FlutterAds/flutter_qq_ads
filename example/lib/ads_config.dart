@@ -11,6 +11,15 @@ class AdsConfig {
     }
   }
 
+  /// 获取 Logo 资源名称 2
+  static String get logo2 {
+    if (Platform.isAndroid) {
+      return 'flutterads_logo2';
+    } else {
+      return 'LaunchImage2';
+    }
+  }
+
   /// 获取 App id
   static String get appId {
     // 官方 demo id
