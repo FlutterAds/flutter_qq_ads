@@ -20,7 +20,7 @@
         android:id="@+id/splash_ad_logo"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:src="@mipmap/ic_start_img"
+        android:src="@mipmap/flutterads_logo"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

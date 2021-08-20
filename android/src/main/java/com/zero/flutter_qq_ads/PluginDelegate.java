@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.qq.e.comm.managers.GDTADManager;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
+import com.zero.flutter_qq_ads.page.InterstitialPage;
+import com.zero.flutter_qq_ads.page.RewardVideoPage;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
@@ -62,6 +64,10 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
             initAd(call, result);
         }else if ("showSplashAd".equals(method)){
             showSplashAd(call, result);
+        }else if ("showInterstitialAd".equals(method)){
+            showInterstitialAd(call, result);
+        }else if ("showRewardVideoAd".equals(method)){
+            showRewardVideoAd(call, result);
         }else {
             result.notImplemented();
         }
@@ -123,18 +129,44 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     }
 
     /**
-     * 初始化广告
+     * 显示开屏广告
      *
      * @param call   MethodCall
      * @param result Result
      */
     public void showSplashAd(MethodCall call, MethodChannel.Result result) {
-        String posId = call.argument("posId");
-        String logo = call.argument("logo");
+        String posId = call.argument(KEY_POSID);
+        String logo = call.argument(KEY_LOGO);
         Intent intent = new Intent(activity, AdSplashActivity.class);
         intent.putExtra(KEY_POSID,posId);
         intent.putExtra(KEY_LOGO,logo);
         activity.startActivity(intent);
+        result.success(true);
+    }
+
+    /**
+     * 显示开屏广告
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void showInterstitialAd(MethodCall call, MethodChannel.Result result) {
+        String posId = call.argument(KEY_POSID);
+        InterstitialPage iad=new InterstitialPage();
+        iad.showAd(activity,posId,call);
+        result.success(true);
+    }
+
+    /**
+     * 显示激励视频广告
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void showRewardVideoAd(MethodCall call, MethodChannel.Result result) {
+        String posId = call.argument(KEY_POSID);
+        RewardVideoPage iad=new RewardVideoPage();
+        iad.showAd(activity,posId,call);
         result.success(true);
     }
 }

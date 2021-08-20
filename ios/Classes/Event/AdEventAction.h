@@ -20,4 +20,6 @@ extern NSString * const onAdExposure;
 extern NSString * const onAdClosed;
 // 广告点击
 extern NSString * const onAdClicked;
+// 获得广告激励
+extern NSString * const onAdReward;
 @end
