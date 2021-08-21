@@ -18,8 +18,8 @@
 ### 引入依赖
 
 - 版本约定
-  * 1.x.x 是非 Null Safety 版本，对应 master 分支
-  * 2.x.x 是 Null Safety 版本，对应 2x 分支
+  * 1.x.x 是非 Null Safety 版本，对应 `master` 分支
+  * 2.x.x 是 Null Safety 版本，对应 `2x` 分支
 
   > 现在阶段会同时维护这 2 个版本，再往后可能仅维护一个空安全版本
 
@@ -78,7 +78,7 @@ FlutterQqAds.onEventListener((event) {
 /// [logo] 展示如果传递则展示底部logo，不传递不展示，则全屏
 FlutterQqAds.showSplashAd(posId, 'flutterads_logo');
 ```
-- [Logo 设置的最佳实践](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/doc/SETTING_LOGO.md)
+- [Logo 设置的最佳实践（必看）](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/doc/SETTING_LOGO.md)
 
 - 全屏广告
 
