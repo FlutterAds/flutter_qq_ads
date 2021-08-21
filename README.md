@@ -5,6 +5,13 @@
 </p>
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
+<p align="center">
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.0.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads/blob/develop/LICENSE"><img src=https://img.shields.io/badge/license-MIT-brightgreen></a>
+</p>
+
 ## 入门使用
 
 ### 引入依赖
@@ -12,7 +19,8 @@
 - Pub 引入
 
 ``` Dart
-正式上线稳定后发布
+dependencies:
+  flutter_qq_ads: ^1.0.0
 ```
 
 - Git 引入
@@ -62,7 +70,7 @@ FlutterQqAds.onEventListener((event) {
 /// [logo] 展示如果传递则展示底部logo，不传递不展示，则全屏
 FlutterQqAds.showSplashAd(posId, 'flutterads_logo');
 ```
-- [Logo 设置的最佳实践（待补充）](docs/SETTING_LOGO.md)
+- [Logo 设置的最佳实践（待补充）](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/docs/SETTING_LOGO.md)
 
 - 全屏广告
 
@@ -132,8 +140,8 @@ bool result = await FlutterQqAds.requestIDFA;
 
 
 ## 遇到问题
-如果你遇到问题请提 Issues 给我（提问前建议先搜索尝试，没有再提问）
+如果你遇到问题请提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues) 给我（提问前建议先搜索尝试，没有再提问）
 
 ## 支持我
 
-支持开源项目最好的方式就是点一个 Star
+支持开源项目最好的方式就是点一个 [Star](https://github.com/FlutterAds/flutter_qq_ads)
