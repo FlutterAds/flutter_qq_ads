@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_qq_ads/event/ad_error_event.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 import 'ads_config.dart';
 
@@ -38,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('FlutterAds QQ Plugin'),
         ),
         body: Center(
           child: Column(
@@ -56,18 +55,16 @@ class _MyAppState extends State<MyApp> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                child: Text('请求广告标识符(仅 iOS)'),
+                child: Text('请求应用跟踪透明度授权(仅 iOS)'),
                 onPressed: () {
                   requestIDFA();
                 },
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                child: Text('展示开屏广告（Logo）'),
+                child: Text('展示开屏广告（Logo2）'),
                 onPressed: () {
-                  // showSplashAd('ic_logo2');
-                  showSplashAd(AdsConfig.logo);
-                  setState(() {});
+                  showSplashAd(AdsConfig.logo2);
                 },
               ),
               SizedBox(height: 20),
@@ -76,6 +73,20 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () {
                   showSplashAd();
                   setState(() {});
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示插屏广告'),
+                onPressed: () {
+                  showInterstitialAd();
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示激励视频广告'),
+                onPressed: () {
+                  showRewardVideoAd();
                 },
               ),
             ],
@@ -93,17 +104,56 @@ class _MyAppState extends State<MyApp> {
     FlutterQqAds.onEventListener((event) {
       _adEvent = 'adId:${event.adId} action:${event.action}';
       if (event is AdErrorEvent) {
+        // 错误事件
         _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
+      } else if (event is AdRewardEvent) {
+        // 激励事件
+        _adEvent +=
+            ' transId:${event.transId} customData:${event.customData} userId:${event.userId}';
       }
       print('onEventListener:$_adEvent');
       setState(() {});
     });
   }
 
-  /// 请求广告标识符
+  /// 请求应用跟踪透明度授权
   Future<void> requestIDFA() async {
     bool result = await FlutterQqAds.requestIDFA;
     _adEvent = '请求广告标识符:$result';
+    setState(() {});
+  }
+
+  /// 展示插屏广告
+  Future<void> showInterstitialAd() async {
+    try {
+      bool result = await FlutterQqAds.showInterstitialAd(
+        AdsConfig.interstitialId,
+        showPopup: false,
+        autoPlayMuted: false,
+        autoPlayOnWifi: false,
+        detailPageMuted: false,
+      );
+      _result = "展示插屏广告${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result = "展示插屏广告失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
+    setState(() {});
+  }
+
+  /// 展示激励视频广告
+  Future<void> showRewardVideoAd() async {
+    try {
+      bool result = await FlutterQqAds.showRewardVideoAd(
+        AdsConfig.rewardVideoId,
+        playMuted: false,
+        customData: 'customData',
+        userId: 'userId',
+      );
+      _result = "展示激励视频广告${result ? '成功' : '失败'}";
+    } on PlatformException catch (e) {
+      _result =
+          "展示激励视频广告失败 code:${e.code} msg:${e.message} details:${e.details}";
+    }
     setState(() {});
   }
 }

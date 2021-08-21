@@ -3,9 +3,9 @@
     <!--白色背景-->
     <item android:drawable="@android:color/white" />
     <!--底部 Logo-->
-    <item android:bottom="24dp">
+    <item android:bottom="18dp">
         <bitmap
             android:gravity="bottom"
-            android:src="@mipmap/ic_logo" />
+            android:src="@mipmap/flutterads_logo" />
     </item>
 </layer-list>

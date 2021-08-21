@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_qq_ads_example"
+        android:label="FlutterAds"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
         <activity
