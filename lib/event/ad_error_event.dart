@@ -2,7 +2,11 @@ import 'ad_event.dart';
 
 /// 广告错误事件
 class AdErrorEvent extends AdEvent {
-  AdErrorEvent({this.errCode, this.errMsg, String adId, String action})
+  AdErrorEvent(
+      {required this.errCode,
+      required this.errMsg,
+      required String adId,
+      required String action})
       : super(adId: adId, action: action);
   // 错误码
   final int errCode;

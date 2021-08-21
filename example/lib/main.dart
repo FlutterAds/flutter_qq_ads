@@ -173,7 +173,7 @@ Future<bool> init() async {
 
 /// 展示开屏广告
 /// [logo] 展示如果传递则展示logo，不传递不展示
-Future<void> showSplashAd([String logo]) async {
+Future<void> showSplashAd([String? logo]) async {
   try {
     bool result = await FlutterQqAds.showSplashAd(AdsConfig.splashId, logo);
     _result = "展示开屏广告${result ? '成功' : '失败'}";
