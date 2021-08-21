@@ -70,7 +70,7 @@ FlutterQqAds.onEventListener((event) {
 /// [logo] 展示如果传递则展示底部logo，不传递不展示，则全屏
 FlutterQqAds.showSplashAd(posId, 'flutterads_logo');
 ```
-- [Logo 设置的最佳实践（待补充）](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/docs/SETTING_LOGO.md)
+- [Logo 设置的最佳实践（待补充）](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/doc/SETTING_LOGO.md)
 
 - 全屏广告
 
