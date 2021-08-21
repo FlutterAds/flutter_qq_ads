@@ -7,6 +7,7 @@
 
 <p align="center">
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.0.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.0.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/blob/develop/LICENSE"><img src=https://img.shields.io/badge/license-MIT-brightgreen></a>
@@ -16,11 +17,18 @@
 
 ### 引入依赖
 
+- 版本约定
+  * 1.x.x 是非 Null Safety 版本，对应 master 分支
+  * 2.x.x 是 Null Safety 版本，对应 2x 分支
+
+  > 现在阶段会同时维护这 2 个版本，再往后可能仅维护一个空安全版本
+
 - Pub 引入
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.0.0
+  flutter_qq_ads: ^1.0.0 # 非 Null Safety 版本
+  flutter_qq_ads: ^2.0.0 # Null Safety 版本
 ```
 
 - Git 引入
@@ -138,10 +146,16 @@ bool result = await FlutterQqAds.requestIDFA;
 
 - [官方参考链接 - 用户隐私和数据使用](https://developer.apple.com/cn/app-store/user-privacy-and-data-use/)
 
+## 分支说明
+|分支|说明|
+|-|-|
+|develop|开发分支，接受 PR|
+|master|稳定分支，非 Null Safety|
+|2x|稳定分支，Null Safety|
 
 ## 遇到问题
 如果你遇到问题请提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues) 给我（提问前建议先搜索尝试，没有再提问）
 
-## 支持我
+## 支持开源
 
-支持开源项目最好的方式就是点一个 [Star](https://github.com/FlutterAds/flutter_qq_ads)
+支持开源项目最好的方式就是用 1 秒点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads)
