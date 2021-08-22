@@ -53,18 +53,18 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
      */
     private void initData() {
         // 获取参数
-        posId=getIntent().getStringExtra(PluginDelegate.KEY_POSID);
-        String logo=getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
+        posId = getIntent().getStringExtra(PluginDelegate.KEY_POSID);
+        String logo = getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
         // 创建开屏广告
         SplashAD splashAD = new SplashAD(this, posId, this, 0);
-        if(TextUtils.isEmpty(logo)){
+        if (TextUtils.isEmpty(logo)) {
             // logo 为空则加载全屏广告
             ad_logo.setVisibility(View.GONE);
             splashAD.fetchFullScreenAndShowIn(ad_container);
-        }else{
+        } else {
             // 加载 logo
-            int resId=getMipmapId(logo);
-            if(resId>0){
+            int resId = getMipmapId(logo);
+            if (resId > 0) {
                 ad_logo.setVisibility(View.VISIBLE);
                 ad_logo.setImageResource(resId);
             }
@@ -73,50 +73,47 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
         }
     }
 
-
     @Override
     public void onADDismissed() {
-        Log.d(TAG,"onADDismissed");
+        Log.d(TAG, "onADDismissed");
         finishPage();
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdClosed));
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClosed));
     }
 
     @Override
     public void onNoAD(AdError adError) {
-        Log.d(TAG,"onNoAD adError:"+adError.getErrorMsg());
+        Log.d(TAG, "onNoAD adError:" + adError.getErrorMsg());
         finishPage();
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId,adError.getErrorCode(),adError.getErrorMsg()));
+        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, adError.getErrorCode(), adError.getErrorMsg()));
     }
 
     @Override
     public void onADPresent() {
-        Log.d(TAG,"onADPresent");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdPresent));
+        Log.d(TAG, "onADPresent");
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdPresent));
     }
 
     @Override
     public void onADClicked() {
-        Log.d(TAG,"onADClicked");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdClicked));
+        Log.d(TAG, "onADClicked");
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClicked));
     }
 
     @Override
     public void onADTick(long millisUntilFinished) {
-        Log.d(TAG,"onADTick millisUntilFinished："+millisUntilFinished);
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,"onAdTick"));
-
+        Log.d(TAG, "onADTick millisUntilFinished：" + millisUntilFinished);
     }
 
     @Override
     public void onADExposure() {
-        Log.d(TAG,"onADExposure");
+        Log.d(TAG, "onADExposure");
         AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdExposure));
     }
 
     @Override
     public void onADLoaded(long expireTimestamp) {
-        Log.d(TAG,"onADLoaded expireTimestamp："+expireTimestamp);
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId,AdEventAction.onAdLoaded));
+        Log.d(TAG, "onADLoaded expireTimestamp：" + expireTimestamp);
+        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdLoaded));
     }
 
     /**
@@ -125,10 +122,12 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     private void finishPage() {
         finish();
         // 设置退出动画
-        overridePendingTransition(0,android.R.anim.fade_out);
+        overridePendingTransition(0, android.R.anim.fade_out);
     }
 
-    /** 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费 */
+    /**
+     * 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
