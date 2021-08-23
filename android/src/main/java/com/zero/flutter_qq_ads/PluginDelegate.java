@@ -145,7 +145,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     }
 
     /**
-     * 显示开屏广告
+     * 显示插屏广告
      *
      * @param call   MethodCall
      * @param result Result
