@@ -41,8 +41,8 @@
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.0.0 # 非 Null Safety 版本
-  flutter_qq_ads: ^2.0.0 # Null Safety 版本
+  flutter_qq_ads: ^1.0.1 # 非 Null Safety 版本
+  flutter_qq_ads: ^2.0.1 # Null Safety 版本
 ```
 
 - Git 引入
