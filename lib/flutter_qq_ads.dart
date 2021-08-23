@@ -23,7 +23,7 @@ class FlutterQqAds {
   }
 
   /// 初始化广告
-  /// [appId] 广告配置 appId
+  /// [appId] 应用媒体ID
   static Future<bool> initAd(String appId) async {
     final bool result = await _methodChannel.invokeMethod(
       'initAd',

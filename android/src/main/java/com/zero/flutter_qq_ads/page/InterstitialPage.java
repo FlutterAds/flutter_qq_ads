@@ -79,7 +79,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onADReceive() {
         Log.d(TAG, "onADReceive eCPMLevel = " + iad.getECPMLevel() + ", ECPM: " + iad.getECPM() + ", videoduration=" + iad.getVideoDuration());
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdLoaded));
+        sendEvent(AdEventAction.onAdLoaded);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
         String msg = String.format(Locale.getDefault(), "onNoAD, error code: %d, error msg: %s",
                 error.getErrorCode(), error.getErrorMsg());
         Log.e(TAG, msg);
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, error.getErrorCode(), error.getErrorMsg()));
+        sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
     }
 
     @Override
@@ -103,13 +103,13 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onADExposure() {
         Log.i(TAG, "onADExposure");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdExposure));
+        sendEvent(AdEventAction.onAdExposure);
     }
 
     @Override
     public void onADClicked() {
         Log.i(TAG, "onADClicked");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClicked));
+        sendEvent(AdEventAction.onAdClicked);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onADClosed() {
         Log.i(TAG, "onADClosed");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClosed));
+        sendEvent(AdEventAction.onAdClosed);
     }
 
     @Override
@@ -136,6 +136,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onRenderFail() {
         Log.i(TAG, "onRenderFail");
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, -100, "onRenderFail"));
+        sendErrorEvent(-100, "onRenderFail");
+
     }
 }

@@ -11,3 +11,5 @@
 ## 支持开源
 
 <img src="https://github.com/yy1300326388/yy1300326388/blob/main/images/pay_qr_code/pay_qr_code.png?raw=true" alt="支持作者" height="160"/>
+
+> 或许你不知道经过了多少个夜晚，就是为了方便你使用

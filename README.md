@@ -1,20 +1,34 @@
-# flutter_qq_ads
-
 <p align="center">
 <a href="https://github.com/FlutterAds"><img src="https://raw.githubusercontent.com/FlutterAds/site/master/logo/flutterads_logo.png" alt="logo" height="144"/></a>
 </p>
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.0.0-success></a>
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.0.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.0.1-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.0.1-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/blob/develop/LICENSE"><img src=https://img.shields.io/badge/license-MIT-brightgreen></a>
 </p>
 
-## 入门使用
+## 插件特点
+- 🔨 接入简单快速（封装原生端配置，仅需引入即可开始）
+- 📡 事件统一返回（将原生端各种重要回调事件统一返回，方便业务处理和埋点统计等需求）
+- 🎁 注重优化体验（无闪烁 Logo 开屏、权限申请、隐私跟踪申请等）
+- 🏆 极客代码封装（原生端代码不凑合，两端统一基础框架、广告事件封装抽象、易扩展新广告形式、方便开发个性化需求）
 
+## 支持功能
+- ✅ 开屏广告
+- ✅ 插屏广告
+  - ✅ 半插屏
+  - 🔲 全屏视频
+  - 🔲 激励视频
+- ✅ 激励视频
+- 🔲 Banner
+- 🔲 信息流
+- 🔲 全屏视频
+
+## 入门使用
 ### 引入依赖
 
 - 版本约定
@@ -50,9 +64,10 @@ flutter_qq_ads:
 ### 初始化广告
 
 ``` Dart
+/// [appId] 应用媒体ID
 FlutterQqAds.initAd(appId);
 ```
-### 设置广告状态监听
+### 设置广告事件监听
 
 ``` Dart
 FlutterQqAds.onEventListener((event) {
@@ -115,7 +130,7 @@ FlutterQqAds.showRewardVideoAd(
   );
 ```
 
-### 其他配置
+## 其他配置
 ### 信任HTTP请求
 苹果公司在iOS9中升级了应用网络通信安全策略，默认推荐开发者使用HTTPS协议来进行网络通信，并限制HTTP协议的请求。为了避免出现无法拉取到广告的情况，我们推荐开发者在info.plist文件中增加如下配置来实现广告的网络访问
 - 修改 `info.plist`
@@ -159,3 +174,9 @@ bool result = await FlutterQqAds.requestIDFA;
 ## 支持开源
 
 支持开源项目最好的方式就是用 1 秒点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads)
+
+## FlutterAds 系列插件
+
+- [flutter_qq_ads 「腾讯广告、广点通、优量汇广告插件」](https://github.com/FlutterAds/flutter_qq_ads)
+- [flutter_pangle_ads 「字节跳动、穿山甲广告插件」](https://github.com/FlutterAds/flutter_pangle_ads)
+- flutter_baidu_ads 「百度、百青藤广告插件（开发中）」

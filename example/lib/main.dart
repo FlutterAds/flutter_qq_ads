@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('FlutterAds QQ Plugin'),
+          title: const Text('FlutterAds QQ plugin'),
         ),
         body: Center(
           child: Column(
