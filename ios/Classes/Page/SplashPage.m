@@ -50,41 +50,36 @@
         // 加载半屏广告
         [self.splashAd showAdInWindow:mainWin withBottomView:_bottomView skipView:nil];
     }
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdLoaded];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdLoaded];
 }
 
 - (void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdPresent];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdPresent];
 }
 
 - (void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error
 {
     NSLog(@"%s%@",__FUNCTION__,error);
-    // 添加广告错误事件
-    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
-    [self addAdEvent:event];
+    // 发送广告错误事件
+    [self sendErrorEvent:error.code withErrMsg:error.localizedDescription];
 }
 
 - (void)splashAdExposured:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdExposure];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdExposure];
 }
 
 - (void)splashAdClicked:(GDTSplashAd *)splashAd
 {
     NSLog(@"%s",__FUNCTION__);
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClicked];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdClicked];
 }
 
 - (void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd
@@ -101,9 +96,8 @@
 {
     NSLog(@"%s",__FUNCTION__);
     self.splashAd = nil;
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClosed];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdClosed];
 }
 
 - (void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd

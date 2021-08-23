@@ -32,9 +32,8 @@
     NSLog(@"%s",__FUNCTION__);
     UIViewController* controller = [UIApplication sharedApplication].keyWindow.rootViewController;
     [self.rvad showAdFromRootViewController:controller];
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdLoaded];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdLoaded];
 }
 
 
@@ -47,18 +46,16 @@
 - (void)gdt_rewardVideoAdWillVisible:(GDTRewardVideoAd *)rewardedVideoAd
 {
     NSLog(@"%s",__FUNCTION__);
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdPresent];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdPresent];
 }
 
 - (void)gdt_rewardVideoAdDidExposed:(GDTRewardVideoAd *)rewardedVideoAd
 {
     NSLog(@"%s",__FUNCTION__);
     NSLog(@"广告已曝光");
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdExposure];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdExposure];
 }
 
 - (void)gdt_rewardVideoAdDidClose:(GDTRewardVideoAd *)rewardedVideoAd
@@ -66,9 +63,8 @@
     NSLog(@"%s",__FUNCTION__);
     
     NSLog(@"广告已关闭");
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClosed];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdClosed];
 }
 
 
@@ -76,26 +72,25 @@
 {
     NSLog(@"%s",__FUNCTION__);
     NSLog(@"广告已点击");
-    // 添加广告事件
-    AdEvent *event=[[AdEvent alloc] initWithAdId:self.posId andAction:onAdClicked];
-    [self addAdEvent:event];
+    // 发送广告事件
+    [self sendEventAction:onAdClicked];
 }
 
 - (void)gdt_rewardVideoAd:(GDTRewardVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error
 {
     NSLog(@"%s",__FUNCTION__);
     NSLog(@"ERROR: %@", error);
-    // 添加广告错误事件
-    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
-    [self addAdEvent:event];
+    // 发送广告错误事件
+    [self sendErrorEvent:error.code withErrMsg:error.localizedDescription];
 }
 
 - (void)gdt_rewardVideoAdDidRewardEffective:(GDTRewardVideoAd *)rewardedVideoAd info:(NSDictionary *)info {
     NSLog(@"%s",__FUNCTION__);
     NSString *transId=[info objectForKey:@"GDT_TRANS_ID"];
     NSLog(@"播放达到激励条件 transid:%@", transId);
+    // 发送激励事件
     AdRewardEvent *event=[[AdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
-    [self addAdEvent:event];
+    [self sendEvent:event];
 }
 
 - (void)gdt_rewardVideoAdDidPlayFinish:(GDTRewardVideoAd *)rewardedVideoAd

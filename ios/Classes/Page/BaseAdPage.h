@@ -16,10 +16,14 @@
 @property (weak,nonatomic) NSString *posId;
 // 事件消息
 @property (strong, nonatomic) FlutterEventSink eventSink;
-// 添加广告事件
--(void) addAdEvent:(AdEvent *) event;
 // 显示广告
 - (void) showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
 // 加载广告
 - (void) loadAd:(FlutterMethodCall *) call;
+// 发送广告事件
+-(void) sendEvent:(AdEvent *) event;
+// 发送广告事件
+-(void) sendEventAction:(NSString *) action;
+// 发送广告错误事件
+-(void) sendErrorEvent:(NSInteger) errCode withErrMsg:(NSString*) errMsg;
 @end
