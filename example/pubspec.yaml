@@ -1,5 +1,5 @@
 name: flutter_qq_ads_example
-description: Flutter 优量汇 广告 SDK 插件 示例
+description: FlutterAds 优量汇广告 SDK 插件示例
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
