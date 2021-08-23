@@ -58,7 +58,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
         if (rvad != null) {
             rvad.showAD();
         }
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdLoaded));
+        sendEvent(AdEventAction.onAdLoaded);
     }
 
     /**
@@ -75,7 +75,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     @Override
     public void onADShow() {
         Log.i(TAG, "onADShow");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdPresent));
+        sendEvent(AdEventAction.onAdPresent);
     }
 
     /**
@@ -84,7 +84,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     @Override
     public void onADExpose() {
         Log.i(TAG, "onADExpose");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdExposure));
+        sendEvent(AdEventAction.onAdExposure);
     }
 
     /**
@@ -96,7 +96,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     public void onReward(Map<String, Object> map) {
         String transId = (String) map.get(ServerSideVerificationOptions.TRANS_ID);
         Log.i(TAG, "onReward " + transId);  // 获取服务端验证的唯一 ID
-        AdEventHandler.getInstance().sendEvent(new AdRewardEvent(this.posId, AdEventAction.onAdReward, transId,customData,userId));
+        sendEvent(new AdRewardEvent(this.posId, AdEventAction.onAdReward, transId,customData,userId));
     }
 
     /**
@@ -105,7 +105,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     @Override
     public void onADClick() {
         Log.i(TAG, "onADClick");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClicked));
+        sendEvent(AdEventAction.onAdClicked);
     }
 
     /**
@@ -122,7 +122,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     @Override
     public void onADClose() {
         Log.i(TAG, "onADClose");
-        AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdClosed));
+        sendEvent(AdEventAction.onAdClosed);
     }
 
     /**
@@ -133,6 +133,6 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
         String msg = String.format(Locale.getDefault(), "onError, error code: %d, error msg: %s",
                 error.getErrorCode(), error.getErrorMsg());
         Log.i(TAG, "onError, adError=" + msg);
-        AdEventHandler.getInstance().sendEvent(new AdErrorEvent(this.posId, error.getErrorCode(), error.getErrorMsg()));
+        sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
     }
 }
