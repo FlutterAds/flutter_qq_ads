@@ -79,7 +79,17 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 child: Text('展示插屏广告'),
                 onPressed: () {
-                  showInterstitialAd();
+                  showInterstitialAd(AdsConfig.interstitialId);
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                child: Text('展示插屏全屏视频广告'),
+                onPressed: () {
+                  showInterstitialAd(
+                    AdsConfig.interstitialFullScreenVideoId,
+                    showFullScreenVideo: true,
+                  );
                 },
               ),
               SizedBox(height: 20),
@@ -124,11 +134,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// 展示插屏广告
-  Future<void> showInterstitialAd() async {
+  Future<void> showInterstitialAd(
+    String posId, {
+    bool showFullScreenVideo = false,
+    bool showRewardVideo = false,
+  }) async {
     try {
       bool result = await FlutterQqAds.showInterstitialAd(
-        AdsConfig.interstitialId,
+        posId,
         showPopup: false,
+        showFullScreenVideo: showFullScreenVideo,
+        showRewardVideo: showRewardVideo,
         autoPlayMuted: false,
         autoPlayOnWifi: false,
         detailPageMuted: false,

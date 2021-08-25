@@ -55,6 +55,17 @@ class AdsConfig {
     }
   }
 
+  /// 获取插屏全屏视频广告位id
+  static String get interstitialFullScreenVideoId {
+    // 官方demo
+    // return "9040714184494018";
+    if (Platform.isAndroid) {
+      return '3012521499614895';
+    } else {
+      return '3092322459911886';
+    }
+  }
+
   /// 获取激励视频广告位id
   static String get rewardVideoId {
     // 官方demo

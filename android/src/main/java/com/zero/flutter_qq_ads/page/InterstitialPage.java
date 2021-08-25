@@ -27,13 +27,25 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     private UnifiedInterstitialAD iad;
     // popup 形式展示
     private boolean showPopup = false;
+    // 全屏视频形式展示
+    private boolean showFullScreenVideo = false;
+    // 激励视频形式展示
+    private boolean showRewardVideo = false;
 
     @Override
     public void loadAd(Activity activity, @NonNull MethodCall call) {
         showPopup = call.argument("showPopup");
+        showFullScreenVideo = call.argument("showFullScreenVideo");
+        showRewardVideo = call.argument("showRewardVideo");
         iad = new UnifiedInterstitialAD(activity, posId, this);
         setVideoOption(call);
-        iad.loadAD();
+        // 插屏全屏视频或插屏激励视频加载方式
+        if(showFullScreenVideo||showRewardVideo){
+            iad.loadFullScreenAD();
+        }else{
+            iad.loadAD();
+        }
+
     }
 
 
@@ -74,6 +86,32 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
         } else {
             Log.d(TAG, "请加载广告并渲染成功后再进行展示 ！ ");
         }
+    }
+
+    /**
+     * 显示全屏视频广告
+     */
+    private void showAsFullScreen() {
+        if (iad != null && iad.isValid()) {
+            iad.showFullScreenAD(activity);
+        } else {
+            Log.d(TAG, "请加载广告并渲染成功后再进行展示 ！ ");
+        }
+    }
+
+    /**
+     * 全屏视频形式展示
+      */
+    public boolean isShowFullScreenVideo() {
+        return showFullScreenVideo;
+    }
+
+    /**
+     * 设置全屏视频形式展示
+     * @param showFullScreenVideo 是否展示全屏视屏
+     */
+    public void setShowFullScreenVideo(boolean showFullScreenVideo) {
+        this.showFullScreenVideo = showFullScreenVideo;
     }
 
     @Override
@@ -126,11 +164,16 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onRenderSuccess() {
         Log.i(TAG, "onRenderSuccess，建议在此回调后再调用展示方法");
-        if (showPopup) {
-            showAsPopup();
-        } else {
-            show();
+        if(showFullScreenVideo||showRewardVideo){
+            showAsFullScreen();
+        }else {
+            if (showPopup) {
+                showAsPopup();
+            } else {
+                show();
+            }
         }
+
     }
 
     @Override
