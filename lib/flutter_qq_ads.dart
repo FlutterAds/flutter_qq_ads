@@ -34,7 +34,7 @@ class FlutterQqAds {
 
   /// 展示开屏广告
   /// [posId] 广告位 id
-  /// [logo] 展示如果传递则展示底部logo，不传递不展示，则全屏
+  /// [logo] 如果传值则展示底部logo，不传不展示，则全屏展示
   static Future<bool> showSplashAd(String posId, [String logo]) async {
     final bool result = await _methodChannel.invokeMethod(
       'showSplashAd',

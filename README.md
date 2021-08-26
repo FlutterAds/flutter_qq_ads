@@ -96,14 +96,14 @@ FlutterQqAds.onEventListener((event) {
 |onAdError|广告错误|
 |onAdReward|获得广告激励|
 
-> 这里做了统一的抽象，iOS 和 Android 名称可能不同，如果觉得对应不上，可以提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues)（一定要加上 log 截图）
+> 这里做了统一的抽象，iOS 和 Android 原生 SDK 名称不同，如果觉得对应不上，可以提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues)（一定要加上 log 截图）
 ### 开屏广告
 
 - 半屏广告 + Logo
 
 ``` Dart
 /// [posId] 广告位 id
-/// [logo] 展示如果传递则展示底部logo，不传递不展示，则全屏
+/// [logo] 如果传值则展示底部logo，不传不展示，则全屏展示
 FlutterQqAds.showSplashAd(posId, 'flutterads_logo');
 ```
 - [Logo 设置的最佳实践](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/doc/SETTING_LOGO.md)
