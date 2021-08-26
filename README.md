@@ -216,8 +216,9 @@ android{
 ```
 - iOS
 
-  自己手动更新，项目根目录下执行即可
+  自己手动更新，自己的项目根目录下执行即可
 ```shell
+// 可在 ios/Podfile.lock 中查看 SDK 当前版本
 cd ios
 rm -rf Podfile.lock
 pod repo update
