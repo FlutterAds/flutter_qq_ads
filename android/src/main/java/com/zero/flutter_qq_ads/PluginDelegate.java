@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
 import com.zero.flutter_qq_ads.page.InterstitialPage;
 import com.zero.flutter_qq_ads.page.RewardVideoPage;
@@ -130,8 +131,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
      */
     public void initAd(MethodCall call, MethodChannel.Result result) {
         String appId = call.argument("appId");
-        boolean initSuccess = GDTADManager.getInstance().initWith(activity, appId);
-        result.success(initSuccess);
+        GDTAdSdk.init(activity.getApplicationContext(), appId);
+        result.success(true);
     }
 
     /**

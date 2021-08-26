@@ -48,6 +48,13 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    // 强制指定版本
+//    configurations.all {
+//        resolutionStrategy {
+//            force 'com.qq.e.union:union:4.391.1261'
+//        }
+//    }
 }
 
 flutter {
