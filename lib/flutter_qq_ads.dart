@@ -54,6 +54,8 @@ class FlutterQqAds {
   /// [autoPlayOnWifi] 是否仅在 WiFi 网络下自动播放
   /// [autoPlayMuted] 自动播放是否静音
   /// [detailPageMuted] 详情页是否静音
+  /// [customData] 设置服务端验证的自定义信息
+  /// [userId] 设置服务端验证的用户信息
   static Future<bool> showInterstitialAd(
     String posId, {
     bool showPopup = false,
@@ -62,6 +64,8 @@ class FlutterQqAds {
     bool autoPlayOnWifi = false,
     bool autoPlayMuted = true,
     bool detailPageMuted = false,
+    String customData,
+    String userId,
   }) async {
     final bool result = await _methodChannel.invokeMethod(
       'showInterstitialAd',
@@ -73,6 +77,8 @@ class FlutterQqAds {
         'autoPlayOnWifi': autoPlayOnWifi,
         'autoPlayMuted': autoPlayMuted,
         'detailPageMuted': detailPageMuted,
+        'customData': customData,
+        'userId': userId,
       },
     );
     return result;

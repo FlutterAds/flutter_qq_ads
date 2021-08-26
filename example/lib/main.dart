@@ -40,66 +40,79 @@ class _MyAppState extends State<MyApp> {
           title: const Text('FlutterAds QQ plugin'),
         ),
         body: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Text('Result: $_result'),
-              SizedBox(height: 10),
-              Text('onAdEvent: $_adEvent'),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('初始化'),
-                onPressed: () {
-                  init();
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('请求应用跟踪透明度授权(仅 iOS)'),
-                onPressed: () {
-                  requestIDFA();
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示开屏广告（Logo2）'),
-                onPressed: () {
-                  showSplashAd(AdsConfig.logo2);
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示开屏广告（全屏）'),
-                onPressed: () {
-                  showSplashAd();
-                  setState(() {});
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示插屏广告'),
-                onPressed: () {
-                  showInterstitialAd(AdsConfig.interstitialId);
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示插屏全屏视频广告'),
-                onPressed: () {
-                  showInterstitialAd(
-                    AdsConfig.interstitialFullScreenVideoId,
-                    showFullScreenVideo: true,
-                  );
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示激励视频广告'),
-                onPressed: () {
-                  showRewardVideoAd();
-                },
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                Text('Result: $_result'),
+                SizedBox(height: 10),
+                Text('onAdEvent: $_adEvent'),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('初始化'),
+                  onPressed: () {
+                    init();
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('请求应用跟踪透明度授权(仅 iOS)'),
+                  onPressed: () {
+                    requestIDFA();
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示开屏广告（Logo2）'),
+                  onPressed: () {
+                    showSplashAd(AdsConfig.logo2);
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示开屏广告（全屏）'),
+                  onPressed: () {
+                    showSplashAd();
+                    setState(() {});
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示插屏广告'),
+                  onPressed: () {
+                    showInterstitialAd(AdsConfig.interstitialId);
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示插屏全屏视频广告'),
+                  onPressed: () {
+                    showInterstitialAd(
+                      AdsConfig.interstitialFullScreenVideoId,
+                      showFullScreenVideo: true,
+                    );
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示插屏激励视频广告'),
+                  onPressed: () {
+                    showInterstitialAd(
+                      AdsConfig.interstitialRewardVideoId,
+                      showFullScreenVideo: true,
+                      showRewardVideo: true,
+                    );
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  child: Text('展示激励视频广告'),
+                  onPressed: () {
+                    showRewardVideoAd();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

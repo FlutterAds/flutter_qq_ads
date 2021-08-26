@@ -96,7 +96,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     public void onReward(Map<String, Object> map) {
         String transId = (String) map.get(ServerSideVerificationOptions.TRANS_ID);
         Log.i(TAG, "onReward " + transId);  // 获取服务端验证的唯一 ID
-        sendEvent(new AdRewardEvent(this.posId, AdEventAction.onAdReward, transId,customData,userId));
+        sendEvent(new AdRewardEvent(this.posId, AdEventAction.onAdReward, transId, customData, userId));
     }
 
     /**

@@ -6,22 +6,27 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.qq.e.ads.cfg.VideoOption;
+import com.qq.e.ads.interstitial2.ADRewardListener;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialAD;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
+import com.qq.e.ads.rewardvideo.RewardVideoAD;
+import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.util.AdError;
 import com.zero.flutter_qq_ads.event.AdErrorEvent;
 import com.zero.flutter_qq_ads.event.AdEvent;
 import com.zero.flutter_qq_ads.event.AdEventAction;
 import com.zero.flutter_qq_ads.event.AdEventHandler;
+import com.zero.flutter_qq_ads.event.AdRewardEvent;
 
 import java.util.Locale;
+import java.util.Map;
 
 import io.flutter.plugin.common.MethodCall;
 
 /**
  * 插屏广告
  */
-public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialADListener {
+public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialADListener, ADRewardListener {
     private final String TAG = InterstitialPage.class.getSimpleName();
     // 插屏广告
     private UnifiedInterstitialAD iad;
@@ -31,6 +36,10 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     private boolean showFullScreenVideo = false;
     // 激励视频形式展示
     private boolean showRewardVideo = false;
+    // 设置激励视频服务端验证的自定义信息
+    private String customData;
+    // 设置服务端验证的用户信息
+    private String userId;
 
     @Override
     public void loadAd(Activity activity, @NonNull MethodCall call) {
@@ -40,9 +49,9 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
         iad = new UnifiedInterstitialAD(activity, posId, this);
         setVideoOption(call);
         // 插屏全屏视频或插屏激励视频加载方式
-        if(showFullScreenVideo||showRewardVideo){
+        if (showFullScreenVideo || showRewardVideo) {
             iad.loadFullScreenAD();
-        }else{
+        } else {
             iad.loadAD();
         }
 
@@ -63,6 +72,19 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
                 .setDetailPageMuted(detailPageMuted)
                 .build();
         iad.setVideoOption(option);
+        // 如果是激励视频，则设置信息
+        if (showRewardVideo) {
+            // 设置激励监听
+            iad.setRewardListener(this);
+            customData = call.argument("customData");
+            userId = call.argument("userId");
+            // 设置服务端验证信息
+            ServerSideVerificationOptions options = new ServerSideVerificationOptions.Builder()
+                    .setCustomData(customData)
+                    .setUserId(userId) // 设置服务端验证的用户信息
+                    .build();
+            iad.setServerSideVerificationOptions(options);
+        }
 
     }
 
@@ -101,13 +123,14 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
 
     /**
      * 全屏视频形式展示
-      */
+     */
     public boolean isShowFullScreenVideo() {
         return showFullScreenVideo;
     }
 
     /**
      * 设置全屏视频形式展示
+     *
      * @param showFullScreenVideo 是否展示全屏视屏
      */
     public void setShowFullScreenVideo(boolean showFullScreenVideo) {
@@ -164,16 +187,15 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     @Override
     public void onRenderSuccess() {
         Log.i(TAG, "onRenderSuccess，建议在此回调后再调用展示方法");
-        if(showFullScreenVideo||showRewardVideo){
+        if (showFullScreenVideo || showRewardVideo) {
             showAsFullScreen();
-        }else {
+        } else {
             if (showPopup) {
                 showAsPopup();
             } else {
                 show();
             }
         }
-
     }
 
     @Override
@@ -181,5 +203,12 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
         Log.i(TAG, "onRenderFail");
         sendErrorEvent(-100, "onRenderFail");
 
+    }
+
+    @Override
+    public void onReward(Map<String, Object> map) {
+        String transId = (String) map.get(ServerSideVerificationOptions.TRANS_ID);
+        Log.i(TAG, "onReward " + transId);  // 获取服务端验证的唯一 ID
+        sendEvent(new AdRewardEvent(this.posId, AdEventAction.onAdReward, transId, customData, userId));
     }
 }

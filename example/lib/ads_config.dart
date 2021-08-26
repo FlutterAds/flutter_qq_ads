@@ -66,6 +66,17 @@ class AdsConfig {
     }
   }
 
+  /// 获取插屏激励视频广告位id
+  static String get interstitialRewardVideoId {
+    // 官方demo
+    // return "9040714184494018";
+    if (Platform.isAndroid) {
+      return '2052820580637311';
+    } else {
+      return '9022927550132316';
+    }
+  }
+
   /// 获取激励视频广告位id
   static String get rewardVideoId {
     // 官方demo
