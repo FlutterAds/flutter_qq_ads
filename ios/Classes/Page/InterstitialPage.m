@@ -6,6 +6,20 @@
 //
 
 #import "InterstitialPage.h"
+#import "GDTUnifiedInterstitialAd.h"
+
+// 插屏广告
+@interface InterstitialPage()<GDTUnifiedInterstitialAdDelegate>
+@property (nonatomic, strong) GDTUnifiedInterstitialAd *iad;
+// 全屏视频形式展示
+@property BOOL showFullScreenVideo;
+// 激励视频形式展示
+@property BOOL showRewardVideo;
+// 服务端验证的自定义信息
+@property (copy,nonatomic) NSString *customData;
+// 服务端验证的用户信息
+@property (copy,nonatomic) NSString *userId;
+@end
 
 @implementation InterstitialPage
 

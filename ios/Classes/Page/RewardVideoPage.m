@@ -6,6 +6,15 @@
 //
 
 #import "RewardVideoPage.h"
+#import "GDTRewardVideoAd.h"
+// 激励视频页面
+@interface RewardVideoPage()<GDTRewardedVideoAdDelegate>
+@property (nonatomic, strong) GDTRewardVideoAd *rvad;
+// 服务端验证的自定义信息
+@property (copy,nonatomic) NSString *customData;
+// 服务端验证的用户信息
+@property (copy,nonatomic) NSString *userId;
+@end
 
 @implementation RewardVideoPage
 // 加载广告

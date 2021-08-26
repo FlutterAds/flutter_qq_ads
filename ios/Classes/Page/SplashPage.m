@@ -6,6 +6,13 @@
 //
 
 #import "SplashPage.h"
+#import "GDTSplashAd.h"
+// 开屏广告
+@interface SplashPage()<GDTSplashAdDelegate>
+@property (strong, nonatomic) GDTSplashAd *splashAd;
+@property (retain, nonatomic) UIView *bottomView;
+@property (nonatomic, assign) BOOL fullScreenAd;
+@end
 
 @implementation SplashPage
 // 加载广告
