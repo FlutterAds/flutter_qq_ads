@@ -28,7 +28,7 @@ public abstract class BaseAdPage {
      * @param call     方法调用
      */
     public void showAd(Activity activity, String posId, @NonNull MethodCall call) {
-        this.activity=activity;
+        this.activity = activity;
         this.posId = posId;
         loadAd(activity, call);
     }
@@ -39,7 +39,7 @@ public abstract class BaseAdPage {
      * @param activity 上下文
      * @param call     方法调用
      */
-    public abstract void loadAd(Activity activity,@NonNull  MethodCall call);
+    public abstract void loadAd(Activity activity, @NonNull MethodCall call);
 
 
     /**

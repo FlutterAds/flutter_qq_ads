@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
 import com.zero.flutter_qq_ads.page.InterstitialPage;
 import com.zero.flutter_qq_ads.page.RewardVideoPage;
@@ -17,7 +18,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
 /// 插件代理
-public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChannel.StreamHandler{
+public class PluginDelegate implements MethodChannel.MethodCallHandler, EventChannel.StreamHandler {
     private final String TAG = PluginDelegate.class.getSimpleName();
     // Flutter 插件绑定对象
     public FlutterPlugin.FlutterPluginBinding bind;
@@ -29,7 +30,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
     private EventChannel.EventSink eventSink;
     // 插件代理对象
     private static PluginDelegate _instance;
-    public static  PluginDelegate getInstance(){
+
+    public static PluginDelegate getInstance() {
         return _instance;
     }
 
@@ -40,52 +42,56 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
 
     /**
      * 插件代理构造函数构造函数
-     * @param activity Activity
+     *
+     * @param activity      Activity
      * @param pluginBinding FlutterPluginBinding
      */
-    public PluginDelegate(Activity activity, FlutterPlugin.FlutterPluginBinding pluginBinding){
-        this.activity=activity;
-        this.bind=pluginBinding;
-        _instance=this;
+    public PluginDelegate(Activity activity, FlutterPlugin.FlutterPluginBinding pluginBinding) {
+        this.activity = activity;
+        this.bind = pluginBinding;
+        _instance = this;
     }
 
     /**
      * 方法通道调用
-     * @param call 方法调用对象
+     *
+     * @param call   方法调用对象
      * @param result 回调结果对象
      */
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-        String method=call.method;
-        Log.d(TAG, "MethodChannel onMethodCall method:"+method +" arguments:"+call.arguments);
+        String method = call.method;
+        Log.d(TAG, "MethodChannel onMethodCall method:" + method + " arguments:" + call.arguments);
         if ("getPlatformVersion".equals(method)) {
             getPlatformVersion(call, result);
-        }else if ("initAd".equals(method)){
+        } else if ("initAd".equals(method)) {
             initAd(call, result);
-        }else if ("showSplashAd".equals(method)){
+        } else if ("showSplashAd".equals(method)) {
             showSplashAd(call, result);
-        }else if ("showInterstitialAd".equals(method)){
+        } else if ("showInterstitialAd".equals(method)) {
             showInterstitialAd(call, result);
-        }else if ("showRewardVideoAd".equals(method)){
+        } else if ("showRewardVideoAd".equals(method)) {
             showRewardVideoAd(call, result);
-        }else {
+        } else {
             result.notImplemented();
         }
     }
 
     /**
      * 建立事件通道监听
+     *
      * @param arguments 参数
-     * @param events 事件回调对象
+     * @param events    事件回调对象
      */
     @Override
     public void onListen(Object arguments, EventChannel.EventSink events) {
-        Log.d(TAG, "EventChannel onListen arguments:"+arguments);
+        Log.d(TAG, "EventChannel onListen arguments:" + arguments);
         eventSink = events;
     }
 
     /**
      * 取消事件通道监听
+     *
      * @param arguments 参数
      */
     @Override
@@ -96,10 +102,11 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
 
     /**
      * 添加事件
+     *
      * @param event 事件
      */
-    public void addEvent(Object event){
-        if(eventSink!=null){
+    public void addEvent(Object event) {
+        if (eventSink != null) {
             Log.d(TAG, "EventChannel addEvent event:" + event.toString());
             eventSink.success(event);
         }
@@ -124,8 +131,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
      */
     public void initAd(MethodCall call, MethodChannel.Result result) {
         String appId = call.argument("appId");
-        boolean initSuccess=GDTADManager.getInstance().initWith(activity,appId);
-        result.success(initSuccess);
+        GDTAdSdk.init(activity.getApplicationContext(), appId);
+        result.success(true);
     }
 
     /**
@@ -138,22 +145,22 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
         String posId = call.argument(KEY_POSID);
         String logo = call.argument(KEY_LOGO);
         Intent intent = new Intent(activity, AdSplashActivity.class);
-        intent.putExtra(KEY_POSID,posId);
-        intent.putExtra(KEY_LOGO,logo);
+        intent.putExtra(KEY_POSID, posId);
+        intent.putExtra(KEY_LOGO, logo);
         activity.startActivity(intent);
         result.success(true);
     }
 
     /**
-     * 显示插屏广告
+     * 显示插屏、插屏全屏视频、插屏激励视频广告
      *
      * @param call   MethodCall
      * @param result Result
      */
     public void showInterstitialAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
-        InterstitialPage iad=new InterstitialPage();
-        iad.showAd(activity,posId,call);
+        InterstitialPage iad = new InterstitialPage();
+        iad.showAd(activity, posId, call);
         result.success(true);
     }
 
@@ -165,8 +172,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler,EventChan
      */
     public void showRewardVideoAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
-        RewardVideoPage iad=new RewardVideoPage();
-        iad.showAd(activity,posId,call);
+        RewardVideoPage iad = new RewardVideoPage();
+        iad.showAd(activity, posId, call);
         result.success(true);
     }
 }
