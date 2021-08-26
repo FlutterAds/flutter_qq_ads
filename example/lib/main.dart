@@ -161,6 +161,8 @@ class _MyAppState extends State<MyApp> {
         autoPlayMuted: false,
         autoPlayOnWifi: false,
         detailPageMuted: false,
+        userId: 'userId',
+        customData: 'showInterstitialAd customData',
       );
       _result = "展示插屏广告${result ? '成功' : '失败'}";
     } on PlatformException catch (e) {
@@ -175,7 +177,7 @@ class _MyAppState extends State<MyApp> {
       bool result = await FlutterQqAds.showRewardVideoAd(
         AdsConfig.rewardVideoId,
         playMuted: false,
-        customData: 'customData',
+        customData: 'showRewardVideoAd customData',
         userId: 'userId',
       );
       _result = "展示激励视频广告${result ? '成功' : '失败'}";
