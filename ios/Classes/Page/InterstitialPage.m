@@ -16,16 +16,39 @@
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
     NSLog(@"加载广告:%@",self.posId);
-    BOOL autoPlayMuted = [call.arguments[@"autoPlayMuted"] boolValue];
-    BOOL autoPlayOnWifi = [call.arguments[@"autoPlayOnWifi"] boolValue];
-    BOOL detailPageMuted = [call.arguments[@"detailPageMuted"] boolValue];
+    
     
     self.iad=[[GDTUnifiedInterstitialAd alloc] initWithPlacementId:self.posId];
     self.iad.delegate=self;
+    [self setOption:call];
+    // 插屏全屏视频或插屏激励视频加载方式
+    if (self.showFullScreenVideo||self.showRewardVideo) {
+        [self.iad loadFullScreenAd];
+    } else {
+        [self.iad loadAd];
+    }
+    
+}
+// 配置项
+- (void) setOption:(FlutterMethodCall *) call{
+    self.showFullScreenVideo = [call.arguments[@"showFullScreenVideo"] boolValue];
+    self.showRewardVideo= [call.arguments[@"showRewardVideo"] boolValue];
+    BOOL autoPlayMuted = [call.arguments[@"autoPlayMuted"] boolValue];
+    BOOL autoPlayOnWifi = [call.arguments[@"autoPlayOnWifi"] boolValue];
+    BOOL detailPageMuted = [call.arguments[@"detailPageMuted"] boolValue];
     self.iad.videoAutoPlayOnWWAN=autoPlayOnWifi;
     self.iad.videoMuted=autoPlayMuted;
     self.iad.detailPageVideoMuted=detailPageMuted;
-    [self.iad loadAd];
+    // 激励视频配置项
+    if (self.showRewardVideo) {
+        self.customData = call.arguments[@"customData"] ;
+        self.userId = call.arguments[@"userId"];
+        //如果设置了服务端验证，可以设置serverSideVerificationOptions属性
+        GDTServerSideVerificationOptions *ssv = [[GDTServerSideVerificationOptions alloc] init];
+        ssv.userIdentifier = self.userId;
+        ssv.customRewardString = self.customData;
+        self.iad.serverSideVerificationOptions = ssv;
+    }
 }
 
 #pragma mark - GDTUnifiedInterstitialAdDelegate
@@ -61,7 +84,12 @@
 - (void)unifiedInterstitialRenderSuccess:(GDTUnifiedInterstitialAd *)unifiedInterstitial {
     NSLog(@"%s",__FUNCTION__);
     UIViewController* controller = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [self.iad presentAdFromRootViewController:controller];
+    if (self.showFullScreenVideo||self.showRewardVideo) {
+        [self.iad presentFullScreenAdFromRootViewController:controller];
+    }else{
+        [self.iad presentAdFromRootViewController:controller];
+    }
+    
 }
 
 - (void)unifiedInterstitialRenderFail:(GDTUnifiedInterstitialAd *)unifiedInterstitial error:(NSError *)error {
@@ -164,6 +192,14 @@
 - (void)unifiedInterstitialAdDidDismissFullScreenModal:(GDTUnifiedInterstitialAd *)unifiedInterstitial
 {
     NSLog(@"%s",__FUNCTION__);
+}
+
+- (void)unifiedInterstitialAdDidRewardEffective:(GDTUnifiedInterstitialAd *)unifiedInterstitial info:(NSDictionary *)info {
+    NSString *transId=[info objectForKey:@"GDT_TRANS_ID"];
+    NSLog(@"播放达到激励条件 transid:%@", transId);
+    // 发送激励事件
+    AdRewardEvent *event=[[AdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
+    [self sendEvent:event];
 }
 
 @end
