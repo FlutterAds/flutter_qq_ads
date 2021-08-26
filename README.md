@@ -197,7 +197,7 @@ bool result = await FlutterQqAds.requestIDFA;
 
 - [官方参考链接 - 用户隐私和数据使用](https://developer.apple.com/cn/app-store/user-privacy-and-data-use/)
 
-## SDK 版本更新方法
+## 原生 SDK 版本更新方法
 如果是大版本，我会第一时间适配更新，小版本可以自己更新，方法如下：
 - Android
 
