@@ -49,10 +49,10 @@ jobs:
     # Build app
     #####
     #Build ios
-    - run: cd example && flutter build ios --release --no-codesign
+    - run: cd example && flutter build ios --release --no-codesign -v
     
     # Build apk.
-    - run: cd example && flutter build apk
+    - run: cd example && flutter build apk -v
     
     # Upload generated apk to the artifacts.
     - uses: actions/upload-artifact@v1
