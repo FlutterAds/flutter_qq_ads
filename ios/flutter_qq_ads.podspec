@@ -20,4 +20,6 @@ Pod::Spec.new do |s|
   s.static_framework = true
   # 广点通的 SDK 最低支持 9.0 所以，这里设置 9.0
   s.ios.deployment_target = '9.0'
+  # Flutter.framework does not contain a i386 slice.
+  s.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-lObjC', 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
 end
