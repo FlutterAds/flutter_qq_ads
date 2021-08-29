@@ -146,7 +146,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     public void showSplashAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
         String logo = call.argument(KEY_LOGO);
-        int fetchDelay = call.argument(KEY_FETCH_DELAY);
+        double fetchDelay = call.argument(KEY_FETCH_DELAY);
         Intent intent = new Intent(activity, AdSplashActivity.class);
         intent.putExtra(KEY_POSID, posId);
         intent.putExtra(KEY_LOGO, logo);
