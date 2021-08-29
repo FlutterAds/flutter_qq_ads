@@ -53,4 +53,4 @@ jobs:
     # Build ios
     - run: flutter precache
     - run: cd example/ios && pod install --verbose
-    - run: cd example && flutter build ios --release --no-codesign
+    - run: cd example && flutter build ios -v --release --no-codesign
