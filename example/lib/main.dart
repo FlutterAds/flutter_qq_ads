@@ -111,6 +111,13 @@ class _MyAppState extends State<MyApp> {
                     showRewardVideoAd();
                   },
                 ),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: AdBannerWidget(
+                    posId: AdsConfig.bannerId,
+                  ),
+                ),
               ],
             ),
           ),
