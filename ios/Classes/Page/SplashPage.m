@@ -18,11 +18,14 @@
 // 加载广告
 -(void)loadAd:(FlutterMethodCall *)call{
     NSString* logo=call.arguments[@"logo"];
+    int fetchDelay=[call.arguments[@"fetchDelay"] intValue];
     // logo 判断为空，则全屏展示
     self.fullScreenAd=[logo isKindOfClass:[NSNull class]]||[logo length]==0;
     // 初始化开屏广告
     self.splashAd=[[GDTSplashAd alloc] initWithPlacementId:self.posId];
     self.splashAd.delegate=self;
+    // 设置超时时长
+    self.splashAd.fetchDelay=fetchDelay;
     // 加载全屏广告
     if(self.fullScreenAd){
         [self.splashAd loadFullScreenAd];
