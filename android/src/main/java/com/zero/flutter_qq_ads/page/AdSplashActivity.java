@@ -55,8 +55,9 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
         // 获取参数
         posId = getIntent().getStringExtra(PluginDelegate.KEY_POSID);
         String logo = getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
+        int fetchDelay = getIntent().getIntExtra(PluginDelegate.KEY_FETCH_DELAY,0);
         // 创建开屏广告
-        SplashAD splashAD = new SplashAD(this, posId, this, 0);
+        SplashAD splashAD = new SplashAD(this, posId, this, fetchDelay);
         if (TextUtils.isEmpty(logo)) {
             // logo 为空则加载全屏广告
             ad_logo.setVisibility(View.GONE);

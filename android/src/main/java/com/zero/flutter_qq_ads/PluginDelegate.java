@@ -39,6 +39,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     public static final String KEY_POSID = "posId";
     // logo 参数
     public static final String KEY_LOGO = "logo";
+    // fetchDelay 参数
+    public static final String KEY_FETCH_DELAY = "fetchDelay";
 
     /**
      * 插件代理构造函数构造函数
@@ -144,9 +146,11 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     public void showSplashAd(MethodCall call, MethodChannel.Result result) {
         String posId = call.argument(KEY_POSID);
         String logo = call.argument(KEY_LOGO);
+        int fetchDelay = call.argument(KEY_FETCH_DELAY);
         Intent intent = new Intent(activity, AdSplashActivity.class);
         intent.putExtra(KEY_POSID, posId);
         intent.putExtra(KEY_LOGO, logo);
+        intent.putExtra(KEY_FETCH_DELAY, fetchDelay);
         activity.startActivity(intent);
         result.success(true);
     }
