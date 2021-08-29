@@ -13,8 +13,6 @@ on:
       - develop
       - 2x
     
-# on: push    # Default will running for every branch.
-    
 jobs:
   build:
     # This job will run on macos virtual machine
@@ -49,8 +47,6 @@ jobs:
     # Build app
     #####
     # Build apk.
-    #- run: cd example && flutter build apk
+    - run: cd example && flutter build apk
     # Build ios
-    - run: flutter precache
-    - run: cd example/ios && pod install --verbose
-    - run: cd example && flutter build ios -v --release --no-codesign
+    - run: cd example && flutter build ios --no-codesign
