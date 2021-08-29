@@ -59,7 +59,7 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
 
     @Override
     public void loadAd(Activity activity, @NonNull MethodCall call) {
-        bv = new UnifiedBannerView(activity, "test", this);
+        bv = new UnifiedBannerView(activity, posId, this);
         frameLayout.addView(bv);
         bv.loadAD();
     }
