@@ -4,9 +4,10 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.1.1-success></a>
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.1.1-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.1.2-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.1.2-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg?branch=develop"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/blob/develop/LICENSE"><img src=https://img.shields.io/badge/license-MIT-brightgreen></a>
 </p>
@@ -27,37 +28,16 @@
 - 🔲 Banner
 - 🔲 信息流
 
+## 下载体验
+<img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'>
+
 ## 入门使用
 ### 引入依赖
 
-- 版本约定
-  * 1.x.x 是非 Null Safety 版本，对应 `master` 分支
-  * 2.x.x 是 Null Safety 版本，对应 `2x` 分支
-
-  > 现在阶段会同时维护这 2 个版本，再往后可能仅维护一个空安全版本
-
-- Pub 引入
-
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.1.1 # 非 Null Safety 版本
-  flutter_qq_ads: ^2.1.1 # Null Safety 版本
-```
-
-- Git 引入
-
-``` Dart
-flutter_qq_ads:
-  git: 
-    url: git@github.com:FlutterAds/flutter_qq_ads.git
-    ref: master
-```
-
-- 克隆后本地引入
-
-``` Dart
-flutter_qq_ads:
-  path: [与主项目的相对路径 | 插件的绝对路径]
+  flutter_qq_ads: ^1.1.2 # 非 Null Safety 版本
+  flutter_qq_ads: ^2.1.2 # Null Safety 版本
 ```
 
 ### 初始化广告
@@ -66,37 +46,6 @@ flutter_qq_ads:
 /// [appId] 应用媒体ID
 FlutterQqAds.initAd(appId);
 ```
-### 设置广告事件监听
-
-``` Dart
-FlutterQqAds.onEventListener((event) {
-  // 普通广告事件
-  String _adEvent = 'adId:${event.adId} action:${event.action}';
-  if (event is AdErrorEvent) {
-    // 错误事件
-    _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
-  } else if (event is AdRewardEvent) {
-    // 激励事件
-    _adEvent +=
-        ' transId:${event.transId} customData:${event.customData} userId:${event.userId}';
-  }
-  print('onEventListener:$_adEvent');
-});
-```
-### 事件列表
-|事件|说明|
-|-|-|
-|onAdLoaded|广告加载成功|
-|onAdPresent|广告填充|
-|onAdExposure|广告曝光|
-|onAdClosed|广告关闭（开屏计时结束或者用户点击关闭）|
-|onAdClicked|广告点击|
-|onAdSkip|广告跳过|
-|onAdComplete|广告播放或计时完毕|
-|onAdError|广告错误|
-|onAdReward|获得广告激励|
-
-> 这里做了统一的抽象，iOS 和 Android 原生 SDK 名称不同，如果觉得对应不上，可以提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues)（一定要加上 log 截图）
 ### 开屏广告
 
 - 半屏广告 + Logo
@@ -104,7 +53,12 @@ FlutterQqAds.onEventListener((event) {
 ``` Dart
 /// [posId] 广告位 id
 /// [logo] 如果传值则展示底部logo，不传不展示，则全屏展示
-FlutterQqAds.showSplashAd(posId, 'flutterads_logo');
+/// [fetchDelay] 拉取广告的超时时间，默认值 3 秒，取值范围[1.5~5]秒
+FlutterQqAds.showSplashAd(
+    AdsConfig.splashId,
+    logo: 'flutterads_logo',
+    fetchDelay: 3,
+  );
 ```
 - [Logo 设置的最佳实践（必看）](https://github.com/FlutterAds/flutter_qq_ads/blob/develop/doc/SETTING_LOGO.md)
 
@@ -166,6 +120,38 @@ FlutterQqAds.showRewardVideoAd(
     userId: 'userId',
   );
 ```
+
+### 设置广告事件监听
+
+``` Dart
+FlutterQqAds.onEventListener((event) {
+  // 普通广告事件
+  String _adEvent = 'adId:${event.adId} action:${event.action}';
+  if (event is AdErrorEvent) {
+    // 错误事件
+    _adEvent += ' errCode:${event.errCode} errMsg:${event.errMsg}';
+  } else if (event is AdRewardEvent) {
+    // 激励事件
+    _adEvent +=
+        ' transId:${event.transId} customData:${event.customData} userId:${event.userId}';
+  }
+  print('onEventListener:$_adEvent');
+});
+```
+### 事件列表
+|事件|说明|
+|-|-|
+|onAdLoaded|广告加载成功|
+|onAdPresent|广告填充|
+|onAdExposure|广告曝光|
+|onAdClosed|广告关闭（开屏计时结束或者用户点击关闭）|
+|onAdClicked|广告点击|
+|onAdSkip|广告跳过|
+|onAdComplete|广告播放或计时完毕|
+|onAdError|广告错误|
+|onAdReward|获得广告激励|
+
+> 这里做了统一的抽象，iOS 和 Android 原生 SDK 名称不同，如果觉得对应不上，可以提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues)（一定要加上 log 截图）
 ## 其他配置
 ### 信任HTTP请求
 苹果公司在iOS9中升级了应用网络通信安全策略，默认推荐开发者使用HTTPS协议来进行网络通信，并限制HTTP协议的请求。为了避免出现无法拉取到广告的情况，我们推荐开发者在info.plist文件中增加如下配置来实现广告的网络访问

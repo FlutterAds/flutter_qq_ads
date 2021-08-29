@@ -35,12 +35,15 @@ class FlutterQqAds {
   /// 展示开屏广告
   /// [posId] 广告位 id
   /// [logo] 如果传值则展示底部logo，不传不展示，则全屏展示
-  static Future<bool> showSplashAd(String posId, [String? logo]) async {
+  /// [fetchDelay] 拉取广告的超时时间，默认值 3 秒，取值范围[1.5~5]秒
+  static Future<bool> showSplashAd(String posId,
+      {String? logo, double fetchDelay = 3}) async {
     final bool result = await _methodChannel.invokeMethod(
       'showSplashAd',
       {
         'posId': posId,
         'logo': logo,
+        'fetchDelay': fetchDelay,
       },
     );
     return result;
