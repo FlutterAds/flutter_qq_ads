@@ -226,7 +226,8 @@ pod install
 支持开源项目最好的方式就是用 1 秒点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads)
 
 ## FlutterAds 系列插件
-
-- [flutter_qq_ads 「腾讯广告、广点通、优量汇广告插件」](https://github.com/FlutterAds/flutter_qq_ads)
-- [flutter_pangle_ads 「字节跳动、穿山甲广告插件」](https://github.com/FlutterAds/flutter_pangle_ads)
-- flutter_baidu_ads 「百度、百青藤广告插件（开发中）」
+|插件|描述|
+|-|-|
+|[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
+|[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
+|flutter_baidu_ads|百度、百青藤 Flutter 广告插件（开发中）|
