@@ -44,6 +44,8 @@
 - (void)unifiedBannerViewDidLoad:(GDTUnifiedBannerView *)unifiedBannerView
 {
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdLoaded];
 }
 
 /**
@@ -63,6 +65,8 @@
  */
 - (void)unifiedBannerViewWillExpose:(nonnull GDTUnifiedBannerView *)unifiedBannerView {
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdExposure];
 }
 
 /**
@@ -71,6 +75,8 @@
 - (void)unifiedBannerViewClicked:(GDTUnifiedBannerView *)unifiedBannerView
 {
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdClicked];
 }
 
 /**
@@ -120,5 +126,7 @@
 - (void)unifiedBannerViewWillClose:(nonnull GDTUnifiedBannerView *)unifiedBannerView {
     self.bannerView = nil;
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdClicked];
 }
 @end
