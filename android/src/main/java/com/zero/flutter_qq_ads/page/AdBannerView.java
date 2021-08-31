@@ -51,17 +51,29 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
 
     @Override
     public void dispose() {
-        frameLayout.removeAllViews();
-        if (bv != null) {
-            bv.destroy();
-        }
+        disposeAd();
     }
 
     @Override
     public void loadAd(Activity activity, @NonNull MethodCall call) {
+        // 获取轮播时间间隔参数
+        int interval= (int) this.params.get("interval");
+        // 加载广告 Banner
         bv = new UnifiedBannerView(activity, posId, this);
         frameLayout.addView(bv);
+        // 设置轮播时间间隔
+        bv.setRefresh(interval);
         bv.loadAD();
+    }
+
+    /**
+     * 销毁广告
+     */
+    private void disposeAd(){
+        frameLayout.removeAllViews();
+        if (bv != null) {
+            bv.destroy();
+        }
     }
 
     @Override
@@ -70,6 +82,7 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
                 error.getErrorCode(), error.getErrorMsg());
         Log.e(TAG, msg);
         sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
+        disposeAd();
     }
 
     @Override
@@ -88,6 +101,7 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
     public void onADClosed() {
         Log.i(TAG, "onADClosed");
         sendEvent(AdEventAction.onAdClosed);
+        disposeAd();
     }
 
     @Override
@@ -104,13 +118,13 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
     @Override
     public void onADOpenOverlay() {
         Log.i(TAG, "onADOpenOverlay");
-        sendEvent(AdEventAction.onAdClicked);
+//        sendEvent(AdEventAction.onAdClicked);
     }
 
     @Override
     public void onADCloseOverlay() {
         Log.i(TAG, "onADCloseOverlay");
-        sendEvent(AdEventAction.onAdClosed);
+//        sendEvent(AdEventAction.onAdClosed);
     }
 
 

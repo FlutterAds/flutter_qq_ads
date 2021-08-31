@@ -19,6 +19,7 @@
               binaryMessenger:(NSObject<FlutterBinaryMessenger>*)messenger
                        plugin:(FlutterQqAdsPlugin*) plugin{
     if (self = [super init]) {
+        self.args=args;
         NSString* posId = args[@"posId"];
         [self showAd:posId methodCall:nil eventSink:plugin.eventSink];
     }
@@ -30,8 +31,17 @@
 }
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
+    // 刷新间隔
+    int interval=[self.args[@"interval"] intValue];
+    // 创建 Banner
     self.bannerView=[[GDTUnifiedBannerView alloc] initWithPlacementId:self.posId viewController:self.rootController];
+    // 设置 Delegate
     self.bannerView.delegate=self;
+    // 这里处理如果刷新间隔不为 0，则展示动画
+    self.bannerView.animated=interval!=0;
+    // 设置刷新间隔
+    self.bannerView.autoSwitchInterval=interval;
+    // 加载动画
     [self.bannerView loadAdAndShow];
 }
 
