@@ -111,6 +111,7 @@ class _MyAppState extends State<MyApp> {
                     showRewardVideoAd();
                   },
                 ),
+                SizedBox(height: 20),
                 Container(
                   width: double.infinity,
                   height: 100,
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
                     posId: AdsConfig.bannerId,
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),

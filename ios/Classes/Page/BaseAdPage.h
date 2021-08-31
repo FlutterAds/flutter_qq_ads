@@ -16,6 +16,14 @@
 @property (weak,nonatomic) NSString *posId;
 // 事件消息
 @property (strong, nonatomic) FlutterEventSink eventSink;
+// Window
+@property (strong,nonatomic) UIWindow *mainWin;
+// 根控制器
+@property (strong,nonatomic) UIViewController *rootController;
+// 屏幕宽度
+@property CGFloat width;
+// 屏幕高度
+@property CGFloat height;
 // 显示广告
 - (void) showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
 // 加载广告

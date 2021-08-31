@@ -1,33 +1,39 @@
 #import "FlutterQqAdsPlugin.h"
 #import "GDTSDKConfig.h"
-#import "SplashPage.h"
-#import "InterstitialPage.h"
-#import "RewardVideoPage.h"
+#import "NativeViewFactory.h"
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
 
-@interface FlutterQqAdsPlugin()
-@property (strong, nonatomic) FlutterEventSink eventSink;
-@property (strong, nonatomic) SplashPage *sad;
-@property (strong, nonatomic) InterstitialPage *iad;
-@property (strong, nonatomic) RewardVideoPage *rvad;
-@property (weak,nonatomic) NSString *posId;
+//@interface FlutterQqAdsPlugin()
+//@property (strong, nonatomic) FlutterEventSink eventSink;
+//@property (strong, nonatomic) SplashPage *sad;
+//@property (strong, nonatomic) InterstitialPage *iad;
+//@property (strong, nonatomic) RewardVideoPage *rvad;
+//@property (weak,nonatomic) NSString *posId;
 
-@end
+//@end
 
 @implementation FlutterQqAdsPlugin
 // 广告位id
 NSString *const kPosId=@"posId";
+// AdBannerView
+NSString *const kAdBannerViewId=@"flutter_qq_ads_banner";
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    // 方法通道
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
                                            methodChannelWithName:@"flutter_qq_ads"
                                            binaryMessenger:[registrar messenger]];
+    // 事件通道
     FlutterEventChannel* eventChannel=[FlutterEventChannel eventChannelWithName:@"flutter_qq_ads_event" binaryMessenger:[registrar messenger]];
+    // 注册方法和事件通道
     FlutterQqAdsPlugin* instance = [[FlutterQqAdsPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:methodChannel];
     [eventChannel setStreamHandler:instance];
-    
+    // 注册平台View 工厂
+    NativeViewFactory *factory=[[NativeViewFactory alloc] initWithMessenger:registrar.messenger withPlugin:instance];
+    // 注册 Banner View
+    [registrar registerViewFactory:factory withId:kAdBannerViewId];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
