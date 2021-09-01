@@ -33,10 +33,10 @@ public class NativeViewFactory extends PlatformViewFactory {
         final Map<String, Object> creationParams = (Map<String, Object>) args;
         return new AdBannerView(context, id, creationParams, pluginDelegate);
 //        if (this.viewName.equals(PluginDelegate.KEY_BANNER_VIEW)) {
+//            return new AdBannerView(context, id, creationParams, pluginDelegate);
+//        }
+//        else {
 //            return new BannerAdView(context, id, creationParams, pluginDelegate);
-//        } else {
-//            return new BannerAdView(context, id, creationParams, pluginDelegate);
-////            return new RecycleAdView(context, id, creationParams, pluginDelegate);
 //        }
 
 
