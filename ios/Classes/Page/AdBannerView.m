@@ -65,6 +65,7 @@
 
 - (void)unifiedBannerViewFailedToLoad:(GDTUnifiedBannerView *)unifiedBannerView error:(NSError *)error
 {
+    self.bannerView = nil;
     NSLog(@"%s%@",__FUNCTION__,error);
     // 发送广告错误事件
     [self sendErrorEvent:error.code withErrMsg:error.localizedDescription];

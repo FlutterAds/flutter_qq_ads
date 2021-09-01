@@ -126,7 +126,7 @@ class _MyAppState extends State<MyApp> {
                   child: AdBannerWidget(
                     posId: AdsConfig.bannerId,
                     interval: 0,
-                    show: false,
+                    show: true,
                   ),
                 ),
                 Container(
