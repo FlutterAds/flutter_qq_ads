@@ -129,13 +129,6 @@ class _MyAppState extends State<MyApp> {
                     show: true,
                   ),
                 ),
-                AspectRatio(
-                  aspectRatio: 6.4 / 1,
-                  child: AdBannerWidget(
-                    posId: AdsConfig.bannerId02,
-                    interval: 120,
-                  ),
-                ),
                 Container(
                   width: double.infinity,
                   // height: 100,
