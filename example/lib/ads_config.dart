@@ -87,4 +87,31 @@ class AdsConfig {
       return '1042528123383807';
     }
   }
+
+  /// 获取 Banner 广告位id
+  static String get bannerId {
+    if (Platform.isAndroid) {
+      return '7012823860373149';
+    } else {
+      return '1012123800675280';
+    }
+  }
+
+  /// 获取 Banner 广告位id 01
+  static String get bannerId01 {
+    if (Platform.isAndroid) {
+      return '6062221971706046';
+    } else {
+      return '5082024961806019';
+    }
+  }
+
+  /// 获取 Banner 广告位id 02
+  static String get bannerId02 {
+    if (Platform.isAndroid) {
+      return '6042821991205067';
+    } else {
+      return '5032426921405160';
+    }
+  }
 }

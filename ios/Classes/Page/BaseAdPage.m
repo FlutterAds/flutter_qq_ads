@@ -18,6 +18,13 @@
 -(void)showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink )events{
     self.posId=posId;
     self.eventSink=events;
+    // 获取主 window
+    self.mainWin=[[UIApplication sharedApplication] keyWindow];
+    self.rootController=self.mainWin.rootViewController;
+    // 获取宽高
+    CGSize size=[[UIScreen mainScreen] bounds].size;
+    self.width=size.width;
+    self.height=size.height;
     [self loadAd:call];
 }
 // 发送广告事件
