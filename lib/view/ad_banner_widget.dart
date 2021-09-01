@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 /// Banner 广告组件
 class AdBannerWidget extends StatefulWidget {
   AdBannerWidget({
-    Key key,
-    @required this.posId,
+    Key? key,
+    required this.posId,
     this.interval = 30,
     this.show = true,
   }) : super(key: key);
@@ -29,7 +29,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
   // View 类型
   final String viewType = 'flutter_qq_ads_banner';
   // 创建参数
-  Map<String, dynamic> creationParams;
+  late Map<String, dynamic> creationParams;
 
   @override
   void initState() {
