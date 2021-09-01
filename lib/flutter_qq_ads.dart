@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'event/ad_event_handler.dart';
 export 'event/ad_event_handler.dart';
+export 'view/ad_banner_widget.dart';
 
 /// 腾讯广告 Flutter 插件
 class FlutterQqAds {
