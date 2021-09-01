@@ -138,7 +138,7 @@ AdBannerWidget(
 
 Banner 广告外部需要嵌套一个带有约束布局的 Widget，如：`AspectRatio、SizedBox、Container` 等，示例如下：
 
-- 嵌套 AspectRatio (推荐)
+- 嵌套 `AspectRatio` (推荐)
 
 ``` Dart
 AspectRatio(
@@ -150,7 +150,7 @@ AspectRatio(
 ),
 ```
 
-- 嵌套 SizedBox
+- 嵌套 `SizedBox`
 
 ``` Dart
 SizedBox(
@@ -162,7 +162,7 @@ SizedBox(
 )
 ```
 
-- 嵌套 Container
+- 嵌套 `Container`
 
 ``` Dart
 Container(
