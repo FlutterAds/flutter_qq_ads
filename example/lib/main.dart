@@ -112,8 +112,8 @@ class _MyAppState extends State<MyApp> {
                   },
                 ),
                 SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
+                SizedBox(
+                  width: 375,
                   height: 100,
                   child: AdBannerWidget(
                     posId: AdsConfig.bannerId01,
@@ -127,6 +127,13 @@ class _MyAppState extends State<MyApp> {
                     posId: AdsConfig.bannerId,
                     interval: 0,
                     show: true,
+                  ),
+                ),
+                AspectRatio(
+                  aspectRatio: 6.4 / 1,
+                  child: AdBannerWidget(
+                    posId: AdsConfig.bannerId02,
+                    interval: 120,
                   ),
                 ),
                 Container(
