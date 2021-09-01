@@ -111,6 +111,38 @@ class _MyAppState extends State<MyApp> {
                     showRewardVideoAd();
                   },
                 ),
+                SizedBox(height: 20),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: AdBannerWidget(
+                    posId: AdsConfig.bannerId01,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  height: 80,
+                  child: AdBannerWidget(
+                    posId: AdsConfig.bannerId,
+                    interval: 0,
+                    show: true,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  // height: 100,
+                  margin: EdgeInsets.all(10),
+                  // 设置比例为 6.4:1 的官方推荐比例
+                  child: AspectRatio(
+                    aspectRatio: 6.4 / 1,
+                    child: AdBannerWidget(
+                      posId: AdsConfig.bannerId02,
+                      interval: 120,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
               ],
             ),
           ),
