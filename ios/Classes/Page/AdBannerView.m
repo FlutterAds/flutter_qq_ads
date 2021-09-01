@@ -20,7 +20,7 @@
                        plugin:(FlutterQqAdsPlugin*) plugin{
     if (self = [super init]) {
         self.args=args;
-        NSString* posId = args[@"posId"];
+        NSString* posId = args[kPosId];
         [self showAd:posId methodCall:nil eventSink:plugin.eventSink];
     }
     return self;
