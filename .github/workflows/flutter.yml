@@ -5,13 +5,14 @@ name: Flutter CI
 on:
   push:
     branches:
-    - develop
-    - master
-    - 2x
-  pull_request:
-    branches:
-      - develop
-      - 2x
+      - test
+  #   - develop
+  #   - master
+  #   - 2x
+  # pull_request:
+  #   branches:
+  #     - develop
+  #     - 2x
     
 jobs:
   build:
