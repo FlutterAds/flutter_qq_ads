@@ -281,7 +281,7 @@ pod install
 
 ## 支持开源
 
-支持开源项目最好的方式就是点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads)
+支持开源项目最好的方式就是点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️
 
 ## FlutterAds 系列插件
 |插件|描述|
