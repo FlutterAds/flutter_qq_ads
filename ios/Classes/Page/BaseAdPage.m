@@ -8,6 +8,8 @@
 #import "BaseAdPage.h"
 
 @implementation BaseAdPage
+// 广告位id
+NSString *const kPosId=@"posId";
 // 添加广告事件
 -(void) addAdEvent:(AdEvent *) event{
     if(self.eventSink!=nil){
@@ -16,7 +18,7 @@
 }
 // 显示广告
 -(void)showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink )events{
-    self.posId=posId;
+    self.posId=call.arguments[kPosId];
     self.eventSink=events;
     // 获取主 window
     self.mainWin=[[UIApplication sharedApplication] keyWindow];

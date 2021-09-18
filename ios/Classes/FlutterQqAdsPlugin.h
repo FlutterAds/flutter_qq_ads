@@ -9,6 +9,5 @@
 @property (strong, nonatomic) InterstitialPage *iad;
 @property (strong, nonatomic) RewardVideoPage *rvad;
 @property (weak,nonatomic) NSString *posId;
-extern NSString *const kPosId;
 extern NSString *const kAdBannerViewId;
 @end

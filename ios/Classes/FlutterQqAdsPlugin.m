@@ -14,8 +14,6 @@
 //@end
 
 @implementation FlutterQqAdsPlugin
-// 广告位id
-NSString *const kPosId=@"posId";
 // AdBannerView
 NSString *const kAdBannerViewId=@"flutter_qq_ads_banner";
 
