@@ -1,13 +1,13 @@
 //
-//  AdEvent.m
+//  FAQAdEvent.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/13.
 //
 
-#import "AdEvent.h"
+#import "FAQAdEvent.h"
 
-@implementation AdEvent
+@implementation FAQAdEvent
 
 - (id)initWithAdId:(NSString *)adId andAction:(NSString *)action{
     self.adId=adId;

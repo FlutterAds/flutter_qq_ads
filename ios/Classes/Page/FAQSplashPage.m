@@ -1,20 +1,20 @@
 //
-//  SplashPage.m
+//  FAQSplashPage.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/18.
 //
 
-#import "SplashPage.h"
+#import "FAQSplashPage.h"
 #import "GDTSplashAd.h"
 // 开屏广告
-@interface SplashPage()<GDTSplashAdDelegate>
+@interface FAQSplashPage()<GDTSplashAdDelegate>
 @property (strong, nonatomic) GDTSplashAd *splashAd;
 @property (retain, nonatomic) UIView *bottomView;
 @property (nonatomic, assign) BOOL fullScreenAd;
 @end
 
-@implementation SplashPage
+@implementation FAQSplashPage
 // 加载广告
 -(void)loadAd:(FlutterMethodCall *)call{
     NSString* logo=call.arguments[@"logo"];

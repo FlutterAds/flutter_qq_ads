@@ -1,14 +1,14 @@
 //
-//  AdRewardEvent.m
+//  FAQAdRewardEvent.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/19.
 //
 
-#import "AdRewardEvent.h"
-#import "AdEventAction.h"
+#import "FAQAdRewardEvent.h"
+#import "FAQAdEventAction.h"
 
-@implementation AdRewardEvent
+@implementation FAQAdRewardEvent
 - (id)initWithAdId:(NSString *)adId transId:(NSString *)transId customData:(NSString *)customData userId:(NSString *)userId{
     self.adId=adId;
     self.action=onAdReward;

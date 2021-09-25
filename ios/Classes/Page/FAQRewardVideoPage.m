@@ -1,14 +1,14 @@
 //
-//  RewardVideoPage.m
+//  FAQRewardVideoPage.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/19.
 //
 
-#import "RewardVideoPage.h"
+#import "FAQRewardVideoPage.h"
 #import "GDTRewardVideoAd.h"
 // 激励视频页面
-@interface RewardVideoPage()<GDTRewardedVideoAdDelegate>
+@interface FAQRewardVideoPage()<GDTRewardedVideoAdDelegate>
 @property (nonatomic, strong) GDTRewardVideoAd *rvad;
 // 服务端验证的自定义信息
 @property (copy,nonatomic) NSString *customData;
@@ -16,7 +16,7 @@
 @property (copy,nonatomic) NSString *userId;
 @end
 
-@implementation RewardVideoPage
+@implementation FAQRewardVideoPage
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
     BOOL playMuted=[call.arguments[@"playMuted"] boolValue];
@@ -98,7 +98,7 @@
     NSString *transId=[info objectForKey:@"GDT_TRANS_ID"];
     NSLog(@"播放达到激励条件 transid:%@", transId);
     // 发送激励事件
-    AdRewardEvent *event=[[AdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
+    FAQAdRewardEvent *event=[[FAQAdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
     [self sendEvent:event];
 }
 
