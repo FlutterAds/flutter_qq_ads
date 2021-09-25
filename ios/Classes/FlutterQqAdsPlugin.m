@@ -1,23 +1,11 @@
 #import "FlutterQqAdsPlugin.h"
 #import "GDTSDKConfig.h"
-#import "NativeViewFactory.h"
+#import "FAQNativeViewFactory.h"
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <AdSupport/AdSupport.h>
 
-//@interface FlutterQqAdsPlugin()
-//@property (strong, nonatomic) FlutterEventSink eventSink;
-//@property (strong, nonatomic) SplashPage *sad;
-//@property (strong, nonatomic) InterstitialPage *iad;
-//@property (strong, nonatomic) RewardVideoPage *rvad;
-//@property (weak,nonatomic) NSString *posId;
-
-//@end
 
 @implementation FlutterQqAdsPlugin
-// 广告位id
-NSString *const kPosId=@"posId";
-// AdBannerView
-NSString *const kAdBannerViewId=@"flutter_qq_ads_banner";
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     // 方法通道
@@ -31,7 +19,7 @@ NSString *const kAdBannerViewId=@"flutter_qq_ads_banner";
     [registrar addMethodCallDelegate:instance channel:methodChannel];
     [eventChannel setStreamHandler:instance];
     // 注册平台View 工厂
-    NativeViewFactory *factory=[[NativeViewFactory alloc] initWithMessenger:registrar.messenger withPlugin:instance];
+    FAQNativeViewFactory *factory=[[FAQNativeViewFactory alloc] initWithMessenger:registrar.messenger withPlugin:instance];
     // 注册 Banner View
     [registrar registerViewFactory:factory withId:kAdBannerViewId];
 }
@@ -76,25 +64,22 @@ NSString *const kAdBannerViewId=@"flutter_qq_ads_banner";
 
 // 显示开屏广告
 - (void) showSplashAd:(FlutterMethodCall*) call result:(FlutterResult) result{
-    self.posId=call.arguments[kPosId];
-    self.sad=[[SplashPage alloc] init];
-    [self.sad showAd:self.posId methodCall:call eventSink:self.eventSink];
+    self.sad=[[FAQSplashPage alloc] init];
+    [self.sad showAd:call eventSink:self.eventSink];
     result(@(YES));
 }
 
 // 显示插屏广告
 - (void) showInterstitialAd:(FlutterMethodCall*) call result:(FlutterResult) result{
-    self.posId=call.arguments[kPosId];
-    self.iad=[[InterstitialPage alloc] init];
-    [self.iad showAd:self.posId methodCall:call eventSink:self.eventSink];
+    self.iad=[[FAQInterstitialPage alloc] init];
+    [self.iad showAd:call eventSink:self.eventSink];
     result(@(YES));
 }
 
 // 显示激励视频广告
 - (void) showRewardVideoAd:(FlutterMethodCall*) call result:(FlutterResult) result{
-    self.posId=call.arguments[kPosId];
-    self.rvad=[[RewardVideoPage alloc] init];
-    [self.rvad showAd:self.posId methodCall:call eventSink:self.eventSink];
+    self.rvad=[[FAQRewardVideoPage alloc] init];
+    [self.rvad showAd:call eventSink:self.eventSink];
     result(@(YES));
 }
 
