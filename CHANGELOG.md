@@ -1,3 +1,8 @@
+## 2.3.0 [2021-09-26]
+* 修复同时引入 [flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads) 依赖时 iOS 无法编译的问题 #11
+* 优化底层架构
+* 更新 Android SDK `v4.410.1280`
+
 ## 2.2.0 [2021-09-01]
 * 新增 Banner 广告
 * 项目增加 CI/CD 检查和自动发布，提高项目质量
@@ -23,6 +28,11 @@
 * 1.x.x 是非 Null Safety 版本
 * 2.x.x 是 Null Safety 版本
 * 现在阶段会同时维护这 2 个版本，再往后可能仅维护一个版本
+
+## 1.3.0 [2021-09-26]
+* 修复同时引入 [flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads) 依赖时 iOS 无法编译的问题 #11
+* 优化底层架构
+* 更新 Android SDK `v4.410.1280`
 
 ## 1.2.0 [2021-09-01]
 * 新增 Banner 广告

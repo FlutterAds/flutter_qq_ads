@@ -1,27 +1,26 @@
 //
-//  AdBannerView.m
+//  FAQAdBannerView.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/31.
 //
 
-#import "AdBannerView.h"
+#import "FAQAdBannerView.h"
 #import "GDTUnifiedBannerView.h"
 // Banner 广告 View
-@interface AdBannerView()<FlutterPlatformView,GDTUnifiedBannerViewDelegate>
+@interface FAQAdBannerView()<FlutterPlatformView,GDTUnifiedBannerViewDelegate>
 @property (strong,nonatomic) GDTUnifiedBannerView *bannerView;
 @end
 // Banner 广告 View
-@implementation AdBannerView
+@implementation FAQAdBannerView
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId
                     arguments:(id _Nullable)args
               binaryMessenger:(NSObject<FlutterBinaryMessenger>*)messenger
                        plugin:(FlutterQqAdsPlugin*) plugin{
     if (self = [super init]) {
-        self.args=args;
-        NSString* posId = args[kPosId];
-        [self showAd:posId methodCall:nil eventSink:plugin.eventSink];
+        FlutterMethodCall *call=[FlutterMethodCall methodCallWithMethodName:@"FAQAdBannerView" arguments:args];
+        [self showAd:call eventSink:plugin.eventSink];
     }
     return self;
 }
@@ -32,7 +31,7 @@
 // 加载广告
 - (void)loadAd:(FlutterMethodCall *)call{
     // 刷新间隔
-    int interval=[self.args[@"interval"] intValue];
+    int interval=[call.arguments[@"interval"] intValue];
     // 创建 Banner
     self.bannerView=[[GDTUnifiedBannerView alloc] initWithPlacementId:self.posId viewController:self.rootController];
     // 设置 Delegate

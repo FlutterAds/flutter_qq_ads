@@ -4,8 +4,8 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.2.0-success></a>
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.2.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.3.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.3.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg?branch=2x"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
@@ -29,15 +29,15 @@
 - 🔲 信息流
 
 ## 下载体验
-<img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'>
+<a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'></a>
 
 ## 入门使用
 ### 引入依赖
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.2.0 # 非 Null Safety 版本
-  flutter_qq_ads: ^2.2.0 # Null Safety 版本
+  flutter_qq_ads: ^1.3.0 # 非 Null Safety 版本
+  flutter_qq_ads: ^2.3.0 # Null Safety 版本
 ```
 
 ### 初始化广告
@@ -273,12 +273,15 @@ pod install
 |master|稳定分支，非 Null Safety|
 |2x|稳定分支，Null Safety|
 
+## 更新日志
+[查看 Releases 版本日志](https://github.com/FlutterAds/flutter_qq_ads/releases)
+
 ## 遇到问题
 如果你遇到问题请提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues) 给我（提问前建议先搜索尝试，没有再提问）
 
 ## 支持开源
 
-支持开源项目最好的方式就是用 1 秒点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads)
+支持开源项目最好的方式就是点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️
 
 ## FlutterAds 系列插件
 |插件|描述|

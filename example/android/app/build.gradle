@@ -26,7 +26,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 29
-
+    ndkVersion "21.4.7075529"
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -41,11 +41,24 @@ android {
         versionName flutterVersionName
     }
 
+    //签名信息
+    signingConfigs {
+        release {
+            storeFile new File("${project.projectDir}/keystore/flutterads_key.jks")
+            storePassword "FlutterAds"
+            keyAlias 'FlutterAdsQQ'
+            keyPassword "FlutterAds"
+            //2个版本的签名
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 
