@@ -25,6 +25,7 @@ jobs:
       with:
         java-version: '8.x'
     # Setup Android NDK toolchain
+    - run: mkdir toolchains
     - name: Android NDK toolchain Setup
       uses: ravinderjangra/android-ndk-toolchain-setup@0.1
       with: 
