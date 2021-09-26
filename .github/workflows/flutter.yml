@@ -27,7 +27,7 @@ jobs:
     # Setup Android NDK toolchain
     - run: mkdir toolchains
     - name: Android NDK toolchain Setup
-      uses: ravinderjangra/android-ndk-toolchain-setup@0.1
+      uses: ravinderjangra/android-ndk-toolchain-setup@0.2
       with: 
         api: '21'
         arch: 'arm'
