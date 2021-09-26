@@ -1,15 +1,14 @@
 //
-//  AdBannerView.h
+//  FAQAdBannerView.h
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/31.
 //
 
-#import "BaseAdPage.h"
+#import "FAQBaseAdPage.h"
 #import "FlutterQqAdsPlugin.h"
-@interface AdBannerView : BaseAdPage<FlutterPlatformView>
+@interface FAQAdBannerView : FAQBaseAdPage<FlutterPlatformView>
 @property (strong,nonatomic) FlutterQqAdsPlugin *plugin;
-@property id args;
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId
                     arguments:(id _Nullable)args

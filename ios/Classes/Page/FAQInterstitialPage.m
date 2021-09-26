@@ -1,15 +1,15 @@
 //
-//  InterstitialPage.m
+//  FAQInterstitialPage.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/18.
 //
 
-#import "InterstitialPage.h"
+#import "FAQInterstitialPage.h"
 #import "GDTUnifiedInterstitialAd.h"
 
 // 插屏广告
-@interface InterstitialPage()<GDTUnifiedInterstitialAdDelegate>
+@interface FAQInterstitialPage()<GDTUnifiedInterstitialAdDelegate>
 @property (nonatomic, strong) GDTUnifiedInterstitialAd *iad;
 // 全屏视频形式展示
 @property BOOL showFullScreenVideo;
@@ -21,7 +21,7 @@
 @property (copy,nonatomic) NSString *userId;
 @end
 
-@implementation InterstitialPage
+@implementation FAQInterstitialPage
 
 - (void)dealloc
 {
@@ -109,7 +109,7 @@
 - (void)unifiedInterstitialRenderFail:(GDTUnifiedInterstitialAd *)unifiedInterstitial error:(NSError *)error {
     NSLog(@"%s",__FUNCTION__);
     // 添加广告错误事件
-    AdErrorEvent *event=[[AdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
+    FAQAdErrorEvent *event=[[FAQAdErrorEvent alloc] initWithAdId:self.posId errCode:[NSNumber numberWithInteger:error.code] errMsg:error.localizedDescription];
     [self sendEvent:event];
 }
 
@@ -212,7 +212,7 @@
     NSString *transId=[info objectForKey:@"GDT_TRANS_ID"];
     NSLog(@"播放达到激励条件 transid:%@", transId);
     // 发送激励事件
-    AdRewardEvent *event=[[AdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
+    FAQAdRewardEvent *event=[[FAQAdRewardEvent alloc] initWithAdId:self.posId transId:transId customData:self.customData userId:self.userId];
     [self sendEvent:event];
 }
 

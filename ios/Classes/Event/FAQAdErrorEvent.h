@@ -1,13 +1,13 @@
 //
-//  AdErrorEvent.h
+//  FAQAdErrorEvent.h
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/13.
 //
 
-#import "AdEvent.h"
+#import "FAQAdEvent.h"
 // 广告错误事件
-@interface AdErrorEvent : AdEvent
+@interface FAQAdErrorEvent : FAQAdEvent
 // 错误码
 @property (assign, nonatomic) NSNumber* errCode;
 // 错误信息

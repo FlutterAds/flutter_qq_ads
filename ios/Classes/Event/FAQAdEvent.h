@@ -1,5 +1,5 @@
 //
-//  AdEvent.h
+//  FAQAdEvent.h
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/13.
@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 // 广告事件
-@interface AdEvent : NSObject
+@interface FAQAdEvent : NSObject
 // 广告 id
 @property (copy, nonatomic) NSString *adId;
 // 操作

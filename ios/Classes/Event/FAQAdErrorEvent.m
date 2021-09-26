@@ -1,14 +1,14 @@
 //
-//  AdErrorEvent.m
+//  FAQAdErrorEvent.m
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/13.
 //
 
-#import "AdErrorEvent.h"
-#import "AdEventAction.h"
+#import "FAQAdErrorEvent.h"
+#import "FAQAdEventAction.h"
 
-@implementation AdErrorEvent
+@implementation FAQAdErrorEvent
 
 - (id)initWithAdId:(NSString *)adId errCode:(NSNumber *)errCode errMsg:(NSString *)errMsg{
     self.adId=adId;

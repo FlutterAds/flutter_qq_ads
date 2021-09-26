@@ -1,17 +1,20 @@
 //
-//  BaseAdPage.h
+//  FAQBaseAdPage.h
 //  flutter_qq_ads
 //
 //  Created by zero on 2021/8/18.
 //
 #import <Flutter/Flutter.h>
 #import <Foundation/Foundation.h>
-#import "AdEvent.h"
-#import "AdErrorEvent.h"
-#import "AdRewardEvent.h"
-#import "AdEventAction.h"
+#import "FAQAdEvent.h"
+#import "FAQAdErrorEvent.h"
+#import "FAQAdRewardEvent.h"
+#import "FAQAdEventAction.h"
+// 广告位id
+static NSString *const kPosId=@"posId";
+
 // 基础广告页面
-@interface BaseAdPage : NSObject
+@interface FAQBaseAdPage : NSObject
 // 广告位id
 @property (weak,nonatomic) NSString *posId;
 // 事件消息
@@ -25,11 +28,11 @@
 // 屏幕高度
 @property CGFloat height;
 // 显示广告
-- (void) showAd:(NSString *)posId methodCall:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
+- (void) showAd:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
 // 加载广告
 - (void) loadAd:(FlutterMethodCall *) call;
 // 发送广告事件
--(void) sendEvent:(AdEvent *) event;
+-(void) sendEvent:(FAQAdEvent *) event;
 // 发送广告事件
 -(void) sendEventAction:(NSString *) action;
 // 发送广告错误事件

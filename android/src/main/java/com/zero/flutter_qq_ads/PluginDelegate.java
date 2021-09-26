@@ -128,7 +128,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     }
 
     /**
-     * 展示 Banner 广告
+     * 注册 Banner 广告
      */
     public void registerBannerView() {
         bind.getPlatformViewRegistry()
