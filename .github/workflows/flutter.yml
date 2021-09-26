@@ -25,14 +25,14 @@ jobs:
       with:
         java-version: '8.x'
     # Setup Android NDK toolchain
-    - run: mkdir toolchains
-    - name: Android NDK toolchain Setup
-      uses: ravinderjangra/android-ndk-toolchain-setup@0.2
-      with: 
-        api: '21'
-        arch: 'arm'
-        install-location: 'toolchains'
-        force: true
+#     - run: mkdir toolchains
+#     - name: Android NDK toolchain Setup
+#       uses: ravinderjangra/android-ndk-toolchain-setup@0.2
+#       with: 
+#         api: '21'
+#         arch: 'arm'
+#         install-location: 'toolchains'
+#         force: true
     # Setup the flutter environment.
     - uses: subosito/flutter-action@v1
       with:
