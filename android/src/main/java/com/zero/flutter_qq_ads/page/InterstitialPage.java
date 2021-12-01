@@ -42,7 +42,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
     private String userId;
 
     @Override
-    public void loadAd(Activity activity, @NonNull MethodCall call) {
+    public void loadAd(@NonNull MethodCall call) {
         showPopup = call.argument("showPopup");
         showFullScreenVideo = call.argument("showFullScreenVideo");
         showRewardVideo = call.argument("showRewardVideo");

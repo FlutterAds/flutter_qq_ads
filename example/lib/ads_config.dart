@@ -114,4 +114,13 @@ class AdsConfig {
       return '5032426921405160';
     }
   }
+
+  /// 获取信息流广告位id
+  static String get feedId {
+    if (Platform.isAndroid) {
+      return '5072760716749135';
+    } else {
+      return '2042364796261489';
+    }
+  }
 }

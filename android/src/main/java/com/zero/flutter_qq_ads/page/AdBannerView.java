@@ -39,8 +39,8 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
         this.pluginDelegate = pluginDelegate;
         this.params = creationParams;
         frameLayout = new FrameLayout(context);
-        String posId = (String) params.get(PluginDelegate.KEY_POSID);
-        showAd(this.pluginDelegate.activity, posId, null);
+        MethodCall call = new MethodCall("AdBannerView", creationParams);
+        showAd(this.pluginDelegate.activity,call);
     }
 
     @NonNull
@@ -55,7 +55,7 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
     }
 
     @Override
-    public void loadAd(Activity activity, @NonNull MethodCall call) {
+    public void loadAd( @NonNull MethodCall call) {
         // 获取轮播时间间隔参数
         int interval= (int) this.params.get("interval");
         // 加载广告 Banner
