@@ -1,14 +1,17 @@
 package com.zero.flutter_qq_ads.load;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.qq.e.ads.nativ.ADSize;
 import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.comm.util.AdError;
+import com.zero.flutter_qq_ads.PluginDelegate;
 import com.zero.flutter_qq_ads.event.AdEventAction;
 import com.zero.flutter_qq_ads.page.BaseAdPage;
 
@@ -28,12 +31,13 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
 
     /**
      * 加载信息流广告列表
+     *
      * @param call
      * @param result
      */
     public void loadFeedAdList(Activity activity, @NonNull MethodCall call, @NonNull MethodChannel.Result result) {
-        this.result=result;
-        showAd(activity,call);
+        this.result = result;
+        showAd(activity, call);
     }
 
     @Override
@@ -42,22 +46,22 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
         int width = call.argument("width");
         int height = call.argument("height");
         int count = call.argument("count");
-        NativeExpressAD ad=new NativeExpressAD(activity,new ADSize(width,height),this.posId,this);
+        NativeExpressAD ad = new NativeExpressAD(activity, new ADSize(width, height == 0 ? ADSize.AUTO_HEIGHT : height), this.posId, this);
         ad.loadAD(count);
     }
 
     @Override
     public void onADLoaded(List<NativeExpressADView> list) {
         Log.i(TAG, "onADLoaded");
-        List<Integer> adResultList=new ArrayList<>();
+        List<Integer> adResultList = new ArrayList<>();
         if (list == null || list.size() == 0) {
             this.result.success(adResultList);
             return;
         }
         for (NativeExpressADView adItem : list) {
-            int key=adItem.hashCode();
+            int key = adItem.hashCode();
             adResultList.add(key);
-            FeedAdManager.getInstance().putAd(key,adItem);
+            FeedAdManager.getInstance().putAd(key, adItem);
         }
         // 添加广告事件
         sendEvent(AdEventAction.onAdLoaded);
@@ -66,27 +70,42 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
 
     @Override
     public void onRenderFail(NativeExpressADView nativeExpressADView) {
-
+        Log.i(TAG, "onRenderFail");
+        sendErrorEvent(-100, "onRenderFail");
+        sendBroadcastEvent(nativeExpressADView, AdEventAction.onAdClosed);
     }
 
     @Override
     public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
         Log.i(TAG, "onRenderSuccess");
+        sendEvent(AdEventAction.onAdPresent);
     }
 
     @Override
     public void onADExposure(NativeExpressADView nativeExpressADView) {
-
+        Log.i(TAG, "onADExposure");
+        sendEvent(AdEventAction.onAdExposure);
     }
 
     @Override
     public void onADClicked(NativeExpressADView nativeExpressADView) {
-
+        Log.i(TAG, "onADClicked");
+        sendEvent(AdEventAction.onAdClicked);
     }
 
     @Override
     public void onADClosed(NativeExpressADView nativeExpressADView) {
+        Log.i(TAG, "onADClosed");
+        sendEvent(AdEventAction.onAdClosed);
+        sendBroadcastEvent(nativeExpressADView, AdEventAction.onAdClosed);
+    }
 
+    private void sendBroadcastEvent(NativeExpressADView adView, String event) {
+        Intent intent = new Intent();
+        intent.setAction(PluginDelegate.KEY_FEED_VIEW + "_" + adView.hashCode());
+        intent.putExtra("event", event);
+        boolean result = LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
+        Log.i(TAG, "onADClosed sendBroadcast:" + result);
     }
 
     @Override
@@ -111,30 +130,4 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
         Log.i(TAG, "onError, adError=" + msg);
         sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
     }
-
-    /*@Override
-    public void onError(int i, String s) {
-        Log.e(TAG, "onError code:" + i + " msg:" + s);
-        sendErrorEvent(i, s);
-        this.result.error(""+i,s,s);
-    }
-
-
-    @Override
-    public void onNativeExpressAdLoad(List<TTNativeExpressAd> list) {
-        List<Integer> adResultList=new ArrayList<>();
-        Log.i(TAG, "onNativeExpressAdLoad");
-        if (list == null || list.size() == 0) {
-            this.result.success(adResultList);
-            return;
-        }
-        for (TTNativeExpressAd adItem : list) {
-            int key=adItem.hashCode();
-            adResultList.add(key);
-            FeedAdManager.getInstance().putAd(key,adItem);
-        }
-        // 添加广告事件
-        sendEvent(AdEventAction.onAdLoaded);
-        this.result.success(adResultList);
-    }*/
 }

@@ -64,7 +64,7 @@ class _FeedPageState extends State<FeedPage> {
                     return AdFeedWidget(
                       posId: '$adId',
                       width: 375,
-                      height: 128,
+                      height: 375,
                       show: true,
                     );
                   }

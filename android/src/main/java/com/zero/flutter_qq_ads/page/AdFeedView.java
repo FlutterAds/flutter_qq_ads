@@ -1,6 +1,9 @@
 package com.zero.flutter_qq_ads.page;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +11,15 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
-import com.qq.e.comm.util.AdError;
 import com.zero.flutter_qq_ads.PluginDelegate;
+import com.zero.flutter_qq_ads.event.AdEventAction;
 import com.zero.flutter_qq_ads.load.FeedAdManager;
+import com.zero.flutter_qq_ads.utils.UIUtils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.flutter.plugin.common.MethodCall;
@@ -26,7 +29,7 @@ import io.flutter.plugin.platform.PlatformView;
 /**
  * Feed 信息流广告 View
  */
-class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.NativeExpressADListener {
+class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChangeListener {
     private final String TAG = AdFeedView.class.getSimpleName();
     @NonNull
     private final FrameLayout frameLayout;
@@ -34,6 +37,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
     private int id;
     private NativeExpressADView fad;
     private MethodChannel methodChannel;
+    private BroadcastReceiver receiver;
 
 
     AdFeedView(@NonNull Context context, int id, @Nullable Map<String, Object> creationParams, PluginDelegate pluginDelegate) {
@@ -43,6 +47,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
         frameLayout = new FrameLayout(context);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         frameLayout.setLayoutParams(params);
+        frameLayout.addOnLayoutChangeListener(this);
         MethodCall call = new MethodCall("AdFeedView", creationParams);
         showAd(this.pluginDelegate.activity, call);
     }
@@ -60,20 +65,37 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
 
     @Override
     public void loadAd(@NonNull MethodCall call) {
-        fad = FeedAdManager.getInstance().getAd(Integer.parseInt(this.posId));
+        int key = Integer.parseInt(this.posId);
+        regReceiver(key);
+        fad = FeedAdManager.getInstance().getAd(key);
         if (fad != null) {
             View adView = fad.getRootView();
             if (adView.getParent() != null) {
                 ((ViewGroup) adView.getParent()).removeAllViews();
             }
-            ViewGroup.LayoutParams layoutParams=adView.getLayoutParams();
-            frameLayout.removeAllViews();
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            frameLayout.addView(adView, params);
-//            fad.setExpressInteractionListener(this);
-//            bindDislikeAction(fad);
+            frameLayout.addView(adView);
             fad.render();
         }
+    }
+
+    /**
+     * 注册广播
+     *
+     * @param key key
+     */
+    private void regReceiver(int key) {
+        // 注册广播
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String event = intent.getStringExtra("event");
+                if (AdEventAction.onAdClosed.equals(event)) {
+                    AdFeedView.this.disposeAd();
+                }
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter(PluginDelegate.KEY_FEED_VIEW + "_" + key);
+        LocalBroadcastManager.getInstance(activity).registerReceiver(receiver, intentFilter);
     }
 
     /**
@@ -81,6 +103,10 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
      */
     private void removeAd() {
         frameLayout.removeAllViews();
+        // 注销广播
+        if (receiver != null) {
+            LocalBroadcastManager.getInstance(activity).unregisterReceiver(receiver);
+        }
     }
 
     /**
@@ -95,45 +121,6 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
         // 更新宽高
         setFlutterViewSize(0f, 0f);
     }
-//
-//    @Override
-//    public void onAdDismiss() {
-//        Log.i(TAG, "onAdDismiss");
-//        // 添加广告事件
-//        sendEvent(AdEventAction.onAdClosed);
-//        disposeAd();
-//    }
-//
-//    @Override
-//    public void onAdClicked(View view, int i) {
-//        Log.i(TAG, "onAdClicked");
-//        // 添加广告事件
-//        sendEvent(AdEventAction.onAdClicked);
-//    }
-//
-//    @Override
-//    public void onAdShow(View view, int i) {
-//        Log.i(TAG, "onAdShow");
-//        // 添加广告事件
-//        sendEvent(AdEventAction.onAdExposure);
-//    }
-//
-//    @Override
-//    public void onRenderFail(View view, String s, int i) {
-//        Log.e(TAG, "onRenderFail code:" + i + " msg:" + s);
-//        // 添加广告错误事件
-//        sendErrorEvent(i, s);
-//        // 更新宽高
-//        setFlutterViewSize(0f, 0f);
-//    }
-//
-//    @Override
-//    public void onRenderSuccess(View view, float width, float height) {
-//        Log.i(TAG, "onRenderSuccess v:" + width + " v1:" + height);
-//        // 添加广告事件
-//        sendEvent(AdEventAction.onAdPresent);
-//        setFlutterViewSize(width, height);
-//    }
 
     /**
      * 设置 FlutterAds 视图宽高
@@ -142,93 +129,28 @@ class AdFeedView extends BaseAdPage implements PlatformView, NativeExpressAD.Nat
      * @param height 高度
      */
     private void setFlutterViewSize(float width, float height) {
+        int widthPd = UIUtils.px2dip(activity, width);
+        int heightPd = UIUtils.px2dip(activity, height);
+        Log.i(TAG, "onLayoutChange widthPd:" + widthPd + " heightPd:" + heightPd);
         // 更新宽高
         Map<String, Double> sizeMap = new HashMap<>();
-        sizeMap.put("width", (double) width);
-        sizeMap.put("height", (double) height);
+        sizeMap.put("width", (double) widthPd);
+        sizeMap.put("height", (double) heightPd);
         if (methodChannel != null) {
             methodChannel.invokeMethod("setSize", sizeMap);
         }
     }
 
     @Override
-    public void onADLoaded(List<NativeExpressADView> list) {
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        Log.i(TAG, "onLayoutChange left:" + left + " top:" + top + " right:" + right + " bottom:" + bottom);
 
+        if (right > 0 && bottom > 0) {
+            int width = right - left;
+            int height = bottom - top;
+            Log.i(TAG, "onLayoutChange width:" + width + " height:" + height);
+            setFlutterViewSize(width, height);
+        }
     }
-
-    @Override
-    public void onRenderFail(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADExposure(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADClicked(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADClosed(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onNoAD(AdError adError) {
-
-    }
-
-    /**
-     * 接入dislike 逻辑，有助于提示广告精准投放度
-     * 和后续广告关闭逻辑处理
-     *
-     * @param ad 广告 View
-     */
-//    private void bindDislikeAction(TTNativeExpressAd ad) {
-//        // 使用默认Dislike
-//        final TTAdDislike ttAdDislike = ad.getDislikeDialog(activity);
-//        if (ttAdDislike != null) {
-//            ttAdDislike.setDislikeInteractionCallback(new TTAdDislike.DislikeInteractionCallback() {
-//                @Override
-//                public void onShow() {
-//
-//                }
-//
-//                @Override
-//                public void onSelected(int position, String value, boolean enforce) {
-//                    onAdDismiss();
-//                }
-//
-//                @Override
-//                public void onCancel() {
-//
-//                }
-//            });
-//        }
-//    }
-
 
 }

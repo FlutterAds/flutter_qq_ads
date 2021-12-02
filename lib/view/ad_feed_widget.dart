@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
@@ -75,8 +76,13 @@ class _AdFeedWidgetState extends State<AdFeedWidget>
       );
     }
     // 有宽高信息了（渲染成功了）设置对应宽高
-    return SizedBox.fromSize(
-      size: Size(width, height),
+    // return SizedBox.fromSize(
+    //   size: Size(width, height),
+    //   child: view,
+    // );
+    return LimitedBox(
+      maxWidth: width,
+      maxHeight: height,
       child: view,
     );
   }
