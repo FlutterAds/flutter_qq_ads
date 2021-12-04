@@ -10,7 +10,7 @@
 #import "GDTNativeExpressAdView.h"
 #import "FAQBaseAdPage.h"
 
-@interface FAQFeedAdLoad :FAQBaseAdPage<GDTNativeExpressAdDelegete>
+@interface FAQFeedAdLoad :FAQBaseAdPage
 @property (strong,nonatomic,nonnull) FlutterResult result;
 // 加载信息流广告列表
 -(void) loadFeedAdList:(nonnull FlutterMethodCall *)call result:(nonnull FlutterResult) result eventSink:(nonnull FlutterEventSink )events;

@@ -9,6 +9,11 @@
 #import "FAQFeedAdManager.h"
 #import "FlutterQqAdsPlugin.h"
 
+@interface FAQFeedAdLoad()<GDTNativeExpressAdDelegete>
+@property (strong,nonatomic) GDTNativeExpressAd *ad;
+
+@end
+
 @implementation FAQFeedAdLoad
 
 - (void)loadFeedAdList:(FlutterMethodCall *)call result:(FlutterResult)result eventSink:(FlutterEventSink)events{
@@ -23,11 +28,12 @@
     
     CGSize size= CGSizeMake(width, height);
     
-    GDTNativeExpressAd *ad=[[GDTNativeExpressAd alloc] initWithPlacementId:self.posId adSize:size];
-    ad.delegate=self;
-    [ad loadAd:count];
+    self.ad=[[GDTNativeExpressAd alloc] initWithPlacementId:self.posId adSize:size];
+    self.ad.delegate=self;
+    [self.ad loadAd:count];
 }
 
+#pragma mark - GDTNativeExpressAdDelegete
 
 - (void)nativeExpressAdSuccessToLoad:(GDTNativeExpressAd *)nativeExpressAd views:(NSArray<__kindof GDTNativeExpressAdView *> *)views{
     NSLog(@"%s",__FUNCTION__);
@@ -51,7 +57,8 @@
 }
 
 - (void)nativeExpressAdFailToLoad:(GDTNativeExpressAd *)nativeExpressAd error:(NSError *)error{
-    NSLog(@"%s",__FUNCTION__);
+    NSLog(@"%s error:%@",__FUNCTION__,error);
+    self.result(@[]);
 }
 
 - (void)nativeExpressAdViewRenderSuccess:(GDTNativeExpressAdView *)nativeExpressAdView{

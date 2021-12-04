@@ -120,7 +120,7 @@ class AdsConfig {
     if (Platform.isAndroid) {
       return '5072760716749135';
     } else {
-      return '2042364796261489';
+      return '9072866930956695';
     }
   }
 }
