@@ -7,6 +7,11 @@
 
 @implementation FlutterQqAdsPlugin
 
+// AdBannerView
+NSString *const kFAQAdBannerViewId=@"flutter_qq_ads_banner";
+// AdFeedView
+NSString *const kFAQAdFeedViewId=@"flutter_qq_ads_feed";
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     // 方法通道
     FlutterMethodChannel* methodChannel = [FlutterMethodChannel
@@ -19,9 +24,12 @@
     [registrar addMethodCallDelegate:instance channel:methodChannel];
     [eventChannel setStreamHandler:instance];
     // 注册平台View 工厂
-    FAQNativeViewFactory *factory=[[FAQNativeViewFactory alloc] initWithMessenger:registrar.messenger withPlugin:instance];
+    FAQNativeViewFactory *bannerFactory=[[FAQNativeViewFactory alloc] initWithViewName:kFAQAdBannerViewId withMessenger:registrar.messenger withPlugin:instance];
+    FAQNativeViewFactory *feedFactory=[[FAQNativeViewFactory alloc] initWithViewName:kFAQAdFeedViewId withMessenger:registrar.messenger withPlugin:instance];
     // 注册 Banner View
-    [registrar registerViewFactory:factory withId:kAdBannerViewId];
+    [registrar registerViewFactory:bannerFactory withId:kFAQAdBannerViewId];
+    // 注册 Feed View
+    [registrar registerViewFactory:feedFactory withId:kFAQAdFeedViewId];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -38,6 +46,10 @@
         [self showInterstitialAd:call result:result];
     }else if ([@"showRewardVideoAd" isEqualToString:methodStr]){
         [self showRewardVideoAd:call result:result];
+    }else if ([@"loadFeedAd" isEqualToString:methodStr]){
+        [self loadFeedAd:call result:result];
+    }else if ([@"clearFeedAd" isEqualToString:methodStr]){
+        [self clearFeedAd:call result:result];
     }else {
         result(FlutterMethodNotImplemented);
     }
@@ -80,6 +92,21 @@
 - (void) showRewardVideoAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     self.rvad=[[FAQRewardVideoPage alloc] init];
     [self.rvad showAd:call eventSink:self.eventSink];
+    result(@(YES));
+}
+
+// 加载信息流广告
+- (void) loadFeedAd:(FlutterMethodCall*) call result:(FlutterResult) result{
+    self.fad=[[FAQFeedAdLoad alloc] init];
+    [self.fad loadFeedAdList:call result:result eventSink:self.eventSink];
+}
+
+// 清除信息流广告
+- (void) clearFeedAd:(FlutterMethodCall*) call result:(FlutterResult) result{
+    NSArray *list= call.arguments[@"list"];
+    for (NSNumber *ad in list) {
+        [FAQFeedAdManager.share removeAd:ad];
+    }
     result(@(YES));
 }
 
