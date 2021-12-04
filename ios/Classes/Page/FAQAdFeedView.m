@@ -47,6 +47,8 @@
     NSString *event=[userInfo objectForKey:@"event"];
     NSLog(@"%s postMsghandler name:%@ userInfo:%@",__FUNCTION__,name,userInfo);
     if([event isEqualToString:onAdPresent]){
+        // 设置 Feed View 的大小与广告View 的实际大小一致
+        self.feedView.frame=self.adView.frame;
         // 渲染成功，设置高度
         CGSize size= loadAdView.bounds.size;
         [self setFlutterViewSize:size];
@@ -61,8 +63,6 @@
     NSNumber *width=[NSNumber numberWithFloat:size.width];
     NSNumber *height=[NSNumber numberWithFloat:size.height];
     NSDictionary *dicSize=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:width,height, nil] forKeys:[NSArray arrayWithObjects:@"width",@"height", nil]];
-    // 设置 Feed View 的大小与广告View 的实际大小一致
-    self.feedView.frame=self.adView.frame;
     // 通知 Flutter View 设置大小
     [self.methodChannel invokeMethod:@"setSize" arguments:dicSize];
 }
@@ -72,9 +72,11 @@
     NSString *name=[NSString stringWithFormat:@"%@/%@", kFAQAdFeedViewId, key.stringValue];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postMsghandler:) name:name object:nil];
     self.adView=[FAQFeedAdManager.share getAd:key];
-    self.adView.controller=self.rootController;
-    [self.feedView addSubview:self.adView];
-    [self.adView render];
+    if(self.adView){
+        self.adView.controller=self.rootController;
+        [self.feedView addSubview:self.adView];
+        [self.adView render];
+    }
 }
 
 @end
