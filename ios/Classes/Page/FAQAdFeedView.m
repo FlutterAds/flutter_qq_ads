@@ -10,7 +10,6 @@
 #import "GDTNativeExpressAdView.h"
 
 @interface FAQAdFeedView()<FlutterPlatformView,GDTNativeExpressAdDelegete>
-//@property (strong,nonatomic) BUNativeExpressAdManager *adManager;
 @property (strong,nonatomic) UIView *feedView;
 @property (strong,nonatomic) GDTNativeExpressAdView *adView;
 @property (strong,nonatomic) FlutterMethodChannel *methodChannel;
@@ -42,17 +41,17 @@
 
 // 处理消息
 - (void) postMsghandler:(NSNotification*) notification{
-    NSLog(@"%s postMsghandler name:%@ obj:%@",__FUNCTION__,notification.name,notification.object);
-    //    NSString *name=notification.name;
+    NSString *name=notification.name;
     GDTNativeExpressAdView *loadAdView=notification.object;
     NSDictionary *userInfo=notification.userInfo;
     NSString *event=[userInfo objectForKey:@"event"];
-    if([event isEqualToString:onAdExposure]){
+    NSLog(@"%s postMsghandler name:%@ userInfo:%@",__FUNCTION__,name,userInfo);
+    if([event isEqualToString:onAdPresent]){
         // 渲染成功，设置高度
         CGSize size= loadAdView.bounds.size;
         [self setFlutterViewSize:size];
-    }else if([event isEqualToString:onAdClosed]){
-        // 广告关闭移除广告，并且设置大小为 0，隐藏广告
+    }else if([event isEqualToString:onAdClosed]||[event isEqualToString:onAdError]){
+        // 关闭移除广告或出错，则设置大小为 0，隐藏广告
         [self.adView removeFromSuperview];
         [self setFlutterViewSize:CGSizeZero];
     }
@@ -62,7 +61,9 @@
     NSNumber *width=[NSNumber numberWithFloat:size.width];
     NSNumber *height=[NSNumber numberWithFloat:size.height];
     NSDictionary *dicSize=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:width,height, nil] forKeys:[NSArray arrayWithObjects:@"width",@"height", nil]];
-    self.adView.center=self.feedView.center;
+    // 设置 Feed View 的大小与广告View 的实际大小一致
+    self.feedView.frame=self.adView.frame;
+    // 通知 Flutter View 设置大小
     [self.methodChannel invokeMethod:@"setSize" arguments:dicSize];
 }
 

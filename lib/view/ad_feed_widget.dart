@@ -75,13 +75,8 @@ class _AdFeedWidgetState extends State<AdFeedWidget>
       );
     }
     // 有宽高信息了（渲染成功了）设置对应宽高
-    // return SizedBox.fromSize(
-    //   size: Size(width, height),
-    //   child: view,
-    // );
-    return LimitedBox(
-      maxWidth: width,
-      maxHeight: height,
+    return SizedBox.fromSize(
+      size: Size(width, height),
       child: view,
     );
   }

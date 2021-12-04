@@ -64,25 +64,40 @@
 - (void)nativeExpressAdViewRenderSuccess:(GDTNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
     // 发送广告事件
-    [self sendEventAction:onAdExposure];
+    [self sendEventAction:onAdPresent];
     // 渲染成功，发送更新展示通知，来更新尺寸
-    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdExposure forKey:@"event"]];
+    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdPresent forKey:@"event"]];
 }
 
 - (void)nativeExpressAdViewRenderFail:(GDTNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
+    // 渲染成功，发送更新展示通知，来更新尺寸
+    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdError forKey:@"event"]];
+    // 发送广告错误事件
+    [self sendErrorEvent:-100 withErrMsg:@"ExpressAdViewRenderFail"];
 }
 
 - (void)nativeExpressAdViewExposure:(GDTNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdExposure];
 }
 
 - (void)nativeExpressAdViewClicked:(GDTNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
+    // 发送广告事件
+    [self sendEventAction:onAdClicked];
 }
 
 - (void)nativeExpressAdViewClosed:(GDTNativeExpressAdView *)nativeExpressAdView{
     NSLog(@"%s",__FUNCTION__);
+    NSNumber *key=[NSNumber numberWithInteger:[nativeExpressAdView hash]];
+    // 删除广告缓存
+    [FAQFeedAdManager.share removeAd:key];
+    // 发送关闭消息
+    [self postNotificationMsg:nativeExpressAdView userInfo:[NSDictionary dictionaryWithObject:onAdClosed forKey:@"event"]];
+    // 发送广告事件
+    [self sendEventAction:onAdClosed];
 }
 
 // 发送消息

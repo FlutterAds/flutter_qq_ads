@@ -13,7 +13,7 @@ static FAQFeedAdManager *adManager;// 广告管理实例
 NSMutableDictionary *faqAdList;// 已加载信息流广告列表
 
 + (instancetype)share{
-    dispatch_once_t once_token;
+    static dispatch_once_t once_token;
     dispatch_once(&once_token, ^{
         faqAdList = [[NSMutableDictionary alloc] init];
         adManager=[[FAQFeedAdManager alloc] init];

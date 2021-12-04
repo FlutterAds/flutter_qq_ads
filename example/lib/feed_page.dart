@@ -61,11 +61,15 @@ class _FeedPageState extends State<FeedPage> {
                     }
 
                     int adId = feedAdList[adIndex];
-                    return AdFeedWidget(
-                      posId: '$adId',
-                      width: 375,
-                      height: 375,
-                      show: true,
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.center,
+                      child: AdFeedWidget(
+                        posId: '$adId',
+                        width: 375,
+                        height: 375,
+                        show: true,
+                      ),
                     );
                   }
                   return LoadingItemWidget();
