@@ -1,5 +1,7 @@
 package com.zero.flutter_qq_ads.page;
 
+import static com.zero.flutter_qq_ads.PluginDelegate.KEY_POSID;
+
 import android.app.Activity;
 
 import com.zero.flutter_qq_ads.event.AdErrorEvent;
@@ -22,13 +24,12 @@ public abstract class BaseAdPage {
      * 显示广告
      *
      * @param activity 上下文
-     * @param posId    广告位 id
      * @param call     方法调用
      */
-    public void showAd(Activity activity, String posId, MethodCall call) {
+    public void showAd(Activity activity, MethodCall call) {
         this.activity = activity;
-        this.posId = posId;
-        loadAd(activity, call);
+        this.posId = call.argument(KEY_POSID);
+        loadAd(call);
     }
 
     /**
@@ -37,7 +38,7 @@ public abstract class BaseAdPage {
      * @param activity 上下文
      * @param call     方法调用
      */
-    public abstract void loadAd(Activity activity, MethodCall call);
+    public abstract void loadAd(MethodCall call);
 
 
     /**
