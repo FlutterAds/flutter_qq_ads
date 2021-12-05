@@ -27,6 +27,9 @@
     self.height=size.height;
     [self loadAd:call];
 }
+- (void)loadAd:(FlutterMethodCall *)call{
+    NSLog(@"%s",__FUNCTION__);
+}
 // 发送广告事件
 - (void)sendEvent:(FAQAdEvent *)event{
     if(self.eventSink!=nil){
