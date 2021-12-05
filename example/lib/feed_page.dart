@@ -7,7 +7,7 @@ import 'ads_config.dart';
 
 /// 信息流页面
 class FeedPage extends StatefulWidget {
-  FeedPage({Key key}) : super(key: key);
+  FeedPage({Key? key}) : super(key: key);
 
   @override
   _FeedPageState createState() => _FeedPageState();
@@ -123,7 +123,7 @@ class _FeedPageState extends State<FeedPage> {
 /// 加载项组件
 class LoadingItemWidget extends StatelessWidget {
   const LoadingItemWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
