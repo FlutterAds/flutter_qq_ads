@@ -89,7 +89,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
             @Override
             public void onReceive(Context context, Intent intent) {
                 String event = intent.getStringExtra("event");
-                if (AdEventAction.onAdClosed.equals(event)) {
+                if (AdEventAction.onAdClosed.equals(event)||AdEventAction.onAdError.equals(event)) {
                     AdFeedView.this.disposeAd();
                 }
             }

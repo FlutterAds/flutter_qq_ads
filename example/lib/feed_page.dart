@@ -67,7 +67,7 @@ class _FeedPageState extends State<FeedPage> {
                       child: AdFeedWidget(
                         posId: '$adId',
                         width: 375,
-                        height: 375,
+                        height: 128,
                         show: true,
                       ),
                     );
@@ -103,7 +103,6 @@ class _FeedPageState extends State<FeedPage> {
       List<int> adResultList = await FlutterQqAds.loadFeedAd(
         AdsConfig.feedId,
         count: 3,
-        height: 128,
       );
       feedAdList.addAll(adResultList);
     } catch (e) {

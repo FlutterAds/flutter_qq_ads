@@ -72,13 +72,14 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
     public void onRenderFail(NativeExpressADView nativeExpressADView) {
         Log.i(TAG, "onRenderFail");
         sendErrorEvent(-100, "onRenderFail");
-        sendBroadcastEvent(nativeExpressADView, AdEventAction.onAdClosed);
+        sendBroadcastEvent(nativeExpressADView, AdEventAction.onAdError);
     }
 
     @Override
     public void onRenderSuccess(NativeExpressADView nativeExpressADView) {
         Log.i(TAG, "onRenderSuccess");
         sendEvent(AdEventAction.onAdPresent);
+        sendBroadcastEvent(nativeExpressADView, AdEventAction.onAdPresent);
     }
 
     @Override
@@ -129,5 +130,6 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
                 error.getErrorCode(), error.getErrorMsg());
         Log.i(TAG, "onError, adError=" + msg);
         sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
+        this.result.success(new List[]{});
     }
 }
