@@ -1,3 +1,9 @@
+## 2.4.0 [2021-12-05]
+* 新增 `信息流` 广告
+* 优化 `Banner` 广告内部增加宽高设置，不在需要外部嵌套一层约束组件
+* 优化统一底层架构
+* 更新 Android SDK `v4.430.1300`
+
 ## 2.3.0 [2021-09-26]
 * 修复同时引入 [flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads) 依赖时 iOS 无法编译的问题 #11
 * 优化底层架构
