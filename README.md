@@ -148,6 +148,8 @@ AspectRatio(
   aspectRatio: 6.4 / 1, // 6.4:1 的比例
   child: AdBannerWidget(
     posId: AdsConfig.bannerId02,
+    width: double.maxFinite,
+    height: double.maxFinite,
     interval: 120,
   ),
 ),
