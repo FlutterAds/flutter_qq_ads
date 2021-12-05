@@ -55,35 +55,30 @@ class _AdFeedWidgetState extends State<AdFeedWidget>
     Widget view;
     if (Platform.isIOS) {
       // 有宽高信息了（渲染成功了）设置对应宽高
-      view = SizedBox.fromSize(
-        size: Size(width, height),
-        child: UiKitView(
-          viewType: viewType,
-          creationParams: creationParams,
-          creationParamsCodec: const StandardMessageCodec(),
-          onPlatformViewCreated: (id) {
-            _channel = MethodChannel('$viewType/$id');
-            _channel.setMethodCallHandler(onMethodCallHandler);
-          },
-        ),
+      view = UiKitView(
+        viewType: viewType,
+        creationParams: creationParams,
+        creationParamsCodec: const StandardMessageCodec(),
+        onPlatformViewCreated: (id) {
+          _channel = MethodChannel('$viewType/$id');
+          _channel.setMethodCallHandler(onMethodCallHandler);
+        },
       );
     } else {
-      view = LimitedBox(
-        maxWidth: width,
-        maxHeight: height,
-        // view = Container(
-        child: AndroidView(
-          viewType: viewType,
-          creationParams: creationParams,
-          creationParamsCodec: const StandardMessageCodec(),
-          onPlatformViewCreated: (id) {
-            _channel = MethodChannel('$viewType/$id');
-            _channel.setMethodCallHandler(onMethodCallHandler);
-          },
-        ),
+      view = AndroidView(
+        viewType: viewType,
+        creationParams: creationParams,
+        creationParamsCodec: const StandardMessageCodec(),
+        onPlatformViewCreated: (id) {
+          _channel = MethodChannel('$viewType/$id');
+          _channel.setMethodCallHandler(onMethodCallHandler);
+        },
       );
     }
-    return view;
+    return SizedBox.fromSize(
+      size: Size(width, height),
+      child: view,
+    );
   }
 
   @override

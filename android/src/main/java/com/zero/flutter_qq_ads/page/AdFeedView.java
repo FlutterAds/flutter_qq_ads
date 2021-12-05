@@ -89,13 +89,29 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
             @Override
             public void onReceive(Context context, Intent intent) {
                 String event = intent.getStringExtra("event");
-                if (AdEventAction.onAdClosed.equals(event)||AdEventAction.onAdError.equals(event)) {
+                if (AdEventAction.onAdClosed.equals(event) || AdEventAction.onAdError.equals(event)) {
                     AdFeedView.this.disposeAd();
+                } else if (AdEventAction.onAdPresent.equals(event)) {
+                    AdFeedView.this.resizeAdView();
                 }
             }
         };
         IntentFilter intentFilter = new IntentFilter(PluginDelegate.KEY_FEED_VIEW + "_" + key);
         LocalBroadcastManager.getInstance(activity).registerReceiver(receiver, intentFilter);
+    }
+
+    /**
+     * 重新计算真实的广告 View 的宽高
+     */
+    private void resizeAdView() {
+        this.fad.measure(100, 100);
+        int mw = this.fad.getMeasuredWidth();
+        int mh = this.fad.getMeasuredHeight();
+        Log.d(TAG, "resizeAdView mw:" + mw + " mh:" + mh);
+        FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(mw,mh);
+        frameLayout.setLayoutParams(params);
+        frameLayout.requestLayout();
+        setFlutterViewSize(mw,mh);
     }
 
     /**
@@ -149,7 +165,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
             int width = right - left;
             int height = bottom - top;
             Log.i(TAG, "onLayoutChange width:" + width + " height:" + height);
-            setFlutterViewSize(width, height);
+//            setFlutterViewSize(width, height);
         }
     }
 
