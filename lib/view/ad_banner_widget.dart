@@ -11,6 +11,8 @@ class AdBannerWidget extends StatefulWidget {
     @required this.posId,
     this.interval = 30,
     this.show = true,
+    this.width = 300,
+    this.height = 150,
   }) : super(key: key);
   // 广告 id
   final String posId;
@@ -18,6 +20,8 @@ class AdBannerWidget extends StatefulWidget {
   // Android:0 表示不自动轮播
   // iOS:0 表示关闭轮播动画，因为 iOS 没有不轮播
   final int interval;
+  // 宽高
+  final double width, height;
   // 是否显示广告
   final bool show;
 
@@ -45,18 +49,23 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
     if (!widget.show) {
       return SizedBox.shrink();
     }
+    Widget view;
     if (Platform.isIOS) {
-      return UiKitView(
+      view = UiKitView(
         viewType: viewType,
         creationParams: creationParams,
         creationParamsCodec: const StandardMessageCodec(),
       );
     } else {
-      return AndroidView(
+      view = AndroidView(
         viewType: viewType,
         creationParams: creationParams,
         creationParamsCodec: const StandardMessageCodec(),
       );
     }
+    return SizedBox.fromSize(
+      size: Size(widget.width, widget.height),
+      child: view,
+    );
   }
 }

@@ -32,7 +32,7 @@ public class RewardVideoPage extends BaseAdPage implements RewardVideoADListener
     private String userId;
 
     @Override
-    public void loadAd(Activity activity, @NonNull MethodCall call) {
+    public void loadAd(@NonNull MethodCall call) {
         boolean playMuted = call.argument("playMuted");
         customData = call.argument("customData");
         userId = call.argument("userId");

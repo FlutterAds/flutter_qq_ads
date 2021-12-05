@@ -8,10 +8,14 @@ import androidx.annotation.NonNull;
 
 import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.comm.managers.GDTAdSdk;
+import com.zero.flutter_qq_ads.load.FeedAdLoad;
+import com.zero.flutter_qq_ads.load.FeedAdManager;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
 import com.zero.flutter_qq_ads.page.InterstitialPage;
 import com.zero.flutter_qq_ads.page.NativeViewFactory;
 import com.zero.flutter_qq_ads.page.RewardVideoPage;
+
+import java.util.List;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
@@ -37,6 +41,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     }
     // Banner View
     public static final String KEY_BANNER_VIEW = "flutter_qq_ads_banner";
+    // Feed View
+    public static final String KEY_FEED_VIEW = "flutter_qq_ads_feed";
     // 广告参数
     public static final String KEY_POSID = "posId";
     // logo 参数
@@ -76,7 +82,11 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
             showInterstitialAd(call, result);
         } else if ("showRewardVideoAd".equals(method)) {
             showRewardVideoAd(call, result);
-        } else {
+        }else if ("loadFeedAd".equals(method)) {
+            loadFeedAd(call, result);
+        } else if ("clearFeedAd".equals(method)) {
+            clearFeedAd(call, result);
+        }  else {
             result.notImplemented();
         }
     }
@@ -136,6 +146,14 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     }
 
     /**
+     * 注册 Feed 信息流广告
+     */
+    public void registerFeedView() {
+        bind.getPlatformViewRegistry()
+                .registerViewFactory(KEY_FEED_VIEW, new NativeViewFactory(KEY_FEED_VIEW, this));
+    }
+
+    /**
      * 初始化广告
      *
      * @param call   MethodCall
@@ -172,9 +190,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
      * @param result Result
      */
     public void showInterstitialAd(MethodCall call, MethodChannel.Result result) {
-        String posId = call.argument(KEY_POSID);
         InterstitialPage iad = new InterstitialPage();
-        iad.showAd(activity, posId, call);
+        iad.showAd(activity, call);
         result.success(true);
     }
 
@@ -185,9 +202,36 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
      * @param result Result
      */
     public void showRewardVideoAd(MethodCall call, MethodChannel.Result result) {
-        String posId = call.argument(KEY_POSID);
         RewardVideoPage iad = new RewardVideoPage();
-        iad.showAd(activity, posId, call);
+        iad.showAd(activity, call);
         result.success(true);
+    }
+
+    /**
+     * 加载信息流广告列表
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void loadFeedAd(MethodCall call, MethodChannel.Result result) {
+        FeedAdLoad feedAd = new FeedAdLoad();
+        feedAd.loadFeedAdList(activity, call, result);
+    }
+
+    /**
+     * 删除信息流广告列表
+     *
+     * @param call   MethodCall
+     * @param result Result
+     */
+    public void clearFeedAd(MethodCall call, MethodChannel.Result result) {
+        List<Integer> adList = call.argument("list");
+        if (adList != null) {
+            for (int ad : adList) {
+                FeedAdManager.getInstance().removeAd(ad);
+            }
+        }
+        result.success(true);
+
     }
 }

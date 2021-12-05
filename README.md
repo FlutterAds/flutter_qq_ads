@@ -4,8 +4,8 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.3.0-success></a>
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.3.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.4.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.4.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg?branch=develop"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
@@ -15,7 +15,7 @@
 ## 插件特点
 - 🔨 接入简单快速（封装原生端配置，仅需引入即可开始）
 - 📡 事件统一返回（将原生端各种重要回调事件统一返回，方便业务处理和埋点统计等需求）
-- 🎁 注重优化体验（无闪烁 Logo 开屏、权限申请、隐私跟踪申请等）
+- 🎁 注重优化体验（无闪烁 Logo 开屏、权限申请、隐私跟踪申请等、信息流自动适配宽高）
 - 🏆 极客代码封装（原生端代码不凑合，两端统一基础框架、广告事件封装抽象、易扩展新广告形式、方便开发个性化需求）
 
 ## 支持功能
@@ -26,7 +26,7 @@
   - ✅ 激励视频
 - ✅ [激励视频](#激励视频)
 - ✅ [Banner](#Banner)
-- 🔲 信息流
+- ✅ [信息流](#信息流)
 
 ## 下载体验
 <a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'></a>
@@ -36,8 +36,8 @@
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.3.0 # 非 Null Safety 版本
-  flutter_qq_ads: ^2.3.0 # Null Safety 版本
+  flutter_qq_ads: ^1.4.0 # 非 Null Safety 版本
+  flutter_qq_ads: ^2.4.0 # Null Safety 版本
 ```
 
 ### 初始化广告
@@ -125,56 +125,74 @@ FlutterQqAds.showRewardVideoAd(
 ### Banner
 ``` Dart
 /// [posId] 广告位 id
+/// [width] 宽度
+/// [height] 高度
 /// [interval] 广告刷新间隔，0 或[30~120]之间的数字，单位为 s,默认 30s 
 ///  Android:0 表示不自动轮播 
 ///  iOS:0 表示关闭轮播动画，因为 iOS 没有不轮播
 /// [show] 是否显示广告
 AdBannerWidget(
   posId: AdsConfig.bannerId02,
-  interval: 120,
+  width: 375,
+  height: 100, 
+  interval: 120, 
   show: true,
 )
 ```
+> `v1.4.0` 开始不再需要外部嵌套，如果需要按比例设置，可以看如下示例：
 
-Banner 广告外部需要嵌套一个带有约束布局的 Widget，如：`AspectRatio、SizedBox、Container` 等，示例如下：
-
-- 嵌套 `AspectRatio` (推荐)
+- 嵌套宽高比约束布局 `AspectRatio`
 
 ``` Dart
 AspectRatio(
   aspectRatio: 6.4 / 1, // 6.4:1 的比例
   child: AdBannerWidget(
     posId: AdsConfig.bannerId02,
+    width: double.maxFinite,
+    height: double.maxFinite,
     interval: 120,
   ),
 ),
 ```
 
-- 嵌套 `SizedBox`
-
+### 信息流
+- 获取信息流广告列表
 ``` Dart
-SizedBox(
-  width: 375,
-  height: 100,
-  child: AdBannerWidget(
-    posId: AdsConfig.bannerId01,
-  ),
-)
+/// [posId] 广告位 id
+/// [width] 宽度
+/// [height] 高度，0：代表自适应广告高度
+/// [count] 获取广告数量，建议 1~3 个
+List<int> feedAdList = await FlutterPangleAds.loadFeedAd(
+    AdsConfig.feedId,
+    width: 375,
+    height: 0,
+    count: 3,
+  );
 ```
+- 清除信息流广告列表
 
-- 嵌套 `Container`
+> 当你的广告不再需要时，请一定执行清除操作
+``` Dart
+/// [list] 信息流广告 id 列表
+bool result = await FlutterPangleAds.clearFeedAd(feedAdList);
+```
+- 页面中展示信息流广告
 
 ``` Dart
-Container(
-  width: double.infinity,
-  height: 80,
-  child: AdBannerWidget(
-    posId: AdsConfig.bannerId,
-    interval: 0,
+/// Feed 信息流广告组件
+/// [posId]返回的广告 id，这里不是广告位id
+/// [width]组件的宽度
+/// [height]组件的高度
+/// [show]是否显示
+AdFeedWidget(
+    posId: '${feedAdList[0]}',
+    width: 375,
+    height: 128,
     show: true,
-  ),
-)
+  )
 ```
+
+> `width` 和 `height` 只是展示 widget 组件宽高，最终会自动适配实际广告的宽高，不可设置为 0
 
 ### 设置广告事件监听
 
@@ -288,4 +306,4 @@ pod install
 |-|-|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
-|flutter_baidu_ads|百度、百青藤 Flutter 广告插件（开发中）|
+|[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件（开发中）|

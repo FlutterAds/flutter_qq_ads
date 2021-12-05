@@ -137,6 +137,6 @@
     self.bannerView = nil;
     NSLog(@"%s",__FUNCTION__);
     // 发送广告事件
-    [self sendEventAction:onAdClicked];
+    [self sendEventAction:onAdClosed];
 }
 @end

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'event/ad_event_handler.dart';
 export 'event/ad_event_handler.dart';
 export 'view/ad_banner_widget.dart';
+export 'view/ad_feed_widget.dart';
 
 /// 腾讯广告 Flutter 插件
 class FlutterQqAds {
@@ -106,6 +107,37 @@ class FlutterQqAds {
         'playMuted': playMuted,
         'customData': customData,
         'userId': userId,
+      },
+    );
+    return result;
+  }
+
+  /// 加载信息流广告列表
+  /// [posId] 广告位 id
+  /// [width] 宽度
+  /// [height] 高度，0：代表自适应广告高度
+  /// [count] 获取广告数量，建议 1~3 个
+  static Future<List<int>> loadFeedAd(String posId,
+      {int width = 375, int height = 0, int count = 1}) async {
+    final List<dynamic> result = await _methodChannel.invokeMethod(
+      'loadFeedAd',
+      {
+        'posId': posId,
+        'width': width,
+        'height': height,
+        'count': count,
+      },
+    );
+    return List<int>.from(result);
+  }
+
+  /// 清除信息流广告列表
+  /// [list] 信息流广告 id 列表
+  static Future<bool> clearFeedAd(List<int> list) async {
+    final bool result = await _methodChannel.invokeMethod(
+      'clearFeedAd',
+      {
+        'list': list,
       },
     );
     return result;
