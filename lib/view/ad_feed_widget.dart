@@ -18,7 +18,7 @@ class AdFeedWidget extends StatefulWidget {
   final String posId;
   // 是否显示广告
   final bool show;
-  // 宽高
+  // 这里的宽高只是展示 widget 宽高，最终会自动适配实际广告的宽高，不可设置为 0
   final double width, height;
 
   @override

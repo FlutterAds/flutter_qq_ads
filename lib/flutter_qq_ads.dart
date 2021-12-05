@@ -115,7 +115,7 @@ class FlutterQqAds {
   /// 加载信息流广告列表
   /// [posId] 广告位 id
   /// [width] 宽度
-  /// [height] 高度
+  /// [height] 高度，0：代表自适应广告高度
   /// [count] 获取广告数量，建议 1~3 个
   static Future<List<int>> loadFeedAd(String posId,
       {int width = 375, int height = 0, int count = 1}) async {
