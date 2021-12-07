@@ -11,30 +11,30 @@
 #import "FAQAdRewardEvent.h"
 #import "FAQAdEventAction.h"
 // 广告位id
-static NSString *const kPosId=@"posId";
+static NSString * _Nonnull const kPosId=@"posId";
 
 // 基础广告页面
 @interface FAQBaseAdPage : NSObject
 // 广告位id
-@property (weak,nonatomic) NSString *posId;
+@property (weak,nonatomic,nullable) NSString *posId;
 // 事件消息
-@property (strong, nonatomic) FlutterEventSink eventSink;
+@property (strong, nonatomic,nonnull) FlutterEventSink eventSink;
 // Window
-@property (strong,nonatomic) UIWindow *mainWin;
+@property (strong,nonatomic,nonnull) UIWindow *mainWin;
 // 根控制器
-@property (strong,nonatomic) UIViewController *rootController;
+@property (strong,nonatomic,nonnull) UIViewController *rootController;
 // 屏幕宽度
 @property CGFloat width;
 // 屏幕高度
 @property CGFloat height;
 // 显示广告
-- (void) showAd:(FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
+- (void) showAd:(nonnull FlutterMethodCall *)call eventSink:(nonnull FlutterEventSink) events;
 // 加载广告
-- (void) loadAd:(FlutterMethodCall *) call;
+- (void) loadAd:(nonnull FlutterMethodCall *) call;
 // 发送广告事件
--(void) sendEvent:(FAQAdEvent *) event;
+-(void) sendEvent:(nonnull FAQAdEvent *) event;
 // 发送广告事件
--(void) sendEventAction:(NSString *) action;
+-(void) sendEventAction:(nonnull NSString *) action;
 // 发送广告错误事件
--(void) sendErrorEvent:(NSInteger) errCode withErrMsg:(NSString*) errMsg;
+-(void) sendErrorEvent:(NSInteger) errCode withErrMsg:(nonnull NSString*) errMsg;
 @end
