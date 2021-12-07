@@ -8,6 +8,8 @@
 #import "FAQFeedAdLoad.h"
 #import "FAQFeedAdManager.h"
 #import "FlutterQqAdsPlugin.h"
+#import "GDTNativeExpressAd.h"
+#import "GDTNativeExpressAdView.h"
 
 @interface FAQFeedAdLoad()<GDTNativeExpressAdDelegete>
 @property (strong,nonatomic) GDTNativeExpressAd *ad;
