@@ -6,8 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GDTNativeExpressAd.h"
-#import "GDTNativeExpressAdView.h"
 #import "FAQBaseAdPage.h"
 
 @interface FAQFeedAdLoad :FAQBaseAdPage
