@@ -21,11 +21,11 @@ NSMutableDictionary *faqAdList;// 已加载信息流广告列表
     return adManager;
 }
 
-- (void)putAd:(NSNumber *)key value:(GDTNativeExpressAdView *)value{
+- (void)putAd:(NSNumber *)key value:(id)value{
     [faqAdList setObject:value forKey:key];
 }
 
-- (GDTNativeExpressAdView *)getAd:(NSNumber *)key{
+- (id)getAd:(NSNumber *)key{
     return [faqAdList objectForKey:key];
 }
 
