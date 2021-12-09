@@ -162,7 +162,7 @@ AspectRatio(
 /// [width] 宽度
 /// [height] 高度，0：代表自适应广告高度
 /// [count] 获取广告数量，建议 1~3 个
-List<int> feedAdList = await FlutterPangleAds.loadFeedAd(
+List<int> feedAdList = await FlutterQqAds.loadFeedAd(
     AdsConfig.feedId,
     width: 375,
     height: 0,
@@ -174,7 +174,7 @@ List<int> feedAdList = await FlutterPangleAds.loadFeedAd(
 > 当你的广告不再需要时，请一定执行清除操作
 ``` Dart
 /// [list] 信息流广告 id 列表
-bool result = await FlutterPangleAds.clearFeedAd(feedAdList);
+bool result = await FlutterQqAds.clearFeedAd(feedAdList);
 ```
 - 页面中展示信息流广告
 
