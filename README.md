@@ -299,11 +299,19 @@ pod install
 
 ## 支持开源
 
-支持开源项目最好的方式就是点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️
+- 开源不易，需要花费大量休息时间加班熬夜来维护，你可以通过下方二维码赞赏支持我。
 
-## FlutterAds 系列插件
+<a href="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
+    <img width="300" alt="coffee" src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
+</a>
+
+- 用爱发电，给本项目点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️ 也是非常好的支持。
+
+## FlutterAds 广告插件系列
 |插件|描述|
 |-|-|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
-|[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件（开发中）|
+|[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件|
+
+
