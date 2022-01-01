@@ -29,7 +29,8 @@
 - ✅ [信息流](#信息流)
 
 ## 下载体验
-<a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'></a>
+<a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
+> 回复 `优量汇体验` 
 
 ## 入门使用
 ### 引入依赖
