@@ -18,6 +18,10 @@ static NSString *const onAdExposure=@"onAdExposure";
 static NSString *const onAdClosed=@"onAdClosed";
 // 广告点击
 static NSString *const onAdClicked=@"onAdClicked";
+// 广告跳过
+static NSString *const onAdSkip=@"onAdSkip";
+// 广告播放或计时完毕
+static NSString *const onAdComplete=@"onAdComplete";
 // 获得广告激励
 static NSString *const onAdReward=@"onAdReward";
 // 广告事件操作
