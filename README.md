@@ -4,10 +4,10 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.4.1-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/version-v1.5.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/null_safety-v2.4.1-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
-<a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg?branch=develop"></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg?branch=2x"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/blob/develop/LICENSE"><img src=https://img.shields.io/badge/license-MIT-brightgreen></a>
 </p>
@@ -29,14 +29,15 @@
 - ✅ [信息流](#信息流)
 
 ## 下载体验
-<a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://www.pgyer.com/app/qrcode/fadsqq" width='100' height='100'></a>
+<a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
+> 回复 `优量汇体验` 
 
 ## 入门使用
 ### 引入依赖
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^1.4.1 # 非 Null Safety 版本
+  flutter_qq_ads: ^1.5.0 # 非 Null Safety 版本
   flutter_qq_ads: ^2.4.1 # Null Safety 版本
 ```
 
@@ -162,7 +163,7 @@ AspectRatio(
 /// [width] 宽度
 /// [height] 高度，0：代表自适应广告高度
 /// [count] 获取广告数量，建议 1~3 个
-List<int> feedAdList = await FlutterPangleAds.loadFeedAd(
+List<int> feedAdList = await FlutterQqAds.loadFeedAd(
     AdsConfig.feedId,
     width: 375,
     height: 0,
@@ -174,7 +175,7 @@ List<int> feedAdList = await FlutterPangleAds.loadFeedAd(
 > 当你的广告不再需要时，请一定执行清除操作
 ``` Dart
 /// [list] 信息流广告 id 列表
-bool result = await FlutterPangleAds.clearFeedAd(feedAdList);
+bool result = await FlutterQqAds.clearFeedAd(feedAdList);
 ```
 - 页面中展示信息流广告
 
@@ -299,11 +300,19 @@ pod install
 
 ## 支持开源
 
-支持开源项目最好的方式就是点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️
+- 开源不易，需要花费大量休息时间加班熬夜来维护，你可以通过下方二维码赞赏支持我。
 
-## FlutterAds 系列插件
+<a href="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
+    <img width="300" alt="coffee" src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
+</a>
+
+- 用爱发电，给本项目点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️ 也是非常好的支持。
+
+## FlutterAds 广告插件系列
 |插件|描述|
 |-|-|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
-|[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件（开发中）|
+|[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件|
+
+

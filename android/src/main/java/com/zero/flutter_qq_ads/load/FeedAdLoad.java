@@ -26,7 +26,7 @@ import io.flutter.plugin.common.MethodChannel;
  * 信息流加载对象
  */
 public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpressADListener {
-    private final String TAG = FeedAdManager.class.getSimpleName();
+    private final String TAG = FeedAdLoad.class.getSimpleName();
     private MethodChannel.Result result;
 
     /**
@@ -106,21 +106,11 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
         intent.setAction(PluginDelegate.KEY_FEED_VIEW + "_" + adView.hashCode());
         intent.putExtra("event", event);
         boolean result = LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
-        Log.i(TAG, "onADClosed sendBroadcast:" + result);
+//        Log.i(TAG, "sendBroadcastEvent sendBroadcast:" + result);
     }
 
     @Override
     public void onADLeftApplication(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-
-    }
-
-    @Override
-    public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
 
     }
 
@@ -130,6 +120,6 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
                 error.getErrorCode(), error.getErrorMsg());
         Log.i(TAG, "onError, adError=" + msg);
         sendErrorEvent(error.getErrorCode(), error.getErrorMsg());
-        this.result.success(new List[]{});
+        this.result.success(new ArrayList<Integer>());
     }
 }

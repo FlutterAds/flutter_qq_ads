@@ -115,17 +115,4 @@ class AdBannerView extends BaseAdPage implements PlatformView, UnifiedBannerADLi
         Log.i(TAG, "onADLeftApplication");
     }
 
-    @Override
-    public void onADOpenOverlay() {
-        Log.i(TAG, "onADOpenOverlay");
-//        sendEvent(AdEventAction.onAdClicked);
-    }
-
-    @Override
-    public void onADCloseOverlay() {
-        Log.i(TAG, "onADCloseOverlay");
-//        sendEvent(AdEventAction.onAdClosed);
-    }
-
-
 }

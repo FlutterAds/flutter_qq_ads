@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.comm.managers.GDTAdSdk;
 import com.zero.flutter_qq_ads.load.FeedAdLoad;
 import com.zero.flutter_qq_ads.load.FeedAdManager;
