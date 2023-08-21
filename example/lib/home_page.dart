@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
+
 import 'ads_config.dart';
 import 'feed_page.dart';
 
@@ -118,12 +120,6 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               AdBannerWidget(
-                posId: AdsConfig.bannerId01,
-                width: 375,
-                height: 100,
-              ),
-              SizedBox(height: 10),
-              AdBannerWidget(
                 posId: AdsConfig.bannerId,
                 width: double.infinity,
                 height: 80,
@@ -131,16 +127,6 @@ class _HomePageState extends State<HomePage> {
                 show: true,
               ),
               SizedBox(height: 10),
-              AspectRatio(
-                aspectRatio: 6.4 / 1,
-                child: AdBannerWidget(
-                  posId: AdsConfig.bannerId02,
-                  width: double.maxFinite,
-                  height: double.maxFinite,
-                  interval: 120,
-                ),
-              ),
-              SizedBox(height: 20),
             ],
           ),
         ),
