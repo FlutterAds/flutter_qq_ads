@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
+
 import 'event/ad_event_handler.dart';
+
 export 'event/ad_event_handler.dart';
 export 'view/ad_banner_widget.dart';
 export 'view/ad_feed_widget.dart';
@@ -30,6 +33,16 @@ class FlutterQqAds {
     final bool result = await _methodChannel.invokeMethod(
       'initAd',
       {'appId': appId},
+    );
+    return result;
+  }
+
+  /// 设置个性化广告
+  /// 0：代表开启个性化广告推荐，1：代表关闭个性化广告推荐
+  static Future<bool> setPersonalizedState(int state) async {
+    final bool result = await _methodChannel.invokeMethod(
+      'setPersonalizedState',
+      {'state': state},
     );
     return result;
   }

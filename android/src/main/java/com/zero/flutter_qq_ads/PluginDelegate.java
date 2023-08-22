@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.qq.e.comm.managers.GDTAdSdk;
+import com.qq.e.comm.managers.setting.GlobalSetting;
 import com.zero.flutter_qq_ads.load.FeedAdLoad;
 import com.zero.flutter_qq_ads.load.FeedAdManager;
 import com.zero.flutter_qq_ads.page.AdSplashActivity;
@@ -75,6 +76,8 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
             getPlatformVersion(call, result);
         } else if ("initAd".equals(method)) {
             initAd(call, result);
+        } else if("setPersonalizedState".equals(method)){
+            setPersonalizedState(call, result);
         } else if ("showSplashAd".equals(method)) {
             showSplashAd(call, result);
         } else if ("showInterstitialAd".equals(method)) {
@@ -164,6 +167,16 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
         result.success(true);
     }
 
+    /**
+     * 设置广告个性化
+     * @param call  MethodCall
+     * @param result Result
+     */
+    public void setPersonalizedState(MethodCall call, MethodChannel.Result result) {
+        int state = call.argument("state");
+        GlobalSetting.setPersonalizedState(state);
+        result.success(true);
+    }
     /**
      * 显示开屏广告
      *

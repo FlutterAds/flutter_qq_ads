@@ -56,9 +56,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    child: Text('请求应用跟踪透授权(iOS)'),
+                    child: Text('请求跟踪授权'),
                     onPressed: () {
                       requestIDFA();
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    child: Text('个性化广告'),
+                    onPressed: () {
+                      setPersonalizedAd(1);
                     },
                   ),
                 ],
@@ -178,6 +185,14 @@ class _HomePageState extends State<HomePage> {
   Future<void> requestIDFA() async {
     bool result = await FlutterQqAds.requestIDFA;
     _adEvent = '请求广告标识符:$result';
+    setState(() {});
+  }
+
+  /// 设置个性化广告
+  /// [state] 0:不限制 1:限制
+  Future<void> setPersonalizedAd(int state) async {
+    bool result = await FlutterQqAds.setPersonalizedState(state);
+    _adEvent = '设置个性化广告:$result';
     setState(() {});
   }
 
