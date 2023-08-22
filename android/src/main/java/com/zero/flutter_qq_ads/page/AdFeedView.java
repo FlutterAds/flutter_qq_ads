@@ -69,12 +69,11 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
         regReceiver(key);
         fad = FeedAdManager.getInstance().getAd(key);
         if (fad != null) {
-            View adView = fad.getRootView();
-            if (adView.getParent() != null) {
-                ((ViewGroup) adView.getParent()).removeAllViews();
+            if (frameLayout.getChildCount() > 0) {
+                frameLayout.removeAllViews();
             }
-            frameLayout.addView(adView);
             fad.render();
+            frameLayout.addView(fad);
         }
     }
 
@@ -104,7 +103,7 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
      * 重新计算真实的广告 View 的宽高
      */
     private void resizeAdView() {
-        this.fad.measure(100, 100);
+        this.fad.measure(1080, 1920);
         int mw = this.fad.getMeasuredWidth();
         int mh = this.fad.getMeasuredHeight();
         Log.d(TAG, "resizeAdView mw:" + mw + " mh:" + mh);
