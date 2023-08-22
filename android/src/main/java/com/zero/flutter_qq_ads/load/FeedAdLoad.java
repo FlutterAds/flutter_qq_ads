@@ -46,7 +46,7 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
         int width = call.argument("width");
         int height = call.argument("height");
         int count = call.argument("count");
-        NativeExpressAD ad = new NativeExpressAD(activity, new ADSize(width, height == 0 ? ADSize.AUTO_HEIGHT : height), this.posId, this);
+        NativeExpressAD ad = new NativeExpressAD(activity, new ADSize(width, height), this.posId, this);
         ad.loadAD(count);
     }
 
@@ -106,7 +106,6 @@ public class FeedAdLoad extends BaseAdPage implements NativeExpressAD.NativeExpr
         intent.setAction(PluginDelegate.KEY_FEED_VIEW + "_" + adView.hashCode());
         intent.putExtra("event", event);
         boolean result = LocalBroadcastManager.getInstance(activity).sendBroadcast(intent);
-//        Log.i(TAG, "sendBroadcastEvent sendBroadcast:" + result);
     }
 
     @Override

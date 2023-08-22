@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 /// Feed 信息流广告组件
 /// 建议在个性化模板的广告view中，宽度自动铺满整个view，期望模板尺寸的参数设置中，高度可以设置为0，高度会自适应，达到最佳的展示比例
@@ -30,15 +30,9 @@ class _AdFeedWidgetState extends State<AdFeedWidget>
   final String viewType = 'flutter_qq_ads_feed';
   // 创建参数
   late Map<String, dynamic> creationParams;
-  // 通道
-  late MethodChannel _channel;
-  // 宽高
-  double width = 375, height = 128;
 
   @override
   void initState() {
-    this.width = widget.width;
-    this.height = widget.height;
     creationParams = <String, dynamic>{
       "posId": widget.posId,
     };
@@ -48,48 +42,29 @@ class _AdFeedWidgetState extends State<AdFeedWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (!widget.show || width <= 0 || height <= 0) {
+    if (!widget.show || widget.width <= 0 || widget.height <= 0) {
       return SizedBox.shrink();
     }
     Widget view;
     if (Platform.isIOS) {
-      // 有宽高信息了（渲染成功了）设置对应宽高
       view = UiKitView(
         viewType: viewType,
         creationParams: creationParams,
         creationParamsCodec: const StandardMessageCodec(),
-        onPlatformViewCreated: (id) {
-          _channel = MethodChannel('$viewType/$id');
-          _channel.setMethodCallHandler(onMethodCallHandler);
-        },
       );
     } else {
       view = AndroidView(
         viewType: viewType,
         creationParams: creationParams,
         creationParamsCodec: const StandardMessageCodec(),
-        onPlatformViewCreated: (id) {
-          _channel = MethodChannel('$viewType/$id');
-          _channel.setMethodCallHandler(onMethodCallHandler);
-        },
       );
     }
     return SizedBox.fromSize(
-      size: Size(width, height),
+      size: Size(widget.width, widget.height),
       child: view,
     );
   }
 
   @override
   bool get wantKeepAlive => true;
-
-  Future<void> onMethodCallHandler(MethodCall call) async {
-    String method = call.method;
-    // 设置大小
-    if (method == 'setSize') {
-      width = call.arguments['width'] ?? 0;
-      height = call.arguments['height'] ?? 0;
-      setState(() {});
-    }
-  }
 }
