@@ -104,7 +104,7 @@ public class InterstitialPage extends BaseAdPage implements UnifiedInterstitialA
      */
     private void showAsPopup() {
         if (iad != null && iad.isValid()) {
-            iad.showAsPopupWindow();
+            iad.show();
         } else {
             Log.d(TAG, "请加载广告并渲染成功后再进行展示 ！ ");
         }

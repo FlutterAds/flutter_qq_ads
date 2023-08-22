@@ -165,7 +165,6 @@ class AdFeedView extends BaseAdPage implements PlatformView, View.OnLayoutChange
             int width = right - left;
             int height = bottom - top;
             Log.i(TAG, "onLayoutChange width:" + width + " height:" + height);
-//            setFlutterViewSize(width, height);
         }
     }
 
