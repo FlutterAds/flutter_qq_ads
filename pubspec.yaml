@@ -1,6 +1,6 @@
 name: flutter_qq_ads
 description: FlutterAds 致力于构建优质的 Flutter 广告插件，这是其中一款基于「腾讯广告、广点通、优量汇」SDK 的插件
-version: 2.5.0
+version: 2.6.0
 homepage: https://github.com/FlutterAds
 
 environment:
