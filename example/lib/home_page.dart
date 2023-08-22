@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               SizedBox(height: 10),
@@ -44,68 +45,85 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 10),
               Text('onAdEvent: $_adEvent'),
               SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('初始化'),
-                onPressed: () {
-                  init();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: Text('初始化'),
+                    onPressed: () {
+                      init();
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    child: Text('请求应用跟踪透授权(iOS)'),
+                    onPressed: () {
+                      requestIDFA();
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('请求应用跟踪透明度授权(仅 iOS)'),
-                onPressed: () {
-                  requestIDFA();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: Text('开屏(Logo2)'),
+                    onPressed: () {
+                      showSplashAd(AdsConfig.logo2);
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    child: Text('开屏(全屏)'),
+                    onPressed: () {
+                      showSplashAd();
+                      setState(() {});
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示开屏广告（Logo2）'),
-                onPressed: () {
-                  showSplashAd(AdsConfig.logo2);
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: Text('插屏广告'),
+                    onPressed: () {
+                      showInterstitialAd(AdsConfig.interstitialId);
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    child: Text('插全屏广告'),
+                    onPressed: () {
+                      showInterstitialAd(
+                        AdsConfig.interstitialFullScreenVideoId,
+                        showFullScreenVideo: true,
+                      );
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示开屏广告（全屏）'),
-                onPressed: () {
-                  showSplashAd();
-                  setState(() {});
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示插屏广告'),
-                onPressed: () {
-                  showInterstitialAd(AdsConfig.interstitialId);
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示插屏全屏视频广告'),
-                onPressed: () {
-                  showInterstitialAd(
-                    AdsConfig.interstitialFullScreenVideoId,
-                    showFullScreenVideo: true,
-                  );
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示插屏激励视频广告'),
-                onPressed: () {
-                  showInterstitialAd(
-                    AdsConfig.interstitialRewardVideoId,
-                    showFullScreenVideo: true,
-                    showRewardVideo: true,
-                  );
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('展示激励视频广告'),
-                onPressed: () {
-                  showRewardVideoAd();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: Text('插屏激励'),
+                    onPressed: () {
+                      showInterstitialAd(
+                        AdsConfig.interstitialRewardVideoId,
+                        showFullScreenVideo: true,
+                        showRewardVideo: true,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    child: Text('激励视频'),
+                    onPressed: () {
+                      showRewardVideoAd();
+                    },
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               ElevatedButton(
@@ -119,9 +137,11 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(height: 20),
+              const Center(child: Text('👇🏻 Banner 广告 👇🏻')),
+              const SizedBox(height: 10),
               AdBannerWidget(
                 posId: AdsConfig.bannerId,
-                width: double.infinity,
+                width: 300,
                 height: 80,
                 interval: 0,
                 show: true,
