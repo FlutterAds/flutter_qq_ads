@@ -40,6 +40,8 @@ NSString *const kFAQAdFeedViewId=@"flutter_qq_ads_feed";
         [self requestIDFA:call result:result];
     }else if ([@"initAd" isEqualToString:methodStr]) {
         [self initAd:call result:result];
+    }else if ([@"setPersonalizedState" isEqualToString:methodStr]) {
+        [self setPersonalizedState:call result:result];
     }else if([@"showSplashAd" isEqualToString:methodStr]) {
         [self showSplashAd:call result:result];
     }else if ([@"showInterstitialAd" isEqualToString:methodStr]){
@@ -72,6 +74,13 @@ NSString *const kFAQAdFeedViewId=@"flutter_qq_ads_feed";
     NSString* appId=call.arguments[@"appId"];
     BOOL initSuccess=[GDTSDKConfig registerAppId:appId];
     result(@(initSuccess));
+}
+
+// 设置广告个性化
+- (void) setPersonalizedState:(FlutterMethodCall*) call result:(FlutterResult) result{
+    int state = [call.arguments[@"state"] intValue];
+    [GDTSDKConfig setPersonalizedState:state];
+    result(@(YES));
 }
 
 // 显示开屏广告

@@ -35,7 +35,6 @@ public abstract class BaseAdPage {
     /**
      * 加载广告
      *
-     * @param activity 上下文
      * @param call     方法调用
      */
     public abstract void loadAd(MethodCall call);

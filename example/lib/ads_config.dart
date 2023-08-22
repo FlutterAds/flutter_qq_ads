@@ -22,43 +22,21 @@ class AdsConfig {
 
   /// 获取 App id
   static String get appId {
-    // 官方 demo id
-    // com.qq.gdt.GDTMobSample
-    // return '1105344611';
-    // com.banjixiaoguanjia.app
-    if (Platform.isAndroid) {
-      return '1200012024';
-    } else {
-      return '1200018693';
-    }
+    return Platform.isAndroid ? '1204814627' : '1204814641';
   }
 
   /// 获取开屏广告位id
   static String get splashId {
-    // 官方demo
-    // return "9040714184494018";
-    if (Platform.isAndroid) {
-      return '8022311121246224';
-    } else {
-      return '5052818319908354';
-    }
+    return Platform.isAndroid ? '4046660274345204' : '1046662224832381';
   }
 
   /// 获取插屏广告位id
   static String get interstitialId {
-    // 官方demo
-    // return "9040714184494018";
-    if (Platform.isAndroid) {
-      return '3022327103988804';
-    } else {
-      return '5092321153081845';
-    }
+    return Platform.isAndroid ? '1066865274941328' : '7046066294830767';
   }
 
   /// 获取插屏全屏视频广告位id
   static String get interstitialFullScreenVideoId {
-    // 官方demo
-    // return "9040714184494018";
     if (Platform.isAndroid) {
       return '3012521499614895';
     } else {
@@ -68,8 +46,6 @@ class AdsConfig {
 
   /// 获取插屏激励视频广告位id
   static String get interstitialRewardVideoId {
-    // 官方demo
-    // return "9040714184494018";
     if (Platform.isAndroid) {
       return '2052820580637311';
     } else {
@@ -79,48 +55,28 @@ class AdsConfig {
 
   /// 获取激励视频广告位id
   static String get rewardVideoId {
-    // 官方demo
-    // return "9040714184494018";
     if (Platform.isAndroid) {
-      return '3032129193181886';
+      return '6086667264144219';
     } else {
-      return '1042528123383807';
+      return '3066367234238599';
     }
   }
 
   /// 获取 Banner 广告位id
   static String get bannerId {
     if (Platform.isAndroid) {
-      return '7012823860373149';
+      return '5086068204047616';
     } else {
-      return '1012123800675280';
-    }
-  }
-
-  /// 获取 Banner 广告位id 01
-  static String get bannerId01 {
-    if (Platform.isAndroid) {
-      return '6062221971706046';
-    } else {
-      return '5082024961806019';
-    }
-  }
-
-  /// 获取 Banner 广告位id 02
-  static String get bannerId02 {
-    if (Platform.isAndroid) {
-      return '6042821991205067';
-    } else {
-      return '5032426921405160';
+      return '7026465284342149';
     }
   }
 
   /// 获取信息流广告位id
   static String get feedId {
     if (Platform.isAndroid) {
-      return '5072760716749135';
+      return '7036167274246466';
     } else {
-      return '9072866930956695';
+      return '8076264204347078';
     }
   }
 }

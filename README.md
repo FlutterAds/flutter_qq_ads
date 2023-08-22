@@ -4,7 +4,7 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/pub-v2.5.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/pub-v2.6.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
@@ -12,7 +12,7 @@
 </p>
 
 ## 插件特点
-- 🔨 接入简单快速（封装原生端配置，仅需引入即可开始）
+- 🔨 接入简单快速（封装原生端配置，仅需引入即可）
 - 📡 事件统一返回（将原生端各种重要回调事件统一返回，方便业务处理和埋点统计等需求）
 - 🎁 注重优化体验（无闪烁 Logo 开屏、权限申请、隐私跟踪申请等、信息流自动适配宽高）
 - 🏆 极客代码封装（原生端代码不凑合，两端统一基础框架、广告事件封装抽象、易扩展新广告形式、方便开发个性化需求）
@@ -36,7 +36,7 @@
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^2.5.0
+  flutter_qq_ads: ^2.6.0
 ```
 
 ### 初始化广告

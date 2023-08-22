@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_qq_ads/flutter_qq_ads.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'ads_config.dart';
 
@@ -10,11 +10,15 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
-    channel.setMockMethodCallHandler((MethodCall call) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall call) async {
       String method = call.method;
       if (method == 'initAd') {
         String appId = call.arguments['appId'] ?? '';
         return appId.isNotEmpty;
+      } else if (method == 'setPersonalizedState') {
+        int state = call.arguments['state'] ?? 0;
+        return state == 0 || state == 1;
       } else if (method == 'showSplashAd') {
         String posId = call.arguments['posId'] ?? '';
         return posId.isNotEmpty;
@@ -30,11 +34,16 @@ void main() {
   });
 
   tearDown(() {
-    channel.setMockMethodCallHandler(null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
   test('initAd', () async {
     expect(await FlutterQqAds.initAd(AdsConfig.appId), true);
+  });
+
+  test('setPersonalizedState', () async {
+    expect(await FlutterQqAds.setPersonalizedState(1), true);
   });
   test('showSplashAd', () async {
     expect(await FlutterQqAds.showSplashAd(AdsConfig.splashId), true);
