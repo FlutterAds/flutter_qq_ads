@@ -27,6 +27,12 @@
 - ✅ [Banner](#Banner)
 - ✅ [信息流](#信息流)
 
+## 📣 推荐使用 GroMore
+
+- 【[Gromore](https://flutterads.github.io/site/)】可进行多家广告瀑布流竞价，让您拥有更高的广告收益，发挥最大的用户价值
+
+[![](https://raw.githubusercontent.com/FlutterAds/.github/main/gromore_pro_site.png)](https://flutterads.github.io/site/)
+
 ## 下载体验
 <a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
 > 回复 `优量汇体验` 
