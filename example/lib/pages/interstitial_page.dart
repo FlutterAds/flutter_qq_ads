@@ -21,19 +21,19 @@ class _InterstitialPageState extends State<InterstitialPage> {
       body: Column(
         children: [
           ListTile(
-            title: Text('新插屏-半屏'),
+            title: Text('插屏-半屏'),
             onTap: () => showInterstitialAd(AdsConfig.interstitialId),
           ),
           kDivider,
           ListTile(
-            title: Text('新插屏-全屏'),
+            title: Text('插屏-全屏'),
             onTap: () => showInterstitialAd(
                 AdsConfig.interstitialFullScreenVideoId,
                 showFullScreenVideo: true),
           ),
           kDivider,
           ListTile(
-            title: Text('新插屏-激励视频'),
+            title: Text('插屏-激励视频'),
             onTap: () => showInterstitialAd(AdsConfig.interstitialRewardVideoId,
                 showRewardVideo: true),
           ),

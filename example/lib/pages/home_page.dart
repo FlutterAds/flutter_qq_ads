@@ -43,13 +43,22 @@ class _HomePageState extends State<HomePage> {
                 kDivider,
                 ListTile(
                   dense: true,
-                  title: Text('请求应用跟踪透明授权(iOS)'),
+                  title: Text(
+                    '📢 优量汇测试广告位有限制而且还经常冻结，请使用 GroMore 体验',
+                    style: TextStyle(color: Colors.amber),
+                  ),
+                  onTap: () => pushProPage(context),
+                ),
+                kDivider,
+                ListTile(
+                  dense: true,
+                  title: Text('🍎 请求应用跟踪透明授权(iOS)'),
                   onTap: () => requestIDFA(),
                 ),
                 kDivider,
                 ListTile(
                   dense: true,
-                  title: Text('设置个性化广告'),
+                  title: Text('🌈 设置个性化广告'),
                   onTap: () => setPersonalizedAd(1),
                 ),
                 kDivider,
@@ -59,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 kDivider,
                 ListTile(
-                  title: Text('新插屏广告'),
+                  title: Text('插屏广告'),
                   onTap: () => pushPage(context, InterstitialPage()),
                 ),
                 kDivider,

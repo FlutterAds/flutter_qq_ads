@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pangle_ads/flutter_pangle_ads.dart';
+import 'package:flutter_qq_ads/flutter_qq_ads.dart';
 
 import '../ads_config.dart';
 import '../widgets/widgets.dart';
