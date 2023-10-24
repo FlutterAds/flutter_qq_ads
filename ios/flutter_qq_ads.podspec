@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_qq_ads'
-  s.version          = '2.6.0'
+  s.version          = '2.7.0'
   s.summary          = '一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）'
   s.description      = <<-DESC
   一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）.

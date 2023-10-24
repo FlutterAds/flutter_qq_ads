@@ -4,7 +4,7 @@
 <h3 align="center">一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）</h3>
 
 <p align="center">
-<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/pub-v2.6.0-success></a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/pub-v2.7.0-success></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/badge/platform-iOS%20%7C%20Android-brightgreen></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml"><img src="https://github.com/FlutterAds/flutter_qq_ads/actions/workflows/flutter.yml/badge.svg"></a>
 <a href="https://github.com/FlutterAds/flutter_qq_ads"><img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen></a>
@@ -27,6 +27,12 @@
 - ✅ [Banner](#Banner)
 - ✅ [信息流](#信息流)
 
+## 📣 推荐使用 GroMore
+
+- 【[Gromore](https://flutterads.github.io/site/)】可进行多家广告瀑布流竞价，让您拥有更高的广告收益，发挥最大的用户价值
+
+[![](https://raw.githubusercontent.com/FlutterAds/.github/main/gromore_pro_site.png)](https://flutterads.github.io/site/)
+
 ## 下载体验
 <a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
 > 回复 `优量汇体验` 
@@ -36,7 +42,7 @@
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^2.6.0
+  flutter_qq_ads: ^2.7.0
 ```
 
 ### 初始化广告
@@ -312,5 +318,6 @@ pod install
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
 |[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、Gromore 聚合 Flutter 广告插件|
+|[flutter_gromore_pro](https://flutterads.github.io/site/)|🏆🏆🏆 帮你大幅提升广告收益，发挥出最大的用户价值|
 
 

@@ -21,12 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    init().then((value) {
-      if (value) {
-        showSplashAd(AdsConfig.logo);
-      }
-    });
-    setAdEvent();
   }
 
   @override
@@ -50,9 +44,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ElevatedButton(
                     child: Text('初始化'),
-                    onPressed: () {
-                      init();
-                    },
+                    onPressed: () {},
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
@@ -237,19 +229,6 @@ class _HomePageState extends State<HomePage> {
     }
     setState(() {});
   }
-}
-
-/// 初始化广告 SDK
-Future<bool> init() async {
-  try {
-    bool result = await FlutterQqAds.initAd(AdsConfig.appId);
-    _result = "广告SDK 初始化${result ? '成功' : '失败'}";
-    return result;
-  } on PlatformException catch (e) {
-    _result =
-        "广告SDK 初始化失败 code:${e.code} msg:${e.message} details:${e.details}";
-  }
-  return false;
 }
 
 /// 展示开屏广告
