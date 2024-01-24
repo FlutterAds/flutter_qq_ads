@@ -37,6 +37,19 @@
 <a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
 > 回复 `优量汇体验` 
 
+## 💬 App 广告变现群
+
+- 插件问题解答
+- 变现玩法交流
+- 收益提升探讨
+- 大盘趋势推送
+- 版本更新推送
+
+> 因微信群入群限制，请添加个人微信备注：`变现群`，我拉你进群。
+
+<img src="https://flutterads.github.io/site/wechat.webp" alt="wechat:toponelan" width="160"/>
+
+
 ## 入门使用
 ### 引入依赖
 
@@ -289,30 +302,6 @@ pod repo update
 pod install
 ```
 
-## 分支说明
-|分支|说明|
-|-|-|
-|develop|开发分支，接受 PR|
-|master|稳定分支，空安全|
-|1x|已不更新，非空安全|
-
-## 更新日志
-[查看 Releases 版本日志](https://github.com/FlutterAds/flutter_qq_ads/releases)
-
-## 遇到问题
-如果你遇到问题请提 [Issues](https://github.com/FlutterAds/flutter_qq_ads/issues) 给我（提问前建议先搜索尝试，没有再提问）
-
-## 支持开源
-
-- 开源不易，需要花费大量休息时间加班熬夜来维护，你可以通过下方二维码赞赏支持我。
-
-<a href="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
-    <img width="300" alt="coffee" src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/pay_qr_code/pay_qr_code.png">
-</a>
-
-- 用爱发电，给本项目点个免费的 [Star](https://github.com/FlutterAds/flutter_qq_ads) ⭐️ 也是非常好的支持。
-
-
 ## FlutterAds 广告插件系列
 |插件|描述|
 |-|-|
@@ -321,15 +310,3 @@ pod install
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_adspark](https://github.com/FlutterAds/flutter_adspark)|巨量广告/穿山甲的广告监测、增长分析、归因上报、事件管理 Flutter 版插件|
-
-## 💬 App 广告变现群
-
-- 插件问题解答
-- 变现玩法交流
-- 收益提升探讨
-- 大盘趋势推送
-- 版本更新推送
-
-> 因微信群入群限制，请添加个人微信备注：`变现群`，我拉你进群。
-
-<img src="https://flutterads.github.io/site/wechat.webp" alt="wechat:toponelan" width="160"/>
