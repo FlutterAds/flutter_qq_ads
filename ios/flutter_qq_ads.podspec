@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'GDTMobSDK'
+  s.dependency 'GDTMobSDK','4.14.62'
   s.static_framework = true
   # 广点通的 SDK 最低支持 9.0 所以，这里设置 9.0
   s.ios.deployment_target = '9.0'

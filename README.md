@@ -310,3 +310,4 @@ pod install
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|
 |[flutter_adspark](https://github.com/FlutterAds/flutter_adspark)|巨量广告/穿山甲的广告监测、增长分析、归因上报、事件管理 Flutter 版插件|
+|[flutter_adcontent](https://github.com/FlutterAds/flutter_adcontent)|穿山甲内容输出，支持「短剧」和「小视频」的 Flutter 版插件|
