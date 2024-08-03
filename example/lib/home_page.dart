@@ -202,7 +202,6 @@ class _HomePageState extends State<HomePage> {
         showRewardVideo: showRewardVideo,
         autoPlayMuted: false,
         autoPlayOnWifi: false,
-        detailPageMuted: false,
         userId: 'userId',
         customData: 'showInterstitialAd customData',
       );

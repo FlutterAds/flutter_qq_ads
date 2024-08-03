@@ -49,10 +49,8 @@
     self.showRewardVideo= [call.arguments[@"showRewardVideo"] boolValue];
     BOOL autoPlayMuted = [call.arguments[@"autoPlayMuted"] boolValue];
     BOOL autoPlayOnWifi = [call.arguments[@"autoPlayOnWifi"] boolValue];
-    BOOL detailPageMuted = [call.arguments[@"detailPageMuted"] boolValue];
     self.iad.videoAutoPlayOnWWAN=autoPlayOnWifi;
     self.iad.videoMuted=autoPlayMuted;
-    self.iad.detailPageVideoMuted=detailPageMuted;
     // 激励视频配置项
     if (self.showRewardVideo) {
         self.customData = call.arguments[@"customData"] ;

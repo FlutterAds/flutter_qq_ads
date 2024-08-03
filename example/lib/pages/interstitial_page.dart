@@ -53,7 +53,6 @@ class _InterstitialPageState extends State<InterstitialPage> {
       showRewardVideo: showRewardVideo,
       autoPlayMuted: false,
       autoPlayOnWifi: false,
-      detailPageMuted: false,
       userId: 'userId',
       customData: 'showInterstitialAd customData',
     );
