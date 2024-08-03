@@ -18,6 +18,7 @@
 - 🏆 极客代码封装（原生端代码不凑合，两端统一基础框架、广告事件封装抽象、易扩展新广告形式、方便开发个性化需求）
 
 ## 支持功能
+
 - ✅ [开屏广告](#开屏广告)
 - ✅ [插屏广告](#插屏广告)
   - ✅ 半插屏
@@ -29,9 +30,9 @@
 
 ## 📣 推荐使用 GroMore
 
-- 【[Gromore](https://flutterads.github.io/site/)】可进行多家广告瀑布流竞价，让您拥有更高的广告收益，发挥最大的用户价值
+- 【[Gromore](https://flutterads.top/)】可进行多家广告瀑布流竞价，让您拥有更高的广告收益，发挥最大的用户价值
 
-[![](https://raw.githubusercontent.com/FlutterAds/.github/main/gromore_pro_site.png)](https://flutterads.github.io/site/)
+[![](https://raw.githubusercontent.com/FlutterAds/.github/main/gromore_pro_site.png)](https://flutterads.top/)
 
 ## 下载体验
 <a href="https://www.pgyer.com/app/qrcode/fadsqq"><img src="https://raw.githubusercontent.com/yy1300326388/yy1300326388/main/images/gzh/gzh_qrcode.jpeg" width='100' height='100'></a>
@@ -47,7 +48,7 @@
 
 > 因微信群入群限制，请添加个人微信备注：`变现群`，我拉你进群。
 
-<img src="https://flutterads.github.io/site/wechat.webp" alt="wechat:toponelan" width="160"/>
+<img src="https://flutterads.top/wechat.webp" alt="wechat:toponelan" width="160"/>
 
 
 ## 入门使用
@@ -55,7 +56,7 @@
 
 ``` Dart
 dependencies:
-  flutter_qq_ads: ^2.7.0
+  flutter_qq_ads: ^2.8.0
 ```
 
 ### 初始化广告
@@ -305,7 +306,7 @@ pod install
 ## FlutterAds 广告插件系列
 |插件|描述|
 |-|-|
-|[flutter_gromore_pro](https://flutterads.github.io/site/)|🏆🏆🏆 帮你大幅提升广告收益，发挥出最大的用户价值|
+|[flutter_gromore_pro](https://flutterads.top/)|🏆🏆🏆 帮你大幅提升广告收益，发挥出最大的用户价值|
 |[flutter_gromore_ads](https://github.com/FlutterAds/flutter_gromore_ads)|字节跳动、穿山甲、GroMore 聚合 Flutter 广告开源版插件|
 |[flutter_pangle_ads](https://github.com/FlutterAds/flutter_pangle_ads)|字节跳动、穿山甲 Flutter 广告插件|
 |[flutter_qq_ads](https://github.com/FlutterAds/flutter_qq_ads)|腾讯广告、广点通、优量汇 Flutter 广告插件|

@@ -39,6 +39,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
     public static PluginDelegate getInstance() {
         return _instance;
     }
+
     // Banner View
     public static final String KEY_BANNER_VIEW = "flutter_qq_ads_banner";
     // Feed View
@@ -76,7 +77,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
             getPlatformVersion(call, result);
         } else if ("initAd".equals(method)) {
             initAd(call, result);
-        } else if("setPersonalizedState".equals(method)){
+        } else if ("setPersonalizedState".equals(method)) {
             setPersonalizedState(call, result);
         } else if ("showSplashAd".equals(method)) {
             showSplashAd(call, result);
@@ -84,11 +85,11 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
             showInterstitialAd(call, result);
         } else if ("showRewardVideoAd".equals(method)) {
             showRewardVideoAd(call, result);
-        }else if ("loadFeedAd".equals(method)) {
+        } else if ("loadFeedAd".equals(method)) {
             loadFeedAd(call, result);
         } else if ("clearFeedAd".equals(method)) {
             clearFeedAd(call, result);
-        }  else {
+        } else {
             result.notImplemented();
         }
     }
@@ -144,7 +145,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
      */
     public void registerBannerView() {
         bind.getPlatformViewRegistry()
-                .registerViewFactory(KEY_BANNER_VIEW, new NativeViewFactory(KEY_BANNER_VIEW,this));
+                .registerViewFactory(KEY_BANNER_VIEW, new NativeViewFactory(KEY_BANNER_VIEW, this));
     }
 
     /**
@@ -163,13 +164,27 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
      */
     public void initAd(MethodCall call, MethodChannel.Result result) {
         String appId = call.argument("appId");
-        GDTAdSdk.init(activity.getApplicationContext(), appId);
-        result.success(true);
+        GDTAdSdk.initWithoutStart(activity.getApplicationContext(), appId);
+        GDTAdSdk.start(new GDTAdSdk.OnStartListener() {
+            @Override
+            public void onStartSuccess() {
+                Log.e(TAG, "广告初始化成功");
+                result.success(true);
+            }
+
+            @Override
+            public void onStartFailed(Exception e) {
+                Log.e(TAG, "广告初始化失败", e);
+                result.success(false);
+            }
+        });
+
     }
 
     /**
      * 设置广告个性化
-     * @param call  MethodCall
+     *
+     * @param call   MethodCall
      * @param result Result
      */
     public void setPersonalizedState(MethodCall call, MethodChannel.Result result) {
@@ -177,6 +192,7 @@ public class PluginDelegate implements MethodChannel.MethodCallHandler, EventCha
         GlobalSetting.setPersonalizedState(state);
         result.success(true);
     }
+
     /**
      * 显示开屏广告
      *

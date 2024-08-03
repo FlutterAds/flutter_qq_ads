@@ -72,8 +72,17 @@ NSString *const kFAQAdFeedViewId=@"flutter_qq_ads_feed";
 // 初始化广告
 - (void) initAd:(FlutterMethodCall*) call result:(FlutterResult) result{
     NSString* appId=call.arguments[@"appId"];
-    BOOL initSuccess=[GDTSDKConfig registerAppId:appId];
-    result(@(initSuccess));
+    BOOL initSuccess=[GDTSDKConfig initWithAppId:appId];
+    [GDTSDKConfig startWithCompletionHandler:^(BOOL success, NSError *error) {
+        result(@(success));
+        if (success) {
+            result(@(YES));
+        } else {
+            result(@(NO));
+            NSLog(@"FlutterQqAdsPlugin initAd error:%@",error.description);
+        }
+    }];
+    
 }
 
 // 设置广告个性化

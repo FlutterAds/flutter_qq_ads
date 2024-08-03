@@ -25,7 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdk 33
     // ndkVersion "25.1.8937393"
     lintOptions {
         disable 'InvalidPackage'
@@ -35,8 +35,8 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
 //        applicationId "com.zero.flutter_qq_ads_example"
         applicationId "com.banjixiaoguanjia.app"
-        minSdkVersion 19
-        targetSdkVersion 31
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -63,12 +63,6 @@ android {
         }
     }
 
-    // 强制指定版本
-//    configurations.all {
-//        resolutionStrategy {
-//            force 'com.qq.e.union:union:4.391.1261'
-//        }
-//    }
 }
 
 flutter {

@@ -31,6 +31,10 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     private AppCompatImageView ad_logo;
     // 广告位 id
     private String posId;
+    // 是否全屏
+    private boolean isFullScreen;
+    // 开屏广告
+    private SplashAD splashAD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +59,15 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
         // 获取参数
         posId = getIntent().getStringExtra(PluginDelegate.KEY_POSID);
         String logo = getIntent().getStringExtra(PluginDelegate.KEY_LOGO);
-        double fetchDelay = getIntent().getDoubleExtra(PluginDelegate.KEY_FETCH_DELAY,0);
-        int absFetchDelay= (int) (fetchDelay*1000);
+        double fetchDelay = getIntent().getDoubleExtra(PluginDelegate.KEY_FETCH_DELAY, 0);
+        int absFetchDelay = (int) (fetchDelay * 1000);
+        isFullScreen = TextUtils.isEmpty(logo);
         // 创建开屏广告
-        SplashAD splashAD = new SplashAD(this, posId, this, absFetchDelay);
-        if (TextUtils.isEmpty(logo)) {
+        splashAD = new SplashAD(this, posId, this, absFetchDelay);
+        if (isFullScreen) {
             // logo 为空则加载全屏广告
             ad_logo.setVisibility(View.GONE);
-            splashAD.fetchFullScreenAndShowIn(ad_container);
+            splashAD.fetchFullScreenAdOnly();
         } else {
             // 加载 logo
             int resId = getMipmapId(logo);
@@ -71,7 +76,7 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
                 ad_logo.setImageResource(resId);
             }
             // 加载广告
-            splashAD.fetchAndShowIn(ad_container);
+            splashAD.fetchAdOnly();
         }
     }
 
@@ -116,6 +121,12 @@ public class AdSplashActivity extends AppCompatActivity implements SplashADListe
     public void onADLoaded(long expireTimestamp) {
         Log.d(TAG, "onADLoaded expireTimestamp：" + expireTimestamp);
         AdEventHandler.getInstance().sendEvent(new AdEvent(this.posId, AdEventAction.onAdLoaded));
+        if (isFullScreen) {
+            splashAD.showFullScreenAd(ad_container);
+        } else {
+            splashAD.showAd(ad_container);
+        }
+
     }
 
     /**
