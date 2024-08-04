@@ -5,6 +5,8 @@
 <a href="https://pub.dev/packages/flutter_qq_ads">
 <img src="https://img.shields.io/pub/v/flutter_qq_ads?logo=dart"/>
 <img src="https://img.shields.io/badge/OS-iOS%20%7C%20Android-blue?logo=preact"/>
+</a>
+<a href="https://github.com/FlutterAds/flutter_qq_ads">
 <img src=https://img.shields.io/github/stars/FlutterAds/flutter_qq_ads?color=brightgreen>
 </a>
 <a href="https://flutterads.top/">
