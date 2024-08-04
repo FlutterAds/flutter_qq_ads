@@ -41,6 +41,6 @@
 
 ## 📣 推荐使用 GroMore
 
-- 【[Gromore Pro](https://flutterads.top/)】可进行多家广告瀑布流竞价，让您拥有更高的广告收益，发挥最大的用户价值
+- 【[Gromore Pro](https://flutterads.top/)】可进行多家广告瀑布流竞价，让您获得更高的广告收益，发挥最大的用户价值
 
 [![](https://raw.githubusercontent.com/FlutterAds/.github/main/gromore_pro_site.png)](https://flutterads.top/)
