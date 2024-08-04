@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Build
 
 # This workflow is triggered on pushes to the repository.
 
