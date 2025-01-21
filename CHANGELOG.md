@@ -1,3 +1,9 @@
+## 2.9.0
+* 🚀 推荐使用【[Gromore 聚合变现](https://flutterads.top/)】 让您的广告收益最大化
+* 📱 Android SDK `v4.620.1490`
+* 🍎 iOS SDK `v4.15.00`
+* 🔐 迁移升级到 `plugin_platform_interface`
+
 ## 2.8.0
 * 🚀 推荐使用【[Gromore](https://flutterads.top/)】 让您的广告收益最大化
 * 📱 Android SDK `v4.580.1450`

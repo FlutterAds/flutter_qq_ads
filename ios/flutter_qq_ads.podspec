@@ -4,12 +4,12 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_qq_ads'
-  s.version          = '2.8.0'
-  s.summary          = '一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）'
+  s.version          = '2.9.0'
+  s.summary          = '一款优质的 Flutter 广告变现插件（腾讯广告、广点通、优量汇）'
   s.description      = <<-DESC
   一款优质的 Flutter 广告插件（腾讯广告、广点通、优量汇）.
                        DESC
-  s.homepage         = 'https://github.com/FlutterAds'
+  s.homepage         = 'https://flutterads.top/'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'ZeroFlutter' => '1300326388@qq.com' }
   s.source           = { :path => '.' }
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   # 依赖版本: https://github.com/CocoaPods/Specs/tree/master/Specs/a/a/a/GDTMobSDK
-  s.dependency 'GDTMobSDK','4.14.90'
+  s.dependency 'GDTMobSDK','4.15.00'
   s.static_framework = true
   # 广点通的 SDK 最低支持 9.0 所以，这里设置 9.0
   s.ios.deployment_target = '9.0'

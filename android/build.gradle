@@ -38,5 +38,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // 广告 SDK https://central.sonatype.com/artifact/com.qq.e.union/union/versions
-    implementation 'com.qq.e.union:union:4.580.1450'
+    implementation 'com.qq.e.union:union:4.620.1490'
 }

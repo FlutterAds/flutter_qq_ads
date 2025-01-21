@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-// Pro 版本
+/// Pro 页面
 class ProPage extends StatefulWidget {
   const ProPage({Key? key}) : super(key: key);
 
   @override
-  _ProPageState createState() => _ProPageState();
+  State<ProPage> createState() => _ProPageState();
 }
 
 class _ProPageState extends State<ProPage> {
@@ -14,33 +13,41 @@ class _ProPageState extends State<ProPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gromore Pro 版本'),
-        actions: [
-          // 复制链接
-          IconButton(
-            icon: Icon(Icons.paste_rounded),
-            onPressed: () => pasteUrl(),
-          )
-        ],
+        title: const Text('Pro 版体验'),
       ),
-      body: GestureDetector(
-        onTap: () => pasteUrl(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image.asset('images/gromore_1.png'),
-              Image.asset('images/gromore_2.png'),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  '开源版不提供示例，请扫码下载 Pro 版体验',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Image.network(
+              'https://flutterads.top/gzh_qrcode.webp',
+              fit: BoxFit.cover,
+            ),
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  '扫码关注公众号回复【Pro】，即可下载体验',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.purple,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  /// 复制url
-  Future<void> pasteUrl() async {
-    Clipboard.setData(ClipboardData(text: 'https://flutterads.top/')).then(
-        (value) => ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('链接复制成功'))));
   }
 }
