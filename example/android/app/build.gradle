@@ -5,9 +5,7 @@ plugins {
 }
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace = "com.zero.flutter_qq_ads_example"
-    }
+    namespace = "com.zero.flutter_qq_ads_example"
     compileSdk = 34
     ndkVersion = flutter.ndkVersion
 

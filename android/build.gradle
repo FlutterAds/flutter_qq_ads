@@ -22,6 +22,9 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    if (project.android.hasProperty("namespace")) {
+        namespace = "com.zero.flutter_qq_ads"
+    }
     compileSdk 33
 
     defaultConfig {
