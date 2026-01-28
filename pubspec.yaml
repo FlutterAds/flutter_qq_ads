@@ -1,6 +1,6 @@
 name: flutter_qq_ads
 description: 【持续更新】一款优质的腾讯优量汇 Flutter 广告变现插件，支持 Android、iOS 平台，可快速接入进行广告变现。
-version: 2.9.2
+version: 2.9.3
 homepage: https://flutterads.top
 repository: https://github.com/FlutterAds/flutter_qq_ads
 issue_tracker: https://github.com/FlutterAds/flutter_qq_ads/issues
